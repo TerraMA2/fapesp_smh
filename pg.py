@@ -1,4 +1,4 @@
-pgHost = "127.0.0.1"
+pgHost = "terrama2.dpi.inpe.br"
 pgPort = "5432"
-pgUser = "postgres"
-pgPassWord = "postgres"
+pgUser = "chuva"
+pgPassWord = "*******"

@@ -46,8 +46,6 @@ import { OSM } from 'ol/source.js';
 })
 
 export class MapComponent implements OnInit {
-  private geoserverTerraMaLocal = 'http://localhost:8080/geoserver/wms?';
-  private geoserverCemaden = 'http://200.133.244.148:8080/geoserver/cemaden_dev/wms';
   private geoserver20Chuva = 'http://www.terrama2.dpi.inpe.br/chuva/geoserver/wms?';
 
   private map;
@@ -60,7 +58,7 @@ export class MapComponent implements OnInit {
 
   // Busca de dados para as camadas merge e monthly
   private merge_date: Date = new Date(2018,0,31);
-  private monthly_date: Date = new Date(2015,0,31);
+  private monthly_date: Date = new Date(1998,0,31);
 
   // Busca de cidades via codigo no python API
   private citySelectedAPI: CityByStateUnique;
@@ -83,13 +81,13 @@ export class MapComponent implements OnInit {
   setMap: string = 'osm';
   mergeMonthlyDate: number = 1;
 
+  // Controle das Datas
   minDate: Date;
   maxDate: Date;
-  invalidDates: Array<Date>;
 
   // Controle do gráfico
-  private start: Date = new Date(2015,0,1);
-  private end: Date = new Date(2015,11,1);
+  private start: Date = new Date(1998,0,1);
+  private end: Date = new Date(1998,1,28);
 
   // Banco de dados
   private jsonObj;
@@ -125,104 +123,108 @@ export class MapComponent implements OnInit {
   }
 
   initDadosGrafico() {
-    this.setViewMap();
-    this.wmsService.getRecort(this.layers[5].getTileLayer(),'geocodigo',this.citySelectedAPI.geocodigo);
-    this.apiFlask.getMonthlyMaxMeanDiffLimitDate(this.citySelectedAPI.geocodigo,this.start,this.end).subscribe( (data: AnaliseGeotiffDiffLimitDate) => {
-      let chartLabel = (
-        'Anomalia Média ' +
-        this.wmsService.getVerboseMonth(this.start) + '/' + this.start.getFullYear() + ' - ' +
-        this.wmsService.getVerboseMonth(this.end) + '/' + this.end.getFullYear() +
-        ' do Município de ' +
-        this.citySelectedAPI.nome1 + ' - ' +
-        this.ufSelectedAPI.estado
-      );
-      switch(this.selectChartOption.value){
-        case 1:
-          this.chartData = {
-            labels: this.apiFlask.convertToArray(data.format_date),
-            datasets: [
-              {
-                label: chartLabel,
-                backgroundColor: this.apiFlask.convertToColors(data.var_media),
-                borderColor: this.apiFlask.convertToColors(data.var_media),
-                data: this.apiFlask.convertToArray(data.var_media)
-              }
-            ]
-          };
-          break;
-        case 3:
-          this.chartData = {
-            labels: this.apiFlask.convertToArray(data.format_date),
-            datasets: [
-              {
-                label: chartLabel,
-                backgroundColor: this.apiFlask.convertToColors(data.var_maxima),
-                borderColor: this.apiFlask.convertToColors(data.var_maxima),
-                data: this.apiFlask.convertToArray(data.var_maxima)
-              }
-            ]
-          };
-          break;
-        default:
-          break;
-      }
-    });
-    this.apiFlask.getMonthlyMaxMeanLimitDate(this.citySelectedAPI.geocodigo,this.start,this.end).subscribe( (data: AnaliseGeotiffLimitDate) => {
-      let chartLabel = (
-        'Climatológica Mensal do Município de ' +
-        this.apiFlask.convertToArray(data.nome_municipio)[0].toString() + ' - ' +
-        this.ufSelectedAPI.estado
-      );
-      let chartLabelDate = (
-        this.wmsService.getVerboseMonth(this.start) + '/' + this.start.getFullYear() + ' - ' +
-        this.wmsService.getVerboseMonth(this.end) + '/' + this.end.getFullYear() +
-        ' Mensal do Município de ' + 
-        this.apiFlask.convertToArray(data.nome_municipio)[0].toString() + ' - ' +
-        this.ufSelectedAPI.estado
-      );
-      switch(this.selectChartOption.value){
-        case 0:
-          this.chartData = {
-            labels: this.apiFlask.convertToArray(data.format_date),
-            datasets: [
-              {
-                label: 'Média ' + chartLabel,
-                backgroundColor:'#007bff',
-                borderColor: '#55a7ff',
-                data: this.apiFlask.convertToArray(data.media)
-              },
-              {
-                label: 'Média ' + chartLabelDate,
-                backgroundColor:'#80bdff',
-                borderColor: '#9ecdff',
-                data: this.apiFlask.convertToArray(data.media_ano)
-              }
-            ]
-          };
-          break;
-        case 2:
-          this.chartData = {
-            labels: this.apiFlask.convertToArray(data.format_date),
-            datasets: [
-              {
-                label: 'Máxima ' + chartLabel,
-                backgroundColor: '#007bff',
-                borderColor: '#55a7ff',
-                data: this.apiFlask.convertToArray(data.maxima)
-              },
-              {
-                label: 'Máxima ' + chartLabelDate,
-                backgroundColor: '#80bdff',
-                borderColor: '#9ecdff',
-                data: this.apiFlask.convertToArray(data.maxima_ano)
-              }
-            ]
-          };
-          break;
-        default:
-          break;
-      }
-    });
+    if ( this.citySelectedAPI ){
+      this.setViewMap();
+      this.wmsService.getRecort(this.layers[4].getTileLayer(),'geocodigo',this.citySelectedAPI.geocodigo);
+      this.apiFlask.getMonthlyMaxMeanDiffLimitDate(this.citySelectedAPI.geocodigo,this.start,this.end).subscribe( (data: AnaliseGeotiffDiffLimitDate) => {
+        let chartLabel = (
+          'Anomalia Média ' +
+          this.wmsService.getVerboseMonth(this.start) + '/' + this.start.getFullYear() + ' - ' +
+          this.wmsService.getVerboseMonth(this.end) + '/' + this.end.getFullYear() +
+          ' do Município de ' +
+          this.citySelectedAPI.nome1 + ' - ' +
+          this.ufSelectedAPI.estado
+        );
+        switch(this.selectChartOption.value){
+          case 1:
+            this.chartData = {
+              labels: this.apiFlask.convertToArray(data.format_date),
+              datasets: [
+                {
+                  label: chartLabel,
+                  backgroundColor: this.apiFlask.convertToColors(data.var_media),
+                  borderColor: this.apiFlask.convertToColors(data.var_media),
+                  data: this.apiFlask.convertToArray(data.var_media)
+                }
+              ]
+            };
+            break;
+          case 3:
+            this.chartData = {
+              labels: this.apiFlask.convertToArray(data.format_date),
+              datasets: [
+                {
+                  label: chartLabel,
+                  backgroundColor: this.apiFlask.convertToColors(data.var_maxima),
+                  borderColor: this.apiFlask.convertToColors(data.var_maxima),
+                  data: this.apiFlask.convertToArray(data.var_maxima)
+                }
+              ]
+            };
+            break;
+          default:
+            break;
+        }
+      });
+      this.apiFlask.getMonthlyMaxMeanLimitDate(this.citySelectedAPI.geocodigo,this.start,this.end).subscribe( (data: AnaliseGeotiffLimitDate) => {
+        let chartLabel = (
+          'Climatológica Mensal do Município de ' +
+          this.apiFlask.convertToArray(data.nome_municipio)[0].toString() + ' - ' +
+          this.ufSelectedAPI.estado
+        );
+        let chartLabelDate = (
+          this.wmsService.getVerboseMonth(this.start) + '/' + this.start.getFullYear() + ' - ' +
+          this.wmsService.getVerboseMonth(this.end) + '/' + this.end.getFullYear() +
+          ' Mensal do Município de ' + 
+          this.apiFlask.convertToArray(data.nome_municipio)[0].toString() + ' - ' +
+          this.ufSelectedAPI.estado
+        );
+        switch(this.selectChartOption.value){
+          case 0:
+            this.chartData = {
+              labels: this.apiFlask.convertToArray(data.format_date),
+              datasets: [
+                {
+                  label: 'Média ' + chartLabel,
+                  backgroundColor:'#007bff',
+                  borderColor: '#55a7ff',
+                  data: this.apiFlask.convertToArray(data.media)
+                },
+                {
+                  label: 'Média ' + chartLabelDate,
+                  backgroundColor:'#80bdff',
+                  borderColor: '#9ecdff',
+                  data: this.apiFlask.convertToArray(data.media_ano)
+                }
+              ]
+            };
+            break;
+          case 2:
+            this.chartData = {
+              labels: this.apiFlask.convertToArray(data.format_date),
+              datasets: [
+                {
+                  label: 'Máxima ' + chartLabel,
+                  backgroundColor: '#007bff',
+                  borderColor: '#55a7ff',
+                  data: this.apiFlask.convertToArray(data.maxima)
+                },
+                {
+                  label: 'Máxima ' + chartLabelDate,
+                  backgroundColor: '#80bdff',
+                  borderColor: '#9ecdff',
+                  data: this.apiFlask.convertToArray(data.maxima_ano)
+                }
+              ]
+            };
+            break;
+          default:
+            break;
+        }
+      });
+    } else {
+      alert("Selecione um Estado e uma Cidade!");
+    }
   }
 
   initDate() {
@@ -231,25 +233,23 @@ export class MapComponent implements OnInit {
     this.minDate.setMonth(0);
     this.minDate.setFullYear(1998);
     this.maxDate = new Date();
-    this.invalidDates = [this.minDate, this.maxDate];
   }
 
   initLayers() {
     this.layers = [];
     this.layersStatic = [
       new Layer(1, "Estados Brasil Político", "OBT DPI", 'terrama2_10:view10', '4674', this.geoserver20Chuva),
-      new Layer(2, "Divisão dos Estados", "Cemaden", 'cemaden_dev:br_estados', '4326', this.geoserverCemaden),
       new Layer(3, "Municípios IBGE", "OBT DPI", 'terrama2_9:view9', '4326', this.geoserver20Chuva)
     ];
     this.layersDynamic = [
       new Layer(4, "Preciptação", "OBT DPI", 'terrama2_3:view3','4326', this.geoserver20Chuva),
       new Layer(5, "Dados Climatológicos", "OBT DPI", 'terrama2_15:view15','4326', this.geoserver20Chuva),
-      new Layer(6, "Análise Mensal 1998 - 2019", "OBT DPI", 'terrama2_88:view88','4326', this.geoserverTerraMaLocal)
+      new Layer(6, "Análise Mensal 1998 - 2019", "OBT DPI", 'terrama2_26:view26','4326', this.geoserver20Chuva)
     ];
     this.layers = this.layers.concat(this.layersStatic);
     this.layers = this.layers.concat(this.layersDynamic);
-    this.wmsService.upDate(this.layers[4].getTileLayer(),this.merge_date);
-    this.wmsService.upDate(this.layers[5].getTileLayer(),this.monthly_date);
+    this.wmsService.upDate(this.layers[3].getTileLayer(),this.merge_date);
+    this.wmsService.upDate(this.layers[4].getTileLayer(),this.monthly_date);
   }
 
   initState(){
@@ -384,8 +384,8 @@ export class MapComponent implements OnInit {
   }
 
   setLayerTimeAnalysis() {
-    this.wmsService.upDateMonth(this.layers[4].getTileLayer(),this.merge_date);
-    this.wmsService.upDateMonth(this.layers[5].getTileLayer(),this.monthly_date);
+    this.wmsService.upDateMonth(this.layers[3].getTileLayer(),this.merge_date);
+    this.wmsService.upDateMonth(this.layers[4].getTileLayer(),this.monthly_date);
   }
 
   private setMapType() {

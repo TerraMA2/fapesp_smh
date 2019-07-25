@@ -34,7 +34,7 @@ def hello():
 class An_Monthly(Resource):
     def get(self, geocodigo, ano):
         try:
-            conectar = Connection_pg("merge_monthly")
+            conectar = Connection_pg("chuva")
             data = conectar.readFileSQL("sql/an_monthly",{"geocodigo":str(geocodigo),"ano":str(ano)})
             print(data)
             return jsonify(data.to_dict())
@@ -44,7 +44,7 @@ class An_Monthly(Resource):
 class An_Monthly_Limit_Date(Resource):
     def get(self,geocodigo,mes_inicio,ano_inicio,mes_fim,ano_fim):
         try:
-            conectar = Connection_pg("merge_monthly")
+            conectar = Connection_pg("chuva")
             data = conectar.readFileSQL(
                 "sql/an_monthly_limit_date",
                 {
@@ -63,7 +63,7 @@ class An_Monthly_Limit_Date(Resource):
 class An_Merge_Monthly(Resource):
     def get(self, geocodigo):
         try:
-            conectar = Connection_pg("merge_monthly")
+            conectar = Connection_pg("chuva")
             data = conectar.readFileSQL("sql/an_merge_monthly",{'geocodigo':str(geocodigo)})
             print(data)
             return jsonify(data.to_dict())
@@ -73,7 +73,7 @@ class An_Merge_Monthly(Resource):
 class An_Merge_Monthly_Diff(Resource):
     def get(self, geocodigo, ano):
         try:
-            conectar = Connection_pg("merge_monthly")
+            conectar = Connection_pg("chuva")
             data = conectar.readFileSQL("sql/an_merge_monthly_diff",{"geocodigo":str(geocodigo),"ano":str(ano)})
             print(data)
             return jsonify(data.to_dict())
@@ -83,7 +83,7 @@ class An_Merge_Monthly_Diff(Resource):
 class An_Monthly_Diff_Limit_Date(Resource):
     def get(self,geocodigo,mes_inicio,ano_inicio,mes_fim,ano_fim):
         try:
-            conectar = Connection_pg("merge_monthly")
+            conectar = Connection_pg("chuva")
             data = conectar.readFileSQL(
                 "sql/an_monthly_diff_limit_date",
                 {
@@ -102,7 +102,7 @@ class An_Monthly_Diff_Limit_Date(Resource):
 class CitiesByState(Resource):
     def get(self, uf):
         try:
-            conectar = Connection_pg("merge_monthly") # Connection_pg("chuva")
+            conectar = Connection_pg("chuva")
             data = conectar.readFileSQL("sql/cities_by_state",{'uf':str(uf).upper()})
             print(data)
             return jsonify(data.to_dict())
