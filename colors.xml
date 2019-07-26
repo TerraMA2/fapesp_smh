@@ -18,7 +18,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -48,7 +48,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -84,7 +84,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -120,7 +120,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -156,7 +156,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -192,7 +192,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -228,7 +228,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -264,7 +264,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -300,7 +300,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -336,7 +336,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -372,7 +372,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -408,7 +408,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -444,7 +444,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -480,7 +480,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -516,7 +516,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -552,7 +552,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -588,7 +588,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -624,7 +624,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -660,7 +660,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -696,7 +696,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -732,7 +732,43 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>11</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>media</ogc:PropertyName>
+                        <ogc:Literal>10</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>media</ogc:PropertyName>
+                        <ogc:Literal>11</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#1374b2</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -749,7 +785,7 @@
                   <ogc:And>
                      <ogc:PropertyIsGreaterThan>
                         <ogc:PropertyName>media</ogc:PropertyName>
-                        <ogc:Literal>10</ogc:Literal>
+                        <ogc:Literal>11</ogc:Literal>
                      </ogc:PropertyIsGreaterThan>
                      <ogc:PropertyIsLessThanOrEqualTo>
                         <ogc:PropertyName>media</ogc:PropertyName>
@@ -760,7 +796,7 @@
                <se:PolygonSymbolizer version="1.1.0">
                   <se:Fill>
                      <se:SvgParameter name="fill">
-                        <ogc:Literal>#1374b2</ogc:Literal>
+                        <ogc:Literal>#0868ac</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="fill-opacity">
                         <ogc:Literal>0.498039</ogc:Literal>
@@ -768,7 +804,43 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>13</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>media</ogc:PropertyName>
+                        <ogc:Literal>12</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>media</ogc:PropertyName>
+                        <ogc:Literal>13</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#085a9d</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -785,7 +857,7 @@
                   <ogc:And>
                      <ogc:PropertyIsGreaterThan>
                         <ogc:PropertyName>media</ogc:PropertyName>
-                        <ogc:Literal>12</ogc:Literal>
+                        <ogc:Literal>13</ogc:Literal>
                      </ogc:PropertyIsGreaterThan>
                      <ogc:PropertyIsLessThanOrEqualTo>
                         <ogc:PropertyName>media</ogc:PropertyName>
@@ -796,7 +868,7 @@
                <se:PolygonSymbolizer version="1.1.0">
                   <se:Fill>
                      <se:SvgParameter name="fill">
-                        <ogc:Literal>#0868ac</ogc:Literal>
+                        <ogc:Literal>#084d8f</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="fill-opacity">
                         <ogc:Literal>0.498039</ogc:Literal>
@@ -804,7 +876,43 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>15</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>media</ogc:PropertyName>
+                        <ogc:Literal>14</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>media</ogc:PropertyName>
+                        <ogc:Literal>15</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#084081</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -821,7 +929,7 @@
                   <ogc:And>
                      <ogc:PropertyIsGreaterThan>
                         <ogc:PropertyName>media</ogc:PropertyName>
-                        <ogc:Literal>14</ogc:Literal>
+                        <ogc:Literal>15</ogc:Literal>
                      </ogc:PropertyIsGreaterThan>
                      <ogc:PropertyIsLessThanOrEqualTo>
                         <ogc:PropertyName>media</ogc:PropertyName>
@@ -832,7 +940,7 @@
                <se:PolygonSymbolizer version="1.1.0">
                   <se:Fill>
                      <se:SvgParameter name="fill">
-                        <ogc:Literal>#085a9d</ogc:Literal>
+                        <ogc:Literal>#05356a</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="fill-opacity">
                         <ogc:Literal>0.498039</ogc:Literal>
@@ -840,7 +948,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -868,7 +976,7 @@
                <se:PolygonSymbolizer version="1.1.0">
                   <se:Fill>
                      <se:SvgParameter name="fill">
-                        <ogc:Literal>#084d8f</ogc:Literal>
+                        <ogc:Literal>#022a54</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="fill-opacity">
                         <ogc:Literal>0.498039</ogc:Literal>
@@ -876,7 +984,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
@@ -904,114 +1012,6 @@
                <se:PolygonSymbolizer version="1.1.0">
                   <se:Fill>
                      <se:SvgParameter name="fill">
-                        <ogc:Literal>#084081</ogc:Literal>
-                     </se:SvgParameter>
-                     <se:SvgParameter name="fill-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
-                     </se:SvgParameter>
-                  </se:Fill>
-                  <se:Stroke>
-                     <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
-                     </se:SvgParameter>
-                     <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0</ogc:Literal>
-                     </se:SvgParameter>
-                     <se:SvgParameter name="stroke-width">
-                        <ogc:Literal>1</ogc:Literal>
-                     </se:SvgParameter>
-                  </se:Stroke>
-               </se:PolygonSymbolizer>
-            </se:Rule>
-            <se:Rule>
-               <se:Name>22.5</se:Name>
-               <ogc:Filter>
-                  <ogc:And>
-                     <ogc:PropertyIsGreaterThan>
-                        <ogc:PropertyName>media</ogc:PropertyName>
-                        <ogc:Literal>20</ogc:Literal>
-                     </ogc:PropertyIsGreaterThan>
-                     <ogc:PropertyIsLessThanOrEqualTo>
-                        <ogc:PropertyName>media</ogc:PropertyName>
-                        <ogc:Literal>22.5</ogc:Literal>
-                     </ogc:PropertyIsLessThanOrEqualTo>
-                  </ogc:And>
-               </ogc:Filter>
-               <se:PolygonSymbolizer version="1.1.0">
-                  <se:Fill>
-                     <se:SvgParameter name="fill">
-                        <ogc:Literal>#05356a</ogc:Literal>
-                     </se:SvgParameter>
-                     <se:SvgParameter name="fill-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
-                     </se:SvgParameter>
-                  </se:Fill>
-                  <se:Stroke>
-                     <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
-                     </se:SvgParameter>
-                     <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0</ogc:Literal>
-                     </se:SvgParameter>
-                     <se:SvgParameter name="stroke-width">
-                        <ogc:Literal>1</ogc:Literal>
-                     </se:SvgParameter>
-                  </se:Stroke>
-               </se:PolygonSymbolizer>
-            </se:Rule>
-            <se:Rule>
-               <se:Name>25</se:Name>
-               <ogc:Filter>
-                  <ogc:And>
-                     <ogc:PropertyIsGreaterThan>
-                        <ogc:PropertyName>media</ogc:PropertyName>
-                        <ogc:Literal>22.5</ogc:Literal>
-                     </ogc:PropertyIsGreaterThan>
-                     <ogc:PropertyIsLessThanOrEqualTo>
-                        <ogc:PropertyName>media</ogc:PropertyName>
-                        <ogc:Literal>25</ogc:Literal>
-                     </ogc:PropertyIsLessThanOrEqualTo>
-                  </ogc:And>
-               </ogc:Filter>
-               <se:PolygonSymbolizer version="1.1.0">
-                  <se:Fill>
-                     <se:SvgParameter name="fill">
-                        <ogc:Literal>#022a54</ogc:Literal>
-                     </se:SvgParameter>
-                     <se:SvgParameter name="fill-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
-                     </se:SvgParameter>
-                  </se:Fill>
-                  <se:Stroke>
-                     <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
-                     </se:SvgParameter>
-                     <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0</ogc:Literal>
-                     </se:SvgParameter>
-                     <se:SvgParameter name="stroke-width">
-                        <ogc:Literal>1</ogc:Literal>
-                     </se:SvgParameter>
-                  </se:Stroke>
-               </se:PolygonSymbolizer>
-            </se:Rule>
-            <se:Rule>
-               <se:Name>30</se:Name>
-               <ogc:Filter>
-                  <ogc:And>
-                     <ogc:PropertyIsGreaterThan>
-                        <ogc:PropertyName>media</ogc:PropertyName>
-                        <ogc:Literal>25</ogc:Literal>
-                     </ogc:PropertyIsGreaterThan>
-                     <ogc:PropertyIsLessThanOrEqualTo>
-                        <ogc:PropertyName>media</ogc:PropertyName>
-                        <ogc:Literal>30</ogc:Literal>
-                     </ogc:PropertyIsLessThanOrEqualTo>
-                  </ogc:And>
-               </ogc:Filter>
-               <se:PolygonSymbolizer version="1.1.0">
-                  <se:Fill>
-                     <se:SvgParameter name="fill">
                         <ogc:Literal>#00203e</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="fill-opacity">
@@ -1020,7 +1020,7 @@
                   </se:Fill>
                   <se:Stroke>
                      <se:SvgParameter name="stroke">
-                        <ogc:Literal>#FFFFFF</ogc:Literal>
+                        <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
                         <ogc:Literal>0</ogc:Literal>
