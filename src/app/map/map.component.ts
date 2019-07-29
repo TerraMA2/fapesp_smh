@@ -87,7 +87,7 @@ export class MapComponent implements OnInit {
 
   // Controle do gráfico
   private start: Date = new Date(1998,0,1);
-  private end: Date = new Date(1998,1,28);
+  private end: Date = new Date(1998,8,31);
 
   // Banco de dados
   private jsonObj;
@@ -239,12 +239,12 @@ export class MapComponent implements OnInit {
     this.layers = [];
     this.layersStatic = [
       new Layer(1, "Estados Brasil Político", "OBT DPI", 'terrama2_10:view10', '4674', this.geoserver20Chuva),
-      new Layer(3, "Municípios IBGE", "OBT DPI", 'terrama2_9:view9', '4326', this.geoserver20Chuva)
+      new Layer(3, "Municípios IBGE", "OBT DPI", 'terrama2_29:view29', '4326', this.geoserver20Chuva)
     ];
     this.layersDynamic = [
       new Layer(4, "Preciptação", "OBT DPI", 'terrama2_3:view3','4326', this.geoserver20Chuva),
       new Layer(5, "Dados Climatológicos", "OBT DPI", 'terrama2_15:view15','4326', this.geoserver20Chuva),
-      new Layer(6, "Análise Mensal 1998 - 2019", "OBT DPI", 'terrama2_26:view26','4326', this.geoserver20Chuva)
+      new Layer(6, "Análise Mensal 1998 - 2019", "OBT DPI", 'terrama2_28:view28','4326', this.geoserver20Chuva)
     ];
     this.layers = this.layers.concat(this.layersStatic);
     this.layers = this.layers.concat(this.layersDynamic);
