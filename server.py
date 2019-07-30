@@ -45,14 +45,16 @@ class An_Monthly_Limit_Date(Resource):
     def get(self,geocodigo,mes_inicio,ano_inicio,mes_fim,ano_fim):
         try:
             conectar = Connection_pg("chuva")
+            mes, ano = (int(mes_fim) + 1), int(ano_fim)
+            if mes > 12: mes, ano = 1, ano + 1
             data = conectar.readFileSQL(
                 "sql/an_monthly_limit_date",
                 {
                     "geocodigo":str(geocodigo),
                     "mes_inicio":str(mes_inicio),
                     "ano_inicio":str(ano_inicio),
-                    "mes_fim":str(int(mes_fim) + 1),
-                    "ano_fim":str(ano_fim)
+                    "mes_fim":str(mes),
+                    "ano_fim":str(ano)
                 }
             )
             print(data)
@@ -84,14 +86,16 @@ class An_Monthly_Diff_Limit_Date(Resource):
     def get(self,geocodigo,mes_inicio,ano_inicio,mes_fim,ano_fim):
         try:
             conectar = Connection_pg("chuva")
+            mes, ano = (int(mes_fim) + 1), int(ano_fim)
+            if mes > 12: mes, ano = 1, ano + 1
             data = conectar.readFileSQL(
                 "sql/an_monthly_diff_limit_date",
                 {
                     "geocodigo":str(geocodigo),
                     "mes_inicio":str(mes_inicio),
                     "ano_inicio":str(ano_inicio),
-                    "mes_fim":str(int(mes_fim) + 1),
-                    "ano_fim":str(ano_fim)
+                    "mes_fim":str(mes),
+                    "ano_fim":str(ano)
                 }
             )
             print(data)

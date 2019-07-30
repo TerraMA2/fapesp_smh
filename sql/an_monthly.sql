@@ -1,15 +1,16 @@
 SELECT 
-monthly.nome_municipio as nome_municipio,
+municipio.nome1 as nome_municipio,
 monthly.maxima as maxima_ano,
 monthly.media as media_ano,
 merge_monthly.maxima as maxima,
 merge_monthly.media as media,
 monthly.ano as ano,
 merge_monthly.mes as mes
-FROM public.an_municip_monthly_dynamic monthly, public.an_municip_monthly merge_monthly
-WHERE monthly.ano = {ano}
-AND monthly.geocodigo = '{geocodigo}'
-AND monthly.geocodigo = merge_monthly.geocodigo
+FROM public.municipios_brasil as municipio, public.an_municipio_monthly monthly, public.an_municipio_merge_monthly merge_monthly
+WHERE municipio.fid = monthly.fid
+AND municipio.fid = merge_monthly.fid
+AND monthly.ano = {ano}
+AND municipio.geocodigo = '{geocodigo}'
 AND monthly.mes = merge_monthly.mes
 AND monthly.media IS NOT NULL AND monthly.maxima IS NOT NULL
 AND merge_monthly.media IS NOT NULL AND merge_monthly.maxima IS NOT NULL

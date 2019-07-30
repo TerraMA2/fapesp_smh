@@ -8,7 +8,7 @@ merge_monthly.media as media,
 (monthly.media - merge_monthly.media) as var_media,
 monthly.ano as ano,
 merge_monthly.mes as mes
-FROM public.an_municip_monthly_dynamic monthly, public.an_municip_monthly merge_monthly
+FROM public.an_municipio_monthly monthly, public.an_municipio_merge_monthly merge_monthly
 WHERE monthly.ano = {ano}
 AND monthly.geocodigo = '{geocodigo}'
 AND monthly.geocodigo = merge_monthly.geocodigo

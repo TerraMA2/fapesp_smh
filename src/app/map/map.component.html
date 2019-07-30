@@ -151,7 +151,7 @@
             </div>
         </nav>
         <div class = "container-fluid mapa">
-            <div id = "form" [style.visibility] = "layers[3].checked ? 'visible' : 'hidden'" >
+            <div id = "form" [style.visibility] = "layers[2].checked ? 'visible' : 'hidden'" >
                 <h6>Merge 4km</h6>
                 <p-calendar
                     [(ngModel)] = "layers[3].date"
@@ -165,7 +165,7 @@
                 ></p-calendar>
                 <button type = "button" (click) = "setLayerTime()">Aplicar</button>
             </div>
-            <div id = "form" [style.visibility] = "layers[4].checked ? 'visible' : 'hidden'" >
+            <div id = "form" [style.visibility] = "layers[3].checked ? 'visible' : 'hidden'" >
                 <h6>Climatológico</h6>
                 <p-calendar 
                     [(ngModel)] = "merge_date"
@@ -176,7 +176,7 @@
                 ></p-calendar>
                 <button type = "button" (click) = "setLayerTimeAnalysis()">Aplicar</button>
             </div>
-            <div id = "form" [style.visibility] = "layers[5].checked ? 'visible' : 'hidden'" >
+            <div id = "form" [style.visibility] = "layers[4].checked ? 'visible' : 'hidden'" >
                 <h6>Análise Mensal</h6>
                 <p-calendar
                     [(ngModel)] = "monthly_date"
@@ -339,7 +339,7 @@
         </div>
         <div class = "p-col-6">
             <div class = "p-col">
-                <button pButton type = "button" (click) = "initDadosGrafico()" label = "Validar" class = "ui-button-success"></button>
+                <button pButton type = "button" (click) = "initDadosGrafico()" label = "Validar Alterações" class = "ui-button-success"></button>
             </div>
         </div>
     </div>
@@ -347,7 +347,6 @@
         <div class = "p-col-12">
             <div class = "p-col">
                 <p-chart type = "bar" height = "350" [responsive] = "true" [data] = "chartData"></p-chart>
-        
             </div>
         </div>
     </div>
