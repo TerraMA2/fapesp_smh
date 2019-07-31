@@ -1,5 +1,4 @@
-SELECT nome_municipio, maxima, media, mes
-FROM public.an_municipio_merge_monthly
-WHERE geocodigo = '{geocodigo}'
-AND media IS NOT NULL AND maxima IS NOT NULL
+SELECT municipio.nome1, merge_monthly.maxima, merge_monthly.media, merge_monthly.mes
+FROM public.municipios_brasil municipio, public.an_municipio_merge_monthly merge_monthly
+WHERE municipio.geocodigo = '{geocodigo}' AND municipio.fid = merge_monthly.fid
 ORDER BY execution_date;
