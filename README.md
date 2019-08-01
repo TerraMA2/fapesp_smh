@@ -1,4 +1,4 @@
-# Projeto FAPESP - SMHUI Sistema de Monitoramento Hidrometeorológico
+# SMHUI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2.
 
@@ -25,6 +25,13 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Libraries Python for Flask API
+
+To use a API Flask with Angular, some libraries are required and here is a simple command pip to install all dependencies
+```
+pip install psycopg2 numpy pandas sqlalchemy georaster Flask flask-api flask_cors flask_restful flask_jsonpify
+```
 
 ## Run Python Flask API
 
