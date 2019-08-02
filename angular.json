@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TerraChuva": {
+    "SMH-UI": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/TerraChuva",
+            "outputPath": "dist/SMH-UI",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,18 +64,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "TerraChuva:build"
+            "browserTarget": "SMH-UI:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "TerraChuva:build:production"
+              "browserTarget": "SMH-UI:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "TerraChuva:build"
+            "browserTarget": "SMH-UI:build"
           }
         },
         "test": {
@@ -109,7 +109,7 @@
         }
       }
     },
-    "TerraChuva-e2e": {
+    "SMH-UI-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -118,11 +118,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "TerraChuva:serve"
+            "devServerTarget": "SMH-UI:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "TerraChuva:serve:production"
+              "devServerTarget": "SMH-UI:serve:production"
             }
           }
         },
@@ -138,5 +138,5 @@
       }
     }
   },
-  "defaultProject": "TerraChuva"
+  "defaultProject": "SMH-UI"
 }

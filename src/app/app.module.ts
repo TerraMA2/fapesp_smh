@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
+import { AnaliseMensalComponent } from './analise-mensal/analise-mensal.component';
 
 import { FormsModule } from '@angular/forms';
 
@@ -13,23 +14,30 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Imports PrimeFaceNg Components
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
-import {ProgressBarModule} from 'primeng/progressbar';
-import {InputSwitchModule} from 'primeng/inputswitch';
-import {SliderModule} from 'primeng/slider';
-import {ButtonModule} from 'primeng/button';
-import {DialogModule} from 'primeng/dialog';
-import {SidebarModule} from 'primeng/sidebar';
-import {ChartModule} from 'primeng/chart';
-import {CalendarModule} from 'primeng/calendar';
-import {InputTextModule} from 'primeng/inputtext';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { SliderModule } from 'primeng/slider';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { SidebarModule } from 'primeng/sidebar';
+import { ChartModule } from 'primeng/chart';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextModule } from 'primeng/inputtext';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DropdownModule } from 'primeng/dropdown';
-import { PanelMenuModule } from 'primeng/panelmenu';
+import { AccordionModule } from 'primeng/accordion';
+import { SpinnerModule } from 'primeng/spinner';
+import { TableModule } from 'primeng/table';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {TabMenuModule} from 'primeng/tabmenu';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    AnaliseMensalComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +57,11 @@ import { PanelMenuModule } from 'primeng/panelmenu';
     InputTextModule,
     ProgressSpinnerModule,
     DropdownModule,
-    PanelMenuModule,
+    AccordionModule,
+    SpinnerModule,
+    TableModule,
+    SelectButtonModule,
+    TabMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,0 @@
-SELECT nome1, geocodigo, latitude, longitude FROM public.municipios_brasil WHERE uf = '{uf}' ORDER BY nome1;

@@ -57,7 +57,7 @@ color: #fff !important;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
     align-items: center;
-    background-color: #1a5c8e;
+    background-color: #395b89;
     color: #fff !important;
     font-weight: 400;
     font-size: 16px;
@@ -94,7 +94,7 @@ color: #fff !important;
     border-color: #108d6f;
 }
 
-.ferramentas { padding: 16.5px; background-color: #1a5c8e; color: #fff;}
+.ferramentas { padding: 11.5px; background-color: #395b89; color: #fff;}
 .ferramentas div { margin-right: 4px !important;}
 .ferramentas .btn { background-color:transparent; border: 0px; padding: 0px; margin-right: 3px; margin-left: 2px;}
 .ferramentas .btn i:hover {color: rgba(255, 255, 255, 0.5);}
@@ -178,12 +178,12 @@ dfn::after {
   position: absolute;
   top: 22px; left: 0;
   opacity: 0;
-  width: 230px;
+  width: auto;
   font-size: 13px;
   line-height: 1.5em;
   padding: 0.5em 0.8em;
-  background: rgba(16,141,111,0.8);
-  color: #fff;
+  background: rgba(0, 0, 0, 0.8);
+  color: rgb(216, 206, 206);
   pointer-events: none; 
   transition: opacity 250ms, top 250ms;
 	border-radius: 5px;
@@ -196,7 +196,7 @@ dfn::before {
   opacity: 0;
   width: 0; height: 0;
   border: solid transparent 5px;
-  border-bottom-color: rgba(16,141,111,0.8);
+  border-bottom-color: rgba(255, 255, 255, 0.8);
   transition: opacity 250ms, top 250ms;
 }
 dfn:hover {z-index: 2;} 
@@ -225,7 +225,7 @@ dfn:hover::before {top: 20px;}
     top: 0;
     left: 0;
     z-index: 999;
-    background: #fff;
+    background: #395b89;
     color: #33333d;
     transition: all 0.3s;
 	transition-duration: 150ms;
@@ -241,10 +241,10 @@ dfn:hover::before {top: 20px;}
 
 #sidebar .sidebar-header {
     padding: 4px 20px 4px 20px;
-	background-image:url(../img/i-mapa.jpg);
+	/* background-image:url(../img/i-mapa.jpg); */
     /**background: #6d7fcc;*/
-	color: #119789;
-	height: 200px;
+	/* color: #119789; */
+	height: 50px;
 }
 
 .descricao { top: 50px !important; color: #fff;
@@ -255,7 +255,7 @@ dfn:hover::before {top: 20px;}
 
 #sidebar ul.components {
     padding: 0px 0;
-    border-bottom: 1px solid #47748b;
+    border-bottom: 1px solid #395b89;
 	
 }
 
@@ -674,7 +674,7 @@ background: #707070;
 ---------------------------------------------------------*/	
 
 footer{
-    background-color: #1a5c8e;
+    background-color: #395b89;
 	position:fixed;
 	bottom: 0;
     left: 0;

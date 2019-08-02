@@ -1,447 +1,356 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+
+//OpenLayer
 import Map from 'ol/Map';
-import {defaults as defaultControls, ScaleLine} from 'ol/control.js';
-import MousePosition from 'ol/control/MousePosition.js';
-import {createStringXY} from 'ol/coordinate.js';
+import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
 import View from 'ol/View';
+import TileWMS from 'ol/source/TileWMS';
+// import Vector from 'ol/source/Vector';
+import Stamen from 'ol/source/Stamen';
+import GeoJSON from 'ol/format/GeoJSON';
 import FullScreen from 'ol/control/FullScreen';
 import DragRotateAndZoom from 'ol/interaction/DragRotateAndZoom';
-import DragAndDrop from 'ol/interaction/DragAndDrop';
-import GeoJSON from 'ol/format/GeoJSON';
-import * as olProj from 'ol/proj';
+// import Feature from 'ol/Feature';
+// import Point from 'ol/geom/Point';
+// import Select from 'ol/interaction/Select';
+// import { Icon, Style, Stroke } from 'ol/style';
+// import { mapToMapExpression } from '@angular/compiler/src/render3/util';
 
-// Classes criadas
-import { BaseLayers } from './base-layers/base-layers';
-import { Layer } from './tile-layers/layer';
-
-// Serviços Criados
+// service
 import { MapService } from 'src/app/services/map.service';
 import { WmsService } from 'src/app/services/wms.service';
-import { PythonFlaskAPIService } from 'src/app/services/python-flask-api.service';
+import { AnaliseDadosService } from 'src/app/services/analise-dados.service';
+import { MunicipioService } from 'src/app/services/municipio.service';
 
-// Interfaces Criadas
-import { AnaliseGeotiffByYear } from './rasters/analise-geotiff-by-year';
-import { AnaliseGeotiffLimitDate } from './rasters/analise-geotiff-limit-date';
-import { AnaliseGeotiffByYearDiff } from './rasters/analise-geotiff-by-year-diff';
-import { AnaliseGeotiffDiffLimitDate } from './rasters/analise-geotiff-diff-limit-date';
-import { AnaliseGeotiff } from './rasters/analise-geotiff';
-import { CityByState } from './entities/city-by-state';
-import { CityByStateUnique } from './entities/city-by-state-unique';
-import { State } from './entities/state';
-import { StateUnique } from './entities/state-unique';
-import { Option } from './entities/option';
-// import { Terrama2 } from './entities/terrama2';
-// import { Terrama2Unique } from './entities/terrama2-unique';
-
-// Camadas MapG
-import TileLayer from 'ol/layer/Tile.js';
-import TileWMS from 'ol/source/TileWMS';
-import { OSM } from 'ol/source.js';
+// Model Entity
+import { Layers } from 'src/app/entity/layers';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-
 export class MapComponent implements OnInit {
-  private geoserver20Chuva = 'http://www.terrama2.dpi.inpe.br/chuva/geoserver/wms?';
 
   private map;
-  private mapG;
-  private baseLayers = new BaseLayers();
-  private layersStatic = [];
-  private layersDynamic = [];
-  private layers = [];
-  private features = [];
-
-  // Busca de dados para as camadas merge e monthly
-  private merge_date: Date = new Date(2018,0,31);
-  private monthly_date: Date = new Date(1998,0,31);
-
-  // Busca de cidades via codigo no python API
-  private citySelectedAPI: CityByStateUnique;
-  private ufSelectedAPI: StateUnique;
-  private ufsAPI: StateUnique[] = [];
-  private citiesAPI: CityByStateUnique[] = [];
-
-  // Escolher gráfico
-  private chartOption: Option[] = [
-    { verbose: "Média", value: 0 },
-    { verbose: "Anomalia Média", value: 1 },
-    { verbose: "Máxima", value: 2 },
-    { verbose: "Anomalia Máxima", value: 3 }
-  ];
-  private selectChartOption: Option = { verbose: "Média", value: 0 };
-  private chartData: any;
+  private merge4km;
+  private PrecMedia_Bacias_N1;
+  private waterColor;
+  private toner;
+  private osm;
+  // private gebco;
+  private terrain;
 
   value: number = 0;
+  val1: number = 100;
   testep: boolean = false;
+  public features = [];
+  private jsonObj: Layers[];
   setMap: string = 'osm';
-  mergeMonthlyDate: number = 1;
+  private data;
 
-  // Controle das Datas
-  minDate: Date;
-  maxDate: Date;
+  private geoserverTerraMaLocal = 'http://www.terrama2.dpi.inpe.br/chuva/geoserver/wms?';
+  private smh_api = 'http://150.163.17.143:8181/smh-api/terrama/resources/';
 
-  // Controle do gráfico
-  private start: Date = new Date(1998,0,1);
-  private end: Date = new Date(1998,11,31);
+  private modelLayer = [
+    // new Layers(1, 'Municipio_Ibge', 'TerraMA2', this.geoserverTerraMaCurso, 'terrama2_9:view9', '4326'),
+    // new Layers(2, 'PrecMedia_Bacias_N1', 'TerraMA2', this.geoserverTerraMaCurso, 'terrama2_11:view11', '4326'),
+    // new Layers(3, 'Merge4km', 'TerraMA2', this.geoserverTerraMaCurso, 'terrama2_3:view3', '4326'),
+    // new Layers(5, 'EstadoIbge', 'TerraMA2', this.geoserverTerraMaCurso, 'terrama2_10:view10', '4326'),
+    // new Layers(4, 'PCDs', 'TerraMA2', this.geoserverTerraMaLocal, 'terrama2_1:view1', '4326')
+  ];
 
-  // Banco de dados
-  private jsonObj;
 
-  // Menu Principal
-  private items: MenuItem[];
+  constructor(private mapService: MapService, private wmsService: WmsService, private analiseService: AnaliseDadosService,
+    private municipioService: MunicipioService) {
 
-  constructor(private mapService: MapService, private wmsService: WmsService, private apiFlask: PythonFlaskAPIService) { }
-
-  ngOnInit() {
-    this.promise();
-    this.initDate();
-    this.initLayers();
-    this.initState();
-    this.initilizeJson();
-    this.initilizeMap();
-    this.initilizeMapG();
-    this.initilizeMenu();
   }
 
-  promise() {
-    this.mapService.listar().toPromise()
+  ngOnInit() {
+    this.initLayer();
+    this.initDataAgora();
+    this.initilizeMap();
+  }
+
+  ngDocheck() {
+
+  }
+
+  ngAfterContentInit() {
+  }
+
+  initDataAgora() {
+    var dataNow = new Date(Math.round(Date.now() / 3600000) * 3600000 - 3600000 * 3);
+    var dia = dataNow.getDate();
+    var mes = dataNow.getMonth();
+    var ano = dataNow.getFullYear();
+    this.data = ano + '-' + mes + '-' + dia
+  }
+
+
+  initilizeMap() {
+
+    let interval = setInterval(() => {
+      this.value = this.value + Math.floor(Math.random() * 10) + 1;
+      if (this.value >= 100) {
+        this.value = 100;
+        this.testep = true;
+        // this.messageService.add({severity: 'info', summary: 'Success', detail: 'Process Completed'});
+        clearInterval(interval);
+      } else if (this.value >= 10) {
+        // this.map.addLayer(this.pcd);
+      } else if (this.value >= 5) {
+        // this.map.addLayer(this.prec4km);
+      } else if (this.value >= 2) {
+        // this.map.addLayer(this.estado);
+        // this.map.addLayer(this.baciashidrografica);
+      }
+    }, 2000);
+
+
+    var interaction = new DragRotateAndZoom();
+
+    var control = new FullScreen();
+
+    this.osm = new TileLayer({
+      preload: Infinity,
+      visible: true,
+      title: "osm",
+      baseLayer: true,
+      source: new OSM(),
+      layer: 'osm',
+    });
+
+    // this.gebco = new TileLayer({
+    //   source: new TileWMS(({
+    //     preload: Infinity,
+    //     visible: false,
+    //     title: "gebco",
+    //     baseLayer: true,
+    //     url: 'http://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?',
+    //     params: { 'LAYERS': 'GEBCO_LATEST', 'VERSION': '1.1.1', 'FORMAT': 'image/png' }
+    //   })),
+    //   serverType: 'mapserver'
+    // });
+
+    this.waterColor = new TileLayer(
+      {
+        preload: Infinity,
+        visible: false,
+        title: "Watercolor",
+        baseLayer: true,
+        source: new Stamen({
+          layer: 'watercolor'
+        })
+      });
+
+
+    this.toner = new TileLayer(
+      {
+        preload: Infinity,
+        title: "Toner",
+        baseLayer: true,
+        visible: false,
+        source: new Stamen({
+          layer: 'toner'
+        })
+      });
+
+
+    this.terrain = new TileLayer(
+      {
+        preload: Infinity,
+        title: "terrain",
+        baseLayer: true,
+        visible: false,
+        source: new Stamen({
+          layer: 'terrain'
+        })
+      });
+
+    var center = [-6124801.2015823, -1780692.0106836];
+    var view = new View({
+      center: center,
+      zoom: 4,
+      // projection: 'EPSG:4326'
+    });
+
+    // var layers = [this.osm, this.gebco, this.waterColor, this.toner, this.terrain];
+    var layers = [this.osm, this.waterColor, this.toner, this.terrain];
+
+    this.map = new Map({
+      target: 'map',
+      layers: layers,
+      // interactions: [interaction],
+      controls: [control],
+      view: view
+    });
+
+    this.map.on('singleclick', function (evt) {
+      console.log(evt.pixel);
+    });
+
+
+    var wmsSource = new TileWMS({
+      url: this.geoserverTerraMaLocal,
+      params: { 'LAYERS': 'terrama2_1:view1', 'TILED': true },
+      serverType: 'geoserver',
+      crossOrigin: 'anonymous'
+    });
+
+
+    this.map.on('singleclick', function (evt) {
+
+      var viewResolution = /** @type {number} */ (view.getResolution());
+      var viewProjection = /** @type {number} */ (view.getProjection());
+      var url = wmsSource.getGetFeatureInfoUrl(
+        evt.coordinate, viewResolution, viewProjection, 'EPSG:4326',
+        { 'INFO_FORMAT': 'text/javascript', 'propertyName': 'formal_en' });
+
+      console.log(url);
+
+      if (url) {
+        var parser = new GeoJSON();
+        document.getElementById('info').innerHTML =
+          '<iframe allowfullscreen src="' + url + '"></iframe>';
+      }
+    });
+
+
+    function changeMap() {
+      console.log('name');
+    }
+  }
+
+
+  private legenda(featuresLayer, featuresGeoserver) {
+
+    var url = this.geoserverTerraMaLocal + "REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER={{LAYER_NAME}}&STYLE={{STYLE_NAME}}";
+    url = url.replace('{{LAYER_NAME}}', featuresLayer.workspace + ":" + featuresLayer.layername);
+    url = url.replace('{{STYLE_NAME}}', featuresLayer.workspace + ":" + featuresLayer.layername + '_style');
+    if (url) {
+      var parser = new GeoJSON();
+      document.getElementById('info').innerHTML =
+        '<iframe allowfullscreen height="800" src="' + url + '"></iframe>';
+    }
+  }
+
+  // private setLayerType(featuresLayer) {
+  //   console.log(this.val1 / 100);
+  //   console.log(featuresLayer);
+  //   if (this.features[featuresLayer].getVisible() == true) {
+  //     this.features[featuresLayer].setVisible(false);
+  //   } else {
+  //     this.features[featuresLayer].setVisible(true);
+  //   }
+  // }
+
+  private setLayerType2(featuresLayer) {
+    if (this.features[featuresLayer.name].getVisible() == true) {
+      this.features[featuresLayer.name].setVisible(false);
+    } else {
+      this.features[featuresLayer.name].setVisible(true);
+    }
+  }
+
+
+  initLayer() {
+    this.mapService.listar(this.smh_api + "/viewslayer").toPromise()
       .then((data: any) => {
-        // console.time('request-length');
-        // console.timeEnd('request-length');
         this.jsonObj = data;
         data.forEach(element => {
+          console.log(element.name)
+          console.log(element.uri.substring(23) + "/wms?")
+          console.log(element.uri.replace("admin:geoserver@", "") + "/wms?")
           this.features[element.name] = this.wmsService.camadas(element);
           this.map.addLayer(this.features[element.name]);
-          this.mapG.addLayer(this.features[element.name]);
         });
       });
   }
 
-  initDadosGrafico() {
-    if ( this.citySelectedAPI ){
-      this.setViewMap();
-      this.wmsService.getRecort(this.layers[4].getTileLayer(),'geocodigo',this.citySelectedAPI.geocodigo);
-      this.apiFlask.getMonthlyMaxMeanDiffLimitDate(this.citySelectedAPI.geocodigo,this.start,this.end).subscribe( (data: AnaliseGeotiffDiffLimitDate) => {
-        let chartLabel = (
-          'Anomalia Média ' +
-          this.wmsService.getVerboseMonth(this.start) + '/' + this.start.getFullYear() + ' - ' +
-          this.wmsService.getVerboseMonth(this.end) + '/' + this.end.getFullYear() +
-          ' do Município de ' +
-          this.citySelectedAPI.nome1 + ' - ' +
-          this.ufSelectedAPI.estado
-        );
-        switch(this.selectChartOption.value){
-          case 1:
-            this.chartData = {
-              labels: this.apiFlask.convertToArray(data.format_date),
-              datasets: [
-                {
-                  label: chartLabel,
-                  backgroundColor: this.apiFlask.convertToColors(data.var_media),
-                  borderColor: this.apiFlask.convertToColors(data.var_media),
-                  data: this.apiFlask.convertToArray(data.var_media)
-                }
-              ]
-            };
-            break;
-          case 3:
-            this.chartData = {
-              labels: this.apiFlask.convertToArray(data.format_date),
-              datasets: [
-                {
-                  label: chartLabel,
-                  backgroundColor: this.apiFlask.convertToColors(data.var_maxima),
-                  borderColor: this.apiFlask.convertToColors(data.var_maxima),
-                  data: this.apiFlask.convertToArray(data.var_maxima)
-                }
-              ]
-            };
-            break;
-          default:
-            break;
-        }
-      });
-      this.apiFlask.getMonthlyMaxMeanLimitDate(this.citySelectedAPI.geocodigo,this.start,this.end).subscribe( (data: AnaliseGeotiffLimitDate) => {
-        let chartLabel = (
-          'Climatológica Mensal do Município de ' +
-          this.apiFlask.convertToArray(data.nome_municipio)[0].toString() + ' - ' +
-          this.ufSelectedAPI.estado
-        );
-        let chartLabelDate = (
-          this.wmsService.getVerboseMonth(this.start) + '/' + this.start.getFullYear() + ' - ' +
-          this.wmsService.getVerboseMonth(this.end) + '/' + this.end.getFullYear() +
-          ' Mensal do Município de ' + 
-          this.apiFlask.convertToArray(data.nome_municipio)[0].toString() + ' - ' +
-          this.ufSelectedAPI.estado
-        );
-        switch(this.selectChartOption.value){
-          case 0:
-            this.chartData = {
-              labels: this.apiFlask.convertToArray(data.format_date),
-              datasets: [
-                {
-                  label: 'Média ' + chartLabel,
-                  backgroundColor:'#007bff',
-                  borderColor: '#55a7ff',
-                  data: this.apiFlask.convertToArray(data.media)
-                },
-                {
-                  label: 'Média ' + chartLabelDate,
-                  backgroundColor:'#80bdff',
-                  borderColor: '#9ecdff',
-                  data: this.apiFlask.convertToArray(data.media_ano)
-                }
-              ]
-            };
-            break;
-          case 2:
-            this.chartData = {
-              labels: this.apiFlask.convertToArray(data.format_date),
-              datasets: [
-                {
-                  label: 'Máxima ' + chartLabel,
-                  backgroundColor: '#007bff',
-                  borderColor: '#55a7ff',
-                  data: this.apiFlask.convertToArray(data.maxima)
-                },
-                {
-                  label: 'Máxima ' + chartLabelDate,
-                  backgroundColor: '#80bdff',
-                  borderColor: '#9ecdff',
-                  data: this.apiFlask.convertToArray(data.maxima_ano)
-                }
-              ]
-            };
-            break;
-          default:
-            break;
-        }
-      });
-    } else {
-      alert("Selecione um Estado e uma Cidade!");
-    }
-  }
-
-  initDate() {
-    this.minDate = new Date();
-    this.minDate.setDate(2);
-    this.minDate.setMonth(0);
-    this.minDate.setFullYear(1998);
-    this.maxDate = new Date();
-  }
-
-  initLayers() {
-    this.layers = [];
-    this.layersStatic = [
-      new Layer(1, "Estados Brasil Político", "OBT DPI", 'terrama2_10:view10', '4674', this.geoserver20Chuva),
-      new Layer(3, "Municípios IBGE", "OBT DPI", 'terrama2_29:view29', '4326', this.geoserver20Chuva)
-    ];
-    this.layersDynamic = [
-      new Layer(4, "Preciptação", "OBT DPI", 'terrama2_3:view3','4326', this.geoserver20Chuva),
-      new Layer(5, "Dados Climatológicos", "OBT DPI", 'terrama2_15:view15','4326', this.geoserver20Chuva),
-      new Layer(6, "Análise Mensal 1998 - 2019", "OBT DPI", 'terrama2_28:view28','4326', this.geoserver20Chuva)
-    ];
-    this.layers = this.layers.concat(this.layersStatic);
-    this.layers = this.layers.concat(this.layersDynamic);
-    this.wmsService.upDate(this.layers[3].getTileLayer(),this.merge_date);
-    this.wmsService.upDate(this.layers[4].getTileLayer(),this.monthly_date);
-  }
-
-  initState(){
-    this.apiFlask.getStates().subscribe( (data:State) => {
-      this.ufsAPI = this.apiFlask.convertToStateAPI(this.apiFlask.convertToArray(data.estado),this.apiFlask.convertToArray(data.uf));
-    });
-  }
-
-  initilizeMapG(){
-    this.mapG = new Map({
-      controls: [new FullScreen()],
-      layers: [
-        new TileLayer({
-          preload: Infinity,
-          visible: true,
-          title: "osm",
-          baseLayer: true,
-          source: new OSM(),
-          layer: 'osm',
-        })
-      ],
-      target: 'mapG',
-      view: new View({
-        center: [-6124801.2015023, -1780692.0106836],
-        zoom: 4
-      })
-    });
-  }
-
-  initilizeMap() {
-    var mousePositionControl = new MousePosition({
-      coordinateFormat: createStringXY(4),
-      projection: 'EPSG:4326', /** 3857 */
-      className: 'custom-mouse-position',
-      target: document.getElementById('mouse-position'),
-      undefinedHTML: '&nbsp;'
-    });
-
-    var viewMap = new View({
-      center: [-6124801.2015023, -1780692.0106836],
-      zoom: 4
-    });
-
-    this.map = new Map({
-      controls: defaultControls().extend([mousePositionControl, new FullScreen(), new DragRotateAndZoom(), new DragAndDrop()], new ScaleLine({units: 'degrees'})),
-      layers: this.features,
-      target: 'map',
-      view: viewMap
-    });
-
-    this.map.on('click', function(event){
-      this.mouseCoordinate = olProj.transform(event.coordinate, 'EPSG:3857', 'EPSG:4326');
-    });
-
-    var layersWMS = this.layers;
-    this.map.on('singleclick', function(event){
-      document.getElementById('info').innerHTML = '';
-      var viewResolution = viewMap.getResolution();
-      var viewProjection = viewMap.getProjection();
-      for( let layer of layersWMS ){
-        if( layer.checked ){
-          var url = layer.getTileLayer().getSource().getGetFeatureInfoUrl(
-            event.coordinate, viewResolution, viewProjection,
-            "EPSG:4326",
-            { 'INFO_FORMAT' : 'text/javascript', 'propertyName' : 'formal_en' }
-          );
-        }
-      }
-      if(url){
-        document.getElementById('info').innerHTML = '<iframe id = "infoFrame" seamless src = "' + url + '"></iframe>';
-      }
-    });
-
-    var mapAuxiliar = this.map;
-    this.map.on('pointermove', function(event){
-      if( event.dragging ){
-        return true;
-      }
-      var pixel = mapAuxiliar.getEventPixel(event.originalEvent);
-      var hit = mapAuxiliar.forEachLayerAtPixel(pixel, function(){
-        return true;
-      });
-      mapAuxiliar.getTargetElement().style.cursor = hit ? 'pointer' : '';
-    });
-
-    function changeMap() { }
-    this.baseLayers.setBaseLayers(this.setMap);
-  }
-
-  initilizeJson() {
-    var tileLayers = []
-    for( let ind in this.layers ){ tileLayers[ind] = this.layers[ind].getTileLayer() }
-    this.features = this.baseLayers.getBaseLayers().concat(tileLayers);
-  }
-
-  initilizeMenu(){
-    this.items = [
-      {
-        label: 'Dados Estáticos',
-        icon: 'pi pi-pw pi-file',
-        items: []
-      },
-      {
-        label: 'Dados Dinâmicos',
-        icon: 'pi pi-pw pi-file',
-        items: []
-      },
-      {
-        label: 'Opções',
-        icon: 'pi pi-pw pi-file',
-        items: [
-          {
-            label: 'Análises',
-            icon: 'pi pi-pw pi-file'
-          }
-        ]
-      }
-    ];
-  }
-
-  private setLayerType(){
-    for ( let layer of this.layers ){
-      layer.getTileLayer().setVisible(layer.checked);
-      layer.getTileLayer().setOpacity(layer.opacidade/100);
-    }
-  }
-
-  private setLayerTime(){
-    for ( let layer of this.layers ){
-      this.wmsService.upDate(layer.getTileLayer(),layer.date);
-    }
-  }
-
-  setLayerTimeAnalysis() {
-    this.wmsService.upDateMonth(this.layers[3].getTileLayer(),this.merge_date);
-    this.wmsService.upDateMonth(this.layers[4].getTileLayer(),this.monthly_date);
-  }
+  // private initAddlayer() {
+  //   console.log("iniciado")
+  //   console.log(this.jsonObj)
+  //   this.jsonObj.forEach(element => {
+  //     console.log(element)
+  //     this.features[element.name] = this.wmsService.camadas(element);
+  //     this.map.addLayer(this.features[element.name]);
+  //     this.mapG.addLayer(this.features[element.name]);
+  //   });
+  // }
 
   private setMapType() {
-    this.baseLayers.setBaseLayers(this.setMap);
-  }
-
-  private legenda(featuresLayer, featuresGeoserver){
-    var url = featuresGeoserver + "REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER={{LAYER_NAME}}&STYLE={{STYLE_NAME}}"
-    url = url.replace('{{LAYER_NAME}}', featuresLayer);
-    url = url.replace('{{STYLE_NAME}}', featuresLayer + '_style');
-    if(url){
-      var parser = new GeoJSON();
-      document.getElementById('legenda').innerHTML = '<iframe allowfullscreen height = "800" src = ' + url + '></iframe>';
+    switch (this.setMap) {
+      case 'osm':
+        this.osm.setVisible(true); this.waterColor.setVisible(false); this.toner.setVisible(false); this.terrain.setVisible(false);
+        break;
+      case 'GEBCO':
+        this.osm.setVisible(false); this.waterColor.setVisible(false); this.toner.setVisible(false); this.terrain.setVisible(false);
+        break;
+      case 'Watercolor':
+        this.osm.setVisible(false); this.waterColor.setVisible(true); this.toner.setVisible(false); this.terrain.setVisible(false);
+        break;
+      case 'Toner':
+        this.osm.setVisible(false); this.waterColor.setVisible(false); this.toner.setVisible(true); this.terrain.setVisible(false);
+        break;
+      case 'Terrain':
+        this.osm.setVisible(false); this.waterColor.setVisible(false); this.toner.setVisible(false); this.terrain.setVisible(true);
+        break;
     }
   }
 
-  private salvar(){
+  private salvar() {
+    // var group = this.map.getLayerGroup();
+    // var gruplayers = group.getLayers();
+    // var layers = this.map.getLayers().getArray();
+    // for (var i = 5; i < layers.length; i++) {
+    //   var element = gruplayers.item(i);
+    //   var name = element.get('title');
+    // }
+
+    // if (this.selectedCity == null) {
+    //   this.map.setView(new View({
+    //     center: [-6124801.2015823, -1780692.0106836], zoom: 4
+    //   }));
+    // } else {
+    //   this.map.setView(new View({
+    //     center: [this.selectedCity.latitude, this.selectedCity.longitude], zoom: 11, projection: 'EPSG:4326'
+    //   }));
+    // }
+  }
+
+  private activeLayer(featuresLayer) {
+
     var group = this.map.getLayerGroup();
     var gruplayers = group.getLayers();
     var layers = this.map.getLayers().getArray();
     for (var i = 5; i < layers.length; i++) {
       var element = gruplayers.item(i);
       var name = element.get('title');
+      this.features[name].setZIndex(0);
+    }
+
+    if (this.features[featuresLayer.name].getZIndex() == null || this.features[featuresLayer.name].getZIndex() == "") {
+      console.log(featuresLayer.name);
+      this.features[featuresLayer.name].setZIndex(1);
+    } else {
+      // this.features[featuresLayer].setZIndex("");
     }
   }
 
-  private setViewMap() {
-    let cord = [this.citySelectedAPI.longitude, this.citySelectedAPI.latitude];
-    this.mapG.setView(new View({
-      center: cord, zoom: 12, projection: 'EPSG:4326'
-    }));
+  private activeLayer2(featuresLayer) {
+    console.log(featuresLayer);
+  }
+
+  defaultMap() {
     this.map.setView(new View({
-      center: cord, zoom: 12, projection: 'EPSG:4326'
+      center: [-6124801.2015823, -1780692.0106836], zoom: 4
     }));
   }
 
-  private configSelectDataGrafico(){
-    this.citiesAPI = [];
-    this.apiFlask.getCities(this.ufSelectedAPI.uf).subscribe( (data: CityByState) => {
-      this.citiesAPI = this.apiFlask.convertToCityAPI(
-        this.apiFlask.convertToArray(data.nome1),
-        this.apiFlask.convertToArray(data.longitude),
-        this.apiFlask.convertToArray(data.latitude),
-        this.apiFlask.convertToArray(data.geocodigo)
-      );
-    });
-  }
-
-  activeLayer(index){
-    for( let feature of this.features ){ feature.setZIndex(0); }
-    this.features[index].setZIndex(1);
-  }
-
-  dellLayer(){
-    for ( let layer of this.layers ){
-      this.map.removeLayer(layer);
-    }
+  dellLayer() {
+    this.map.removeLayer(this.merge4km);
+    this.map.removeLayer(this.PrecMedia_Bacias_N1);
   }
 }
