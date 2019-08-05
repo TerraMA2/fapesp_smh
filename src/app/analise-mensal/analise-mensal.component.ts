@@ -9,17 +9,19 @@ import FullScreen from 'ol/control/FullScreen';
 import DragRotateAndZoom from 'ol/interaction/DragRotateAndZoom';
 
 // Service
+import { PythonFlaskAPIService } from 'src/app/services/python-flask-api.service';
 import { AnaliseDadosService } from 'src/app/services/analise-dados.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
 
 // Inteface
-import { Cidades } from 'src/app/interface/cidades';
 import { Uf } from 'src/app/interface/uf';
-import { Grafico } from 'src/app/interface/grafico'
+import { Grafico } from 'src/app/interface/grafico';
+import { CityByStateUnique } from 'src/app/interface/city-by-state-unique';
 
 // Enum
 import { UfEnum } from 'src/app/enuns/uf-enum.enum';
 import { GraficoEnum } from 'src/app/enuns/grafico-enum.enum';
+import { RepositoryApi } from 'src/app/enuns/repository-api.enum';
 
 @Component({
   selector: 'app-analise-mensal',
@@ -35,15 +37,14 @@ export class AnaliseMensalComponent implements OnInit {
   private terrain;
   private osm;
 
-  private cities: Cidades[];
-  private selectedCity: Cidades;
+  private cities: CityByStateUnique[];
+  private selectedCity: CityByStateUnique;
 
   private dataGrafico: any;
   private dataGraficoRes: any;
-  private valueDate: Date;
+  private start: Date = new Date(1998,0,31);
+  private end: Date = new Date(1998,11,31);
   dados: any[];
-
-  dados2: any[];
 
   private uf: Uf[] = [{ nomeUf: UfEnum.AC }, { nomeUf: UfEnum.AL }, { nomeUf: UfEnum.AM }, { nomeUf: UfEnum.AP }, { nomeUf: UfEnum.BA },
   { nomeUf: UfEnum.CE }, { nomeUf: UfEnum.DF }, { nomeUf: UfEnum.ES }, { nomeUf: UfEnum.GO }, { nomeUf: UfEnum.MA },
@@ -54,16 +55,12 @@ export class AnaliseMensalComponent implements OnInit {
   private selectedUf: Uf
 
   private grafico: Grafico[] = [{ nomeGrafico: GraficoEnum.Máxima }, { nomeGrafico: GraficoEnum.Média }, { nomeGrafico: GraficoEnum.Anomalia }, { nomeGrafico: GraficoEnum.Teste }];
-  private selectedGrafico: Grafico
+  private selectedGrafico: Grafico;
 
-  private smh_api = 'http://150.163.17.143:8181/smh-api/terrama/resources/';
-
-  constructor(private analiseService: AnaliseDadosService, private municipioService: MunicipioService) { }
+  constructor( private apiFlask: PythonFlaskAPIService, private analiseService: AnaliseDadosService, private municipioService: MunicipioService) { }
 
   ngOnInit() {
     this.initilizeMap();
-    // this.dados2.push(UfEnum);
-    // console.log(this.dados2)
   }
 
   private initilizeMap() {
@@ -134,11 +131,12 @@ export class AnaliseMensalComponent implements OnInit {
 
 
   loadCityByUf() {
-    this.municipioService.listar(this.smh_api + "municipio/" + this.selectedUf.nomeUf + "").toPromise()
-      .then((data: any) => {
-        this.cities = data
-        console.log(data)
-      });
+    this.cities = [];
+    this.apiFlask.getCities(this.selectedUf.nomeUf).toPromise().then((data: any) => {
+      this.cities = this.apiFlask.convertToCityAPI(
+        data.nome1,data.longitude,data.latitude,data.geocodigo
+      );
+    });
   }
 
   // initViewAnalise() {
@@ -186,7 +184,7 @@ export class AnaliseMensalComponent implements OnInit {
   // }
 
   loadAnalise() {
-    console.log(this.selectedCity.geocodigo)
+    // console.log(this.selectedCity.geocodigo)
     // this.features["Municipios"].getSource().updateParams({ 'cql_filter': 'uf=' + this.selectedUf.nomeUf + '' });
     // this.features["an_merge_monthly"].getSource().updateParams({ 'cql_filter': 'monitored_geocodigo=' + this.selectedCity.geocodigo + '' });
     // if (this.selectedCity == null) {
@@ -199,55 +197,114 @@ export class AnaliseMensalComponent implements OnInit {
     //   }));
     // }
 
-    if (this.selectedCity == null) {
-      this.mapAnalise.setView(new View({
-        center: [-6124801.2015823, -1780692.0106836], zoom: 4
-      }));
-    } else {
-      this.mapAnalise.setView(new View({
-        center: [this.selectedCity.longitude, this.selectedCity.latitude], zoom: 11, projection: 'EPSG:4326'
-      }));
-    }
+    // if (this.selectedCity == null) {
+    //   this.mapAnalise.setView(new View({
+    //     center: [-6124801.2015823, -1780692.0106836], zoom: 4
+    //   }));
+    // } else {
+    //   this.mapAnalise.setView(new View({
+    //     center: [this.selectedCity.longitude, this.selectedCity.latitude], zoom: 11, projection: 'EPSG:4326'
+    //   }));
+    // }
 
     // var url = this.smt_apiDados + "dados/" + this.selectedCity.geocodigo + "";
     // var url2 = this.smt_apiDados + "dadosres/" + this.selectedCity.geocodigo + "";
-    var laber = [];
-    var dat = [];
-    var dat2 = [];
+    // var laber = [];
+    // var dat = [];
+    // var dat2 = [];
 
-    var laber2 = [];
-    var dat2_1 = [];
-    var dat2_2 = [];
+    // var laber2 = [];
+    // var dat2_1 = [];
+    // var dat2_2 = [];
 
     // console.log(url2)
-    this.analiseService.listar(this.smh_api + "an_municipio_merge_monthly/" + this.selectedCity.geocodigo + "").toPromise()
-      .then((data: any) => {
-        this.dados = data;
-        data.forEach(element => {
-          laber.push(element.mes)
-          dat.push(element.maxima)
-          dat2.push(element.media)
-        });
-        // console.log(laber)
-        this.dataGrafico = {
-          labels: laber,
-          datasets: [
-            {
-              label: 'Valor Maximo',
-              backgroundColor: '#1a5c8e',
-              borderColor: '#1E88E5',
-              data: dat
-            },
-            {
-              label: 'Valor Maximo Climatologico',
-              backgroundColor: '2f84ad',
-              borderColor: '#7CB342',
-              data: dat2
+    // this.analiseService.listar(RepositoryApi.smh_api + "an_municipio_merge_monthly/" + this.selectedCity.geocodigo + "").toPromise()
+    //   .then((data: any) => {
+    //     this.dados = data;
+    //     data.forEach(element => {
+    //       laber.push(element.mes)
+    //       dat.push(element.maxima)
+    //       dat2.push(element.media)
+    //     });
+    //     // console.log(laber)
+    //     this.dataGrafico = {
+    //       labels: laber,
+    //       datasets: [
+    //         {
+    //           label: 'Valor Maximo',
+    //           backgroundColor: '#1a5c8e',
+    //           borderColor: '#1E88E5',
+    //           data: dat
+    //         },
+    //         {
+    //           label: 'Valor Maximo Climatologico',
+    //           backgroundColor: '2f84ad',
+    //           borderColor: '#7CB342',
+    //           data: dat2
+    //         }
+    //       ]
+    //     }
+    //   });
+
+      this.apiFlask.getMonthlyMaxMeanDiffLimitDate(this.selectedCity.geocodigo,this.start, this.end).toPromise().then( (data: any) =>  {
+        switch(this.selectedGrafico.nomeGrafico) {
+          case "Máxima":
+            this.dataGrafico = {
+              labels: this.apiFlask.convertToArray(data.format_date),
+              datasets: [
+                {
+                  label: "Climatológico",
+                  backgroundColor: '#007bff',
+                  borderColor: '#55a7ff',
+                  data: this.apiFlask.convertToArray(data.maxima)
+                },
+                {
+                  label: "Máxima",
+                  backgroundColor: '#80bdff',
+                  borderColor: '#9ecdff',
+                  data: this.apiFlask.convertToArray(data.maxima_ano)
+                }
+              ]
+            };
+            break;
+          case "Média":
+            this.dataGrafico = {
+              labels: this.apiFlask.convertToArray(data.format_date),
+              datasets: [
+                {
+                  label: "Climatológico",
+                  backgroundColor: '#007bff',
+                  borderColor: '#55a7ff',
+                  data: this.apiFlask.convertToArray(data.media)
+                },
+                {
+                  label: "Média",
+                  backgroundColor: '#80bdff',
+                  borderColor: '#9ecdff',
+                  data: this.apiFlask.convertToArray(data.media_ano)
+                }
+              ]
+            };
+            break;
+          case "Anomalia":
+            this.dataGrafico = {
+              labels: this.apiFlask.convertToArray(data.format_date),
+              datasets: [
+                {
+                  label: 'Anomalia',
+                  backgroundColor: this.apiFlask.convertToColors(data.var_media),
+                  borderColor: this.apiFlask.convertToColors(data.var_media),
+                  data: this.apiFlask.convertToArray(data.var_media)
+                }
+              ]
             }
-          ]
+            break;
+          default:
+            alert("Selecione uma cidade e um estado com uma variável do gráfico!");
+            break;
         }
       });
-
+    
     // this.analiseService.listar(this.smh_api + "an_municipio_merge_monthly/" + this.selectedCity.geocodigo + "").toPromise()
     //   .then((data: any) => {
     //     data.forEach(element => {
@@ -274,12 +331,10 @@ export class AnaliseMensalComponent implements OnInit {
     //       ]
     //     }
     //   });
-
   }
 
   private salvar() {
-    console.log(this.valueDate)
-
+    console.log(this.start);
+    console.log(this.end);
   }
-
 }

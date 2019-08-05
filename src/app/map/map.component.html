@@ -138,25 +138,31 @@
 
 
             <p-accordion>
-                <p-accordionTab header="Analise Mensal">
-                    <button pButton type="button" (click)="visibleSidebar5 = true" label="Analise"
-                        class="ui-button-raised ui-button-secondary"></button>
-                    <button pButton type="button" (click)="visibleSidebar5 = true" label="Secondary"
-                        class="ui-button-raised ui-button-secondary"></button>
-                    <button pButton type="button" (click)="visibleSidebar5 = true" label="Secondary"
-                        class="ui-button-raised ui-button-secondary"></button>
-                    <button pButton type="button" (click)="buris = true" label="Secondary"
-                        class="ui-button-raised ui-button-secondary"></button>
-                </p-accordionTab>
-                <p-accordionTab header="Analise Diaria">
-                    Content 2
-                </p-accordionTab>
-                <p-accordionTab header="Analise Mensal">
-                    Content 3
-                </p-accordionTab>
-                <p-accordionTab header="Analise Mensal">
+                <p-accordionTab header="Analise">
 
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise
+                                Mensal</a>
+                        </div>
+                        <div class="ui-g-12">
+                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise
+                                Diária</a>
+                        </div>
+                        <div class="ui-g-12">
+                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise 3horas</a>
+                        </div>
+                    </div>
+            
                 </p-accordionTab>
+
+                <p-accordionTab header="Analise Diaria">
+                        <ul class="list-unstyled CTAs">
+                                <li><a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">PORTAL SIGMA SMH 1.0 -
+                                        CHUVA</a></li>
+                            </ul>
+                </p-accordionTab>
+            
             </p-accordion>
 
             <br />
@@ -291,18 +297,18 @@
                             <a class="dropdown-item" (click)="filtro_sidebar = true" href="#">Filtros</a>
                         </div>
                     </li> -->
-                    <li class="nav-item active">
+                    <!-- <li class="nav-item active">
                         <a class="nav-link" href="#">Sobre <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Contato</a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#"><img src="assets/img/br.svg" class="bandeira" alt="portugues"></a>
-                    </li>
-                    <li class="nav-item">
+                    </li> -->
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#"><img src="assets/img/usa.svg" class="bandeira" alt="ingles"></a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </nav>

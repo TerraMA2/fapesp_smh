@@ -26,6 +26,9 @@ import { MunicipioService } from 'src/app/services/municipio.service';
 // Model Entity
 import { Layers } from 'src/app/entity/layers';
 
+// Enum
+import { RepositoryApi } from 'src/app/enuns/repository-api.enum';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -50,8 +53,6 @@ export class MapComponent implements OnInit {
   setMap: string = 'osm';
   private data;
 
-  private geoserverTerraMaLocal = 'http://www.terrama2.dpi.inpe.br/chuva/geoserver/wms?';
-  private smh_api = 'http://150.163.17.143:8181/smh-api/terrama/resources/';
 
   private modelLayer = [
     // new Layers(1, 'Municipio_Ibge', 'TerraMA2', this.geoserverTerraMaCurso, 'terrama2_9:view9', '4326'),
@@ -193,7 +194,7 @@ export class MapComponent implements OnInit {
 
 
     var wmsSource = new TileWMS({
-      url: this.geoserverTerraMaLocal,
+      url: RepositoryApi.geoserverTerraMaLocal,
       params: { 'LAYERS': 'terrama2_1:view1', 'TILED': true },
       serverType: 'geoserver',
       crossOrigin: 'anonymous'
@@ -226,7 +227,7 @@ export class MapComponent implements OnInit {
 
   private legenda(featuresLayer, featuresGeoserver) {
 
-    var url = this.geoserverTerraMaLocal + "REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER={{LAYER_NAME}}&STYLE={{STYLE_NAME}}";
+    var url = RepositoryApi.geoserverTerraMaLocal + "REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER={{LAYER_NAME}}&STYLE={{STYLE_NAME}}";
     url = url.replace('{{LAYER_NAME}}', featuresLayer.workspace + ":" + featuresLayer.layername);
     url = url.replace('{{STYLE_NAME}}', featuresLayer.workspace + ":" + featuresLayer.layername + '_style');
     if (url) {
@@ -256,7 +257,7 @@ export class MapComponent implements OnInit {
 
 
   initLayer() {
-    this.mapService.listar(this.smh_api + "/viewslayer").toPromise()
+    this.mapService.listar(RepositoryApi.smh_api + "/viewslayer").toPromise()
       .then((data: any) => {
         this.jsonObj = data;
         data.forEach(element => {

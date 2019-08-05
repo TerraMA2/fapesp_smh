@@ -6,7 +6,6 @@
 <h4 style="font-weight:normal">Busca de Dados</h4>
 <!-- input de dados  -->
 <div class="ui-g">
-    
     <div class="ui-g-2">
         <!-- <span class="ui-float-label">
                         <input id="float-input" type="text" [disabled]="true" size="30" pInputText> 
@@ -26,8 +25,8 @@
     <div class="p-col-12">
         <div class="p-grid">
             <div class="p-col-3">
-                    <div class="p-col"> <p-calendar [(ngModel)]="valueDate" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="1998:2100" [disabled]="false" [showIcon]="true"></p-calendar></div>
-                    <div class="p-col"> <p-calendar [(ngModel)]="date3" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="1998:2100" [disabled]="false" [showIcon]="true"></p-calendar></div>
+                    <div class="p-col"> <p-calendar [(ngModel)]="start" view="month" dateFormat="MM / yy" [disabled]="false" [showIcon]="true"></p-calendar></div>
+                    <div class="p-col"> <p-calendar [(ngModel)]="end" view="month" dateFormat="MM / yy" [disabled]="false" [showIcon]="true"></p-calendar></div>
                     <div class="p-col"></div>
                     <div class="p-col"><p-dropdown [options]="grafico" [(ngModel)]="selectedGrafico" [disabled]="false" filter="false" placeholder="Variável" optionLabel="nomeGrafico"
                         [showClear]="true"></p-dropdown></div>
@@ -38,7 +37,7 @@
                     <div class="p-col"><p-dropdown [options]="cities" [(ngModel)]="selectedCity" (onChange)="loadAnalise()" filter="true" placeholder="Município" optionLabel="nome1"
                         [showClear]="true"></p-dropdown></div>
 
-                        <div class="p-col"><button pButton type="button" (click)="salvar()"label="Buscar" class="ui-button-success"></button></div>
+                        <div class="p-col"><button pButton type="button" (click)="loadAnalise()"label="Buscar" class="ui-button-success"></button></div>
                         <!-- <div class="p-col"><button pButton type="button" (click)="visibleSidebar5 = false" label="Fechar"class="ui-button-secondary"></button></div> -->
                    
             </div>

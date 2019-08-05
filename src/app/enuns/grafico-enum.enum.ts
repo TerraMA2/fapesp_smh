@@ -3,5 +3,4 @@ export enum GraficoEnum {
     Média = "Média",
     Anomalia = "Anomalia",
     Teste = "Teste"
-
 }

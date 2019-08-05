@@ -703,7 +703,7 @@ footer{
 .baselayer {
     width:50px;
     height:50px;
-    background:#fff;
+    background:#405987;
     border-radius:5px;
     box-sizing:border-box;
     text-align:center;
@@ -714,7 +714,7 @@ footer{
     height:50px;
     text-align:left;
     padding:0 15px;
-    background:#007b5e;
+    background:#405987;
     transform:translateY(-10%);
     border-bottom-left-radius:0;
     border-bottom-right-radius:0;
