@@ -217,13 +217,15 @@ export class AnaliseMensalComponent implements OnInit {
     var dat2_2 = [];
 
     // console.log(url2)
-    this.analiseService.listar(RepositoryApi.smh_api + "an_municipio_merge_monthly/" + this.selectedCity.geocodigo + "").toPromise()
+    this.analiseService.listar(RepositoryApi.smh_api + "an_maxima_merge_monthly/" + this.selectedCity.geocodigo + "").toPromise()
       .then((data: any) => {
         this.dados = data;
+        
         data.forEach(element => {
+          console.log(element)
           laber.push(element.mes)
-          dat.push(element.maxima)
-          dat2.push(element.media)
+          dat.push(element.maxima_merge)
+          dat2.push(element.maxima)
         });
         // console.log(laber)
         this.dataGrafico = {

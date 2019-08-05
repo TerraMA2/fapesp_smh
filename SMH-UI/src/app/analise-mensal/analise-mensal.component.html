@@ -27,7 +27,7 @@
             <div class="p-col-3">
                     <div class="p-col"> <p-calendar [(ngModel)]="valueDate" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="1998:2100" [disabled]="false" [showIcon]="true"></p-calendar></div>
                     <div class="p-col"> <p-calendar [(ngModel)]="date3" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="1998:2100" [disabled]="false" [showIcon]="true"></p-calendar></div>
-                    <div class="p-col"></div>
+                    <!-- <div class="p-col"></div> -->
                     <div class="p-col"><p-dropdown [options]="grafico" [(ngModel)]="selectedGrafico" [disabled]="false" filter="false" placeholder="Variável" optionLabel="nomeGrafico"
                         [showClear]="true"></p-dropdown></div>
                         <!-- <div class="p-col"><p-dropdown [options]="anos" [(ngModel)]="selectedUf" [disabled]="false" filter="false" placeholder="Select Anos" optionLabel="anos"
@@ -51,20 +51,21 @@
               
             </div>
             <div class="p-col-12">
-                <p-table [value]="dados">
+                <p-table [value]="dados" [scrollable]="true" scrollHeight="400px">
                     <ng-template pTemplate="header">
+                        
                         <tr>
                             <th>MÊS</th>
-                            <th>Máxima Climatoligica</th>
-                            <th>Máxima</th>
+                            <th>Máxima </th>
+                            <th>Máxima Climatológica</th>
                             <th>Municipio</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-dado>
                         <tr>
                             <td>{{dado.mes}}</td>
+                            <td>{{dado.maxima_merge}}</td>
                             <td>{{dado.maxima}}</td>
-                            <td>{{dado.media}}</td>
                             <td>{{dado.nome1}}</td>
                         </tr>
                     </ng-template>
