@@ -1,5 +1,7 @@
 export interface City {
-    name: string;
-    code: string;
+    geocodigo: string;
+    latitude: number;
+    longitude: number;
+    nome1: string;
 }
 

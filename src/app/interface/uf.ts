@@ -1,3 +1,4 @@
 export interface Uf {
-    nomeUf: string;
+    estado: string;
+    uf: string;
 }

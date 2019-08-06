@@ -1,1 +1,0 @@
-DELETE * FROM an_municipios_monthly WHERE mes IS NULL AND ano IS NULL;
