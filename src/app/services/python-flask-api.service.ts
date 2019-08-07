@@ -24,7 +24,7 @@ export class PythonFlaskAPIService{
   getMonthlyMaxMeanDiffLimitDate(geocodigo: string, start: Date, end: Date){
     return this.httpClient.get<AnaliseGeotiffDiffLimitDate>(
       RepositoryApi.smh_api +
-      '/an_monthly_diff_limit_date/' +
+      '/analise/' +
       geocodigo + '/' +
       (start.getMonth() + 1) + '/' +
       start.getFullYear() + '/' +
@@ -63,8 +63,8 @@ export class PythonFlaskAPIService{
         ano: ano[i],
         maxima: maxima[i],
         maxima_ano: maxima_ano[i],
-        media: (media[i] * 30),
-        media_ano: (media_ano[i] * 30),
+        media: media[i],
+        media_ano: media_ano[i],
         mes: mes[i],
         nome_municipio: nome_municipio[i],
         var_maxima: var_maxima[i],

@@ -43,16 +43,16 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th>MÊS</th>
-                            <th>Média Climatoligica (mm/dia)</th>
-                            <th>Média Mensal (mm/dia)</th>
+                            <th>Média Climatoligica (mm/mês)</th>
+                            <th>Média Mensal (mm/mês)</th>
                             <th>Municipio</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-dado>
                         <tr>
                             <td>{{ dado.format_date }}</td>
-                            <td>{{ dado.media }}</td>
-                            <td>{{ dado.media_ano }}</td>
+                            <td>{{ dado.media.toFixed(2) }}</td>
+                            <td>{{ dado.media_ano.toFixed(2) }}</td>
                             <td>{{ dado.nome_municipio }}</td>
                         </tr>
                     </ng-template>

@@ -133,14 +133,14 @@ export class AnaliseMensalComponent implements OnInit {
               labels: this.apiFlask.convertToArray(data.format_date),
               datasets: [
                 {
-                  label: "Climatológico",
+                  label: "Climatológico mm/mês",
                   backgroundColor: '#007bff',
                   borderColor: '#55a7ff',
                   /// fill: false,
                   data: this.apiFlask.convertToArray(data.maxima)
                 },
                 {
-                  label: "Máxima",
+                  label: "Máxima mm/mês",
                   backgroundColor: '#80bdff',
                   borderColor: '#9ecdff',
                   /// fill: false,
@@ -154,14 +154,14 @@ export class AnaliseMensalComponent implements OnInit {
               labels: this.apiFlask.convertToArray(data.format_date),
               datasets: [
                 {
-                  label: "Climatológico",
+                  label: "Climatológico mm/mês",
                   backgroundColor: '#007bff',
                   borderColor: '#55a7ff',
                   /// fill: false,
                   data: this.apiFlask.convertToArray(data.media)
                 },
                 {
-                  label: "Média",
+                  label: "Média mm/mês",
                   backgroundColor: '#80bdff',
                   borderColor: '#9ecdff',
                   /// fill: false,
@@ -175,7 +175,7 @@ export class AnaliseMensalComponent implements OnInit {
               labels: this.apiFlask.convertToArray(data.format_date),
               datasets: [
                 {
-                  label: 'Anomalia',
+                  label: 'Anomalia mm/mês',
                   backgroundColor: this.apiFlask.convertToColors(data.var_media),
                   borderColor: this.apiFlask.convertToColors(data.var_media),
                   data: this.apiFlask.convertToArray(data.var_media)
