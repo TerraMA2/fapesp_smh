@@ -28,9 +28,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Libraries Python for Flask API
 
+Before installing API Flask, upgrade `python 3.7 pip` with the following command.
+```
+# pip install --upgrade pip
+```
 To use a API Flask with Angular, some libraries are required and here is a simple pip command to install all dependencies.
 ```
-pip install psycopg2 numpy pandas sqlalchemy georaster Flask flask-api flask_cors flask_restful flask_jsonpify
+# pip install psycopg2 numpy pandas sqlalchemy georaster Flask flask-api flask_cors flask_restful flask_jsonpify
 ```
 
 ## Run Python Flask API
