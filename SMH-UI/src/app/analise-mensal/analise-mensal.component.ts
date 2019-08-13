@@ -20,9 +20,9 @@ import { City } from 'src/app/interface/city';
 import { AnaliseGeotiffDiffLimitDate } from 'src/app/raster/analise-geotiff-diff-limit-date';
 
 // Enum
-import { UfEnum } from 'src/app/enuns/uf-enum.enum';
-import { GraficoEnum } from 'src/app/enuns/grafico-enum.enum';
-import { RepositoryApi } from 'src/app/enuns/repository-api.enum';
+import { UfEnum } from 'src/app/enums/uf-enum.enum';
+import { GraficoEnum } from 'src/app/enums/grafico-enum.enum';
+import { RepositoryApi } from 'src/app/enums/repository-api.enum';
 
 @Component({
   selector: 'app-analise-mensal',

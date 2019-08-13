@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { City } from '../interface/city';
 import { AnaliseGeotiffDiffLimitDate } from '../raster/analise-geotiff-diff-limit-date';
-import { RepositoryApi } from '../enuns/repository-api.enum';
+import { RepositoryApi } from '../enums/repository-api.enum';
 import { Uf } from '../interface/uf';
 
 @Injectable({
