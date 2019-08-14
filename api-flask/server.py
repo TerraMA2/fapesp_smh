@@ -75,4 +75,4 @@ api.add_resource(CitiesByState, '/cities/<uf>')
 api.add_resource(States, '/states')
 
 if __name__ == '__main__':
-    app.run( port = 4863, host = '0.0.0.0')
+    app.run( debug = True, host = '0.0.0.0')
