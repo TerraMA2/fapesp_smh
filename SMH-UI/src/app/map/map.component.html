@@ -12,15 +12,20 @@
                 class="material-icons md-light md-inactive" alt="portugues">
         </div>
 
-        <!-- ferramentas gerais -->
+
+
         <ul class="list-unstyled components connected list">
+
             <li *ngFor="let layer of modelLayer">
                 <a href="#layer{{ layer.id }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <i class="material-icons configura">settings</i> {{ layer.name }}
                     <div class="fontecamada">Fonte da camada: {{ layer.fonte }}</div>
                 </a>
                 <div class="material-switch pull-right">
-                    <input id="{{ layer.name }}" name="someSwitchOption001" (click)="setLayerType(layer.name)" type="checkbox" />
+                    <!-- <input id="{{ layer.name }}" name="someSwitchOption001" (click)="setLayerType(layer.name)"  type="checkbox" checked/> -->
+                    <input id="{{ layer.name }}" name="someSwitchOption001" (click)="setLayerType(layer.name)"
+                        type="checkbox" />
+                    <!-- <p-inputSwitch id="{{ layer.name }}"  (click)="setLayerType(layer.name)"></p-inputSwitch> -->
                     <label for="{{ layer.name }}" class="bg-white"></label>
                 </div>
 
@@ -42,9 +47,11 @@
 
                 </ul>
             </li>
+
         </ul>
 
         <div class="ferramentas">
+
             <dfn data-info="Dados Analises">
                 <button type="button" class="btn"><i class="material-icons md-dark md-inactive"> <img
                             src="assets/img/icon-notes.png"></i></button>
@@ -61,37 +68,96 @@
 
         <ul class="list-unstyled CTAs">
             <p-accordion>
-                <p-accordionTab header="Analise">
+                <p-accordionTab header="Análise Temporal Mensal">
+
                     <div class="ui-g">
                         <div class="ui-g-12">
-                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise Mensal</a>
+                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise
+                                Mensal</a>
                         </div>
                         <div class="ui-g-12">
-                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise Diária</a>
+                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise
+                                Diária</a>
                         </div>
                         <div class="ui-g-12">
-                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise 3horas</a>
-                        </div>
-                        <div class="ui-g-12">
-                            <a href="#" class="btn btn-primary btn-success" (click)="layer_sidebar = true">Camadas</a>
+                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise
+                                3horas</a>
                         </div>
                     </div>
                 </p-accordionTab>
-                <p-accordionTab header="Analise Diaria">
-                        <ul class="list-unstyled CTAs">
-                                <li><a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">PORTAL SIGMA SMH 1.0 - CHUVA</a></li>
-                            </ul>
-                </p-accordionTab>
             </p-accordion>
-            <br/>
-        </ul>
-        <ul class="list-unstyled CTAs">
-            <li><a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">PORTAL SIGMA SMH 1.0 - CHUVA</a></li>
-        </ul>
-    </nav>
 
+            <p-accordion>
+                <p-accordionTab header="Análise Espacial Município">
+                    <div class="p-col-12">
+                        <div class="p-grid">
+                            <div class="p-col-12">
+                                <p-calendar [(ngModel)]="valueDateInit" [inline]="false" view="month" dateFormat="MM/yy"
+                                    [yearNavigator]="false" yearRange="1998:2019" [showIcon]="false"></p-calendar>
+                                <p-dropdown [options]="jsonObj" [(ngModel)]="selectedLayer"
+                                    (click)="activeLayerAnTemporalMunicipal()" [disabled]="false" filter="false"
+                                    placeholder="Variável" optionLabel="name" [showClear]="true">
+                                </p-dropdown>
+                                <button pButton type="button" (click)="setLayer()" label="Buscar"
+                                    class="ui-button-success"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </p-accordionTab>
+
+                <p-accordionTab header="Análise Espacial Bácia">
+
+                    <ul class="list-unstyled components connected list">
+                        <li *ngFor="let layer of jsonObj">
+                            <a href="#layer{{ layer.id }}" data-toggle="collapse" aria-expanded="false"
+                                class="dropdown-toggle">
+                                <i class="material-icons configura">settings</i> {{ layer.name }}
+                                <!-- <div class="fontecamada">Fonte da camada: {{ layer.source_type }}</div> -->
+                                <!-- <div class="fontecamada">Fonte da camada: TerraMA Local</div> -->
+                            </a>
+                            <div class="material-switch pull-right">
+                                <input id="{{ layer.layername }}" name="someSwitchOption001"
+                                    (click)="setLayerType(layer)" type="checkbox" />
+                                <label for="{{ layer.layername }}" class="bg-white"></label>
+                            </div>
+                            <ul class="collapse list-unstyled" id="layer{{ layer.id }}">
+                                <li>
+                                    <div class="fe-camadas">
+                                        <button type="button" class="btn" (click)="activeLayer(layer)"><i
+                                                class="material-icons md-dark">swap_vert</i></button>
+                                        <button type="button" class="btn" (click)="LegendaSidebar = true"
+                                            (click)="legenda(layer)"><i
+                                                class="material-icons md-dark">palette</i></button>
+                                        <button type="button" class="btn"><i
+                                                class="material-icons md-dark md-inactive">add_location</i></button>
+                                        <button type="button" class="btn"><i
+                                                class="material-icons md-dark">brightness_6</i></button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+                </p-accordionTab>
+
+            </p-accordion>
+
+            <br />
+
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+            <li><a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">PORTAL SIGMA SMH 1.0 -
+                    CHUVA</a></li>
+        </ul>
+
+
+    </nav>
     <!-- Menu superior -->
     <div id="content">
+
         <nav class="navbar navbar-expand-lg materialnav navbar-header">
             <button class="btn btn-material navbar-btn " type="button" data-toggle="collapse" id="sidebarCollapse"
                 data-target="#navbar" aria-controls="navbarNavAltMarkup" aria-expanded="false"
@@ -104,12 +170,41 @@
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="#">| Sistema de Monitoramento Hidrometeorológico</a>
                 </div>
+
                 <ul class="navbar-nav  navbar-right">
+                    <!-- <li class="nav-item dropdown analises">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Análises
+                        </a>
+                        <div class="dropdown-menu submenu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" (click)="visibleSidebar5 = true" href="#">Análises</a>
+                            <a class="dropdown-item" href="#">Busca De Dados</a>
+                            <a class="dropdown-item" href="#">Graficos</a>
+                            <a class="dropdown-item" href="#">Exportar Dados</a>
+                            <a class="dropdown-item" (click)="filtro_sidebar = true" href="#">Filtros</a>
+                        </div>
+                    </li> -->
+                    <!-- <li class="nav-item active">
+                        <a class="nav-link" href="#">Sobre <span class="sr-only">(current)</span></a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">Contato</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#"><img src="assets/img/br.svg" class="bandeira" alt="portugues"></a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#"><img src="assets/img/usa.svg" class="bandeira" alt="ingles"></a>
+                    </li> -->
                 </ul>
             </div>
         </nav>
+
         <div class="container-fluid mapa">
+
             <div id="map" class="map"></div>
+
         </div>
     </div>
 </div>
@@ -122,30 +217,31 @@
         <i class="fa fa-clone"></i>
         <ul>
             <li class="icon">
-                <p-radioButton name="osm" value="osm" label=" Google Satelite " [(ngModel)]="setMap"
-                inputId="preopt1"></p-radioButton>
+                <p-radioButton name="osm" value="osm" label=" Google Satelite " [(ngModel)]="setMap" inputId="preopt1">
+                </p-radioButton>
                 <label for="radio1"><span></span></label>
+                <!-- <span class="text"></span> -->
             </li>
+
             <li class="icon">
                 <p-radioButton name="Watercolor" value="Watercolor" label=" Watercolor " [(ngModel)]="setMap"
                     inputId="preopt3"></p-radioButton>
                 <label for="radio3"><span></span></label>
+                <!-- <span class="text">Google Streets</span> -->
             </li>
             <li class="icon">
-                <p-radioButton name="GEBCO" value="GEBCO" label="GEBCO" [(ngModel)]="setMap"
+                <p-radioButton name="Watercolor" value="Toner" label=" Toner " [(ngModel)]="setMap" inputId="preopt4">
+                </p-radioButton>
+                <label for="radio4"><span></span></label>
+                <!-- <span class="text">Google Terrain</span> -->
+            </li>
+            <li class="icon">
+                <p-radioButton name="Watercolor" value="Terrain" label=" Terrain " [(ngModel)]="setMap"
                     inputId="preopt5"></p-radioButton>
                 <label for="radio4"><span></span></label>
+                <!-- <span class="text">Google Terrain</span> -->
             </li>
-            <li class="icon">
-                <p-radioButton name="Toner" value="Toner" label=" Toner " [(ngModel)]="setMap"
-                    inputId="preopt4"></p-radioButton>
-                <label for="radio4"><span></span></label>
-            </li>
-            <li class="icon">
-                <p-radioButton name="Terrain" value="Terrain" label=" Terrain " [(ngModel)]="setMap"
-                    inputId="preopt5"></p-radioButton>
-                <label for="radio4"><span></span></label>
-            </li>
+
         </ul>
     </div>
 </div>
@@ -179,31 +275,10 @@
 </p-sidebar>
 
 
-<p-sidebar [(visible)] = "layer_sidebar" position="left" [baseZIndex]="10000">
+<p-sidebar [(visible)]="layer_sidebar" position="left" [baseZIndex]="10000">
     <h5 style="font-weight:normal">Layer</h5>
     <nav id="sidebar">
-        <ul class="list-unstyled components connected list">
-            <li *ngFor="let layer of jsonObj">
-                <a href="#layer{{ layer.id }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="material-icons configura">settings</i> {{ layer.name }}
-                    <div class="fontecamada">Fonte da camada: TerraMA Local</div>
-                </a>
-                <div class="material-switch pull-right">
-                    <input id="{{ layer.layername }}" name="someSwitchOption{{ layer.id }}" (click)="layer.setVisible()" type="checkbox" />
-                    <label for="{{ layer.layername }}" class="bg-white"></label>
-                </div>
-                <ul class="collapse list-unstyled" id="layer{{ layer.id }}">
-                    <li>
-                        <div class="fe-camadas">
-                            <button type="button" class="btn" (click)="activeLayer(layer)"><i class="material-icons md-dark">swap_vert</i></button>
-                            <button type="button" class="btn" (click)="LegendaSidebar = true" (click)="legenda(layer)"><i class="material-icons md-dark">palette</i></button>
-                            <button type="button" class="btn"><i class="material-icons md-dark md-inactive">add_location</i></button>
-                            <button type="button" class="btn"><i class="material-icons md-dark">brightness_6</i></button>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+
     </nav>
     <button pButton type="button" (click)="salvar()" label="Buscar" class="ui-button-success"></button>
     <button pButton type="button" (click)="filtro_sidebar = false" label="Fechar" class="ui-button-secondary"></button>
