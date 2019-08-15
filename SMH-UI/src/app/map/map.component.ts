@@ -6,16 +6,10 @@ import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
 import TileWMS from 'ol/source/TileWMS';
-// import Vector from 'ol/source/Vector';
 import Stamen from 'ol/source/Stamen';
 import GeoJSON from 'ol/format/GeoJSON';
 import FullScreen from 'ol/control/FullScreen';
 import DragRotateAndZoom from 'ol/interaction/DragRotateAndZoom';
-// import Feature from 'ol/Feature';
-// import Point from 'ol/geom/Point';
-// import Select from 'ol/interaction/Select';
-// import { Icon, Style, Stroke } from 'ol/style';
-// import { mapToMapExpression } from '@angular/compiler/src/render3/util';
 
 // service
 import { MapService } from 'src/app/services/map.service';
@@ -42,7 +36,6 @@ export class MapComponent implements OnInit {
   private waterColor;
   private toner;
   private osm;
-  // private gebco;
   private terrain;
 
   value: number = 0;
@@ -55,8 +48,6 @@ export class MapComponent implements OnInit {
 
   private valueDateInit: Date;
   private selectedLayer: any;
-
-  // visible: boolean;
 
 
   constructor(private mapService: MapService, private wmsService: WmsService, private analiseService: AnaliseDadosService,
@@ -119,17 +110,6 @@ export class MapComponent implements OnInit {
       layer: 'osm',
     });
 
-    // this.gebco = new TileLayer({
-    //   source: new TileWMS(({
-    //     preload: Infinity,
-    //     visible: false,
-    //     title: "gebco",
-    //     baseLayer: true,
-    //     url: 'http://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?',
-    //     params: { 'LAYERS': 'GEBCO_LATEST', 'VERSION': '1.1.1', 'FORMAT': 'image/png' }
-    //   })),
-    //   serverType: 'mapserver'
-    // });
 
     this.waterColor = new TileLayer(
       {
@@ -173,7 +153,7 @@ export class MapComponent implements OnInit {
       // projection: 'EPSG:4326'
     });
 
-    // var layers = [this.osm, this.gebco, this.waterColor, this.toner, this.terrain];
+
     var layers = [this.osm, this.waterColor, this.toner, this.terrain];
 
     this.map = new Map({
@@ -186,15 +166,6 @@ export class MapComponent implements OnInit {
 
     this.map.on('singleclick', function (evt) {
     });
-
-    // ---------------------------------------------------------------------
-
-    // var wmsSource = new TileWMS({
-    //   url: RepositoryApi.geoserverTerraMaLocal,
-    //   params: { 'LAYERS': 'terrama2_1:view1', 'TILED': true },
-    //   serverType: 'geoserver',
-    //   crossOrigin: 'anonymous'
-    // });
 
 
     this.map.on('singleclick', function (evt) {
@@ -238,9 +209,21 @@ export class MapComponent implements OnInit {
     }
   }
 
-  // private setLayerType(featuresLayer) {
-  //   console.log(featuresLayer);
-  // }
+  private legendaToAEM() {
+    try {
+      var url = RepositoryApi.geoserverTerraMaLocal + "REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER={{LAYER_NAME}}&STYLE={{STYLE_NAME}}";
+      url = url.replace('{{LAYER_NAME}}', this.selectedLayer.workspace + ":" + this.selectedLayer.layername);
+      url = url.replace('{{STYLE_NAME}}', this.selectedLayer.workspace + ":" + this.selectedLayer.layername + '_style');
+      if (url) {
+        var parser = new GeoJSON();
+        document.getElementById('info').innerHTML =
+          '<iframe allowfullscreen height="800" src="' + url + '"></iframe>';
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
 
   private setLayerType(featuresLayer) {
     if (this.features[featuresLayer.name].getVisible() == true) {
@@ -265,16 +248,6 @@ export class MapComponent implements OnInit {
       });
   }
 
-  // private initAddlayer() {
-  //   console.log("iniciado")
-  //   console.log(this.jsonObj)
-  //   this.jsonObj.forEach(element => {
-  //     console.log(element)
-  //     this.features[element.name] = this.wmsService.camadas(element);
-  //     this.map.addLayer(this.features[element.name]);
-  //     this.mapG.addLayer(this.features[element.name]);
-  //   });
-  // }
 
   private setMapType() {
     switch (this.setMap) {
@@ -297,23 +270,7 @@ export class MapComponent implements OnInit {
   }
 
   private salvar() {
-    // var group = this.map.getLayerGroup();
-    // var gruplayers = group.getLayers();
-    // var layers = this.map.getLayers().getArray();
-    // for (var i = 5; i < layers.length; i++) {
-    //   var element = gruplayers.item(i);
-    //   var name = element.get('title');
-    // }
 
-    // if (this.selectedCity == null) {
-    //   this.map.setView(new View({
-    //     center: [-6124801.2015823, -1780692.0106836], zoom: 4
-    //   }));
-    // } else {
-    //   this.map.setView(new View({
-    //     center: [this.selectedCity.latitude, this.selectedCity.longitude], zoom: 11, projection: 'EPSG:4326'
-    //   }));
-    // }
   }
 
   private activeLayer(featuresLayer) {
@@ -343,13 +300,7 @@ export class MapComponent implements OnInit {
         this.features[this.selectedLayer.name].setVisible(true);
       }
     } catch (e) {
-      // console.log(e instanceof TypeError); // true
-      console.log(e.message);              // "null has no properties"
-      // console.log(e.name);                 // "TypeError"
-      // console.log(e.fileName);             // "Scratchpad/1"
-      // console.log(e.lineNumber);           // 2
-      // console.log(e.columnNumber);         // 2
-      // console.log(e.stack);                // "@Scratchpad/2:2:3\n"
+      console.log(e.message);
     }
   }
 

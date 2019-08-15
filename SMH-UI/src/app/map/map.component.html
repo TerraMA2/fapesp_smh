@@ -98,8 +98,25 @@
                                     (click)="activeLayerAnTemporalMunicipal()" [disabled]="false" filter="false"
                                     placeholder="Variável" optionLabel="name" [showClear]="true">
                                 </p-dropdown>
-                                <button pButton type="button" (click)="setLayer()" label="Buscar"
-                                    class="ui-button-success"></button>
+
+                                <button type="button" (click)="setLayer()" class="btn"><i
+                                        class="material-icons md-dark md-inactive"> <img
+                                            src="assets/img/icon-regua.png"></i></button>
+
+                                <button type="button" (click)="legendaToAEM()" (click)="LegendaSidebar = true"
+                                    class="btn"><i class="material-icons md-dark md-inactive"> <img
+                                            src="assets/img/icon-help.png"></i></button>
+
+                                <!-- <button type="button" (click)="setLayer()" class="btn"><i
+                                        class="material-icons md-dark md-inactive"> <img
+                                            src="assets/img/icon-regua.png"></i></button> -->
+
+
+                                <!-- <button pButton type="button" (click)="setLayer()" label="Buscar" class="ui-button-success"></button> -->
+                                <!-- <button pButton type="button" (click)="legendaToAEM()" (click)="LegendaSidebar = true" label="Legenda" class="ui-button-success"></button> -->
+                                <!-- <button type="button" class="btn" (click)="LegendaSidebar = true"
+                                (click)="legendaToAEM()"><i class="material-icons md-dark">palette</i></button> -->
+
                             </div>
                         </div>
                     </div>
