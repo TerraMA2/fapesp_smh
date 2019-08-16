@@ -37,7 +37,7 @@ class Analise(Resource):
             mes, ano = (int(mes_fim) + 1), int(ano_fim)
             if mes > 12: mes, ano = 1, ano + 1
             data = conectar.readFileSQL(
-                "sql/analise",
+                "sql/analysis_month",
                 {
                     "geocodigo":str(geocodigo),
                     "mes_inicio":str(mes_inicio),
