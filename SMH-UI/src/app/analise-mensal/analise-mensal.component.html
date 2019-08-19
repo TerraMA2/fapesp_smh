@@ -1,0 +1,86 @@
+<p>
+  Análise Mensal Dados Climatológicos!
+</p>
+<h4 style = "font-weight:normal">Busca de Dados</h4>
+<!-- input de dados  -->
+<div class = "ui-g">
+    <div class = "ui-g-2">
+        <!-- <span class = "ui-float-label">
+                        <input id = "float-input" type = "text" [disabled] = "true" size = "30" pInputText> 
+                        <label for = "float-input">Metadados</label>
+                    </span> -->
+                    <!-- <p-spinner size = "30" [(ngModel)] = "val3" [step] = "1"></p-spinner> -->
+    </div>
+    <!-- <div class = "ui-g-2">
+        <button pButton type = "button" (click) = "analise()"label = "Buscar" class = "ui-button-success"></button>
+        <button pButton type = "button" (click) = "visibleSidebar5 = false" label = "Fechar"class = "ui-button-secondary"></button>
+    </div> -->
+</div>
+<div class = "p-grid">
+    <div class = "p-col-12">
+        <div class = "p-grid">
+            <div class = "p-col-3">
+                    <div class = "p-col">
+                        <p-calendar
+                            [(ngModel)] = "start"
+                            view = "month"
+                            dateFormat = "MM / yy"
+                            [minDate] = "min"
+                            [maxDate] = "max"
+                            [disabled] = "false"
+                            [showIcon] = "true"
+                        ></p-calendar>
+                    </div>
+                    <div class = "p-col">
+                        <p-calendar
+                            [(ngModel)] = "end"
+                            view = "month"
+                            dateFormat = "MM / yy"
+                            [minDate] = "min"
+                            [maxDate] = "max"
+                            [disabled] = "false"
+                            [showIcon] = "true"
+                        ></p-calendar>
+                    </div>
+                    <div class = "p-col"></div>
+                    <div class = "p-col"><p-dropdown [options] = "grafico" [(ngModel)] = "selectedGrafico" [disabled] = "false" placeholder = "Variável" optionLabel = "nomeGrafico" [showClear] = "true"></p-dropdown></div>
+                    <div class = "p-col"><p-dropdown [options] = "uf" [(ngModel)] = "selectedUf" filter = "true" (onChange) = "loadCityByUf()" placeholder = "Estado" optionLabel = "estado" [showClear] = "true"></p-dropdown></div>
+                    <div class = "p-col"><p-dropdown [options] = "cities" [(ngModel)] = "selectedCity" filter = "true" placeholder = "Município" optionLabel = "nome1" [showClear] = "true"></p-dropdown></div>
+                    <div class = "p-col"><button pButton type = "button" (click) = "loadAnalise()"label = "Buscar" class = "ui-button-success"></button></div>
+            </div>
+            <div class = "p-col-6">
+                <p-chart type = "bar"  height = "350" [data] = "dataGrafico"></p-chart>
+            </div>
+            <div class = "p-col-3">
+                <div id = "mapAnalise"  class = "mapG"></div>
+            </div>
+            <div class = "p-col-12">
+                <p-table [value] = "dados">
+                    <ng-template pTemplate = "header">
+                        <tr>
+                            <th>MÊS</th>
+                            <th>Média Climatoligica (mm/mês)</th>
+                            <th>Média Mensal (mm/mês)</th>
+                            <th>Municipio</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate = "body" let-dado>
+                        <tr>
+                            <td>{{ dado.format_date }}</td>
+                            <td>{{ dado.media.toFixed(2) }}</td>
+                            <td>{{ dado.media_ano.toFixed(2) }}</td>
+                            <td>{{ dado.nome_municipio }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+    <!-- <div class = "p-col-4">
+        <div id = "mapG"  class = "mapG"></div>
+    </div> -->
+</div>
+<!-- Grafico barra -->
+<!-- fom do grafico de barra  -->
+<!-- <p-progressBar [value] = "value"></p-progressBar> -->
+<!-- <p-progressBar mode = "indeterminate" [style] = "{'height': '6px'}"></p-progressBar> -->

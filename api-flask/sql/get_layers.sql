@@ -1,0 +1,1 @@
+select l.id,l.name As layername,workspace,uri, v.name, v.source_type from terrama2.layers l inner join terrama2.registered_views rv on l.registered_view_id = rv.id inner join terrama2.views v on rv.view_id = v.id

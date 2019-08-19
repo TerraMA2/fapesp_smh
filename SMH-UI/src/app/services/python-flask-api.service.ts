@@ -89,4 +89,12 @@ export class PythonFlaskAPIService{
     }
     return vetor;
   }
+
+  compareDates(start: Date, end: Date){
+    var startY = start.getFullYear();
+    var endY = end.getFullYear();
+    var startM = start.getMonth();
+    var endM = end.getMonth();
+    return Math.abs((endM+12*endY)-(startM+12*startY));
+  }
 }

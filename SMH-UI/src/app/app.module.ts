@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
-import { AnaliseMensalComponent } from './dashboard/analise-mensal/analise-mensal.component';
+import { AnaliseMensalComponent } from './analise-mensal/analise-mensal.component';
 
 import { FormsModule } from '@angular/forms';
 

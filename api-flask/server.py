@@ -70,9 +70,20 @@ class States(Resource):
         except:
             return jsonify({ 'info' : 'Impossível fazer a leitura'})
 
+class Layers(Resource):
+    def get(self):
+        try:
+            conectar = Connection_pg("chuva")
+            data = conectar.readFileSQL("sql/get_layers", {})
+            print(data)
+            return jsonify(data.to_dict())
+        except:
+            return jsonify({ 'info' : 'Impossível fazer a leitura'})
+
 api.add_resource(Analise, '/analise/<geocodigo>/<mes_inicio>/<ano_inicio>/<mes_fim>/<ano_fim>')
 api.add_resource(CitiesByState, '/cities/<uf>')
 api.add_resource(States, '/states')
+api.add_resource(Layers, '/layers')
 
 if __name__ == '__main__':
     app.run( debug = True, host = '0.0.0.0')

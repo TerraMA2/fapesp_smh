@@ -1,7 +1,7 @@
-// import { BaseLayers } from './base-layers';
+import { BaseLayers } from './base-layers';
 
-// describe('BaseLayers', () => {
-//   it('should create an instance', () => {
-//     expect(new BaseLayers()).toBeTruthy();
-//   });
-// });
+describe('BaseLayers', () => {
+  it('should create an instance', () => {
+    expect(new BaseLayers()).toBeTruthy();
+  });
+});

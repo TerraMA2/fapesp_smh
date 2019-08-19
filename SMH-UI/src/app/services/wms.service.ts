@@ -15,6 +15,29 @@ export class WmsService {
 
   constructor() { }
 
+  // camadas(Layers) {
+
+  //   this.features = new TileLayer({
+  //     title: Layers.name,
+  //     source: new TileWMS({
+  //       url: Layers.url,
+  //       params: {
+  //         'LAYERS': Layers.paramsLayer,
+  //         'VERSION': '1.1.1',
+  //         'FORMAT': 'image/png',
+  //         'EPSG': Layers.paramsEPSG,
+  //         'TILED': true
+  //       },
+  //       projection: Layers.paramsEPSG,
+  //       serverType: 'geoserver',
+  //       name: Layers.name
+  //     })
+  //   });
+  //   this.features.setVisible(false);
+  //   this.features.setOpacity(0.50);
+  //   return this.features;
+  // }
+
   camadas(Layers) {
 
     this.features = new TileLayer({
