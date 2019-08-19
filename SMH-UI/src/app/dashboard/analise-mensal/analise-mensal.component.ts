@@ -10,8 +10,7 @@ import DragRotateAndZoom from 'ol/interaction/DragRotateAndZoom';
 
 // Service
 import { PythonFlaskAPIService } from 'src/app/services/python-flask-api.service';
-import { AnaliseDadosService } from 'src/app/services/analise-dados.service';
-import { MunicipioService } from 'src/app/services/municipio.service';
+
 
 // Inteface
 import { Uf } from 'src/app/interface/uf';
@@ -52,7 +51,7 @@ export class AnaliseMensalComponent implements OnInit {
   ];
   private selectedGrafico: Grafico;
 
-  constructor( private apiFlask: PythonFlaskAPIService, private analiseService: AnaliseDadosService, private municipioService: MunicipioService) { }
+  constructor( private apiFlask: PythonFlaskAPIService) { }
 
   ngOnInit() {
     this.initilizeUfList();

@@ -5,7 +5,7 @@ import Map from 'ol/Map';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
-import TileWMS from 'ol/source/TileWMS';
+// import TileWMS from 'ol/source/TileWMS';
 import Stamen from 'ol/source/Stamen';
 import GeoJSON from 'ol/format/GeoJSON';
 import FullScreen from 'ol/control/FullScreen';
@@ -14,8 +14,6 @@ import DragRotateAndZoom from 'ol/interaction/DragRotateAndZoom';
 // service
 import { MapService } from 'src/app/services/map.service';
 import { WmsService } from 'src/app/services/wms.service';
-import { AnaliseDadosService } from 'src/app/services/analise-dados.service';
-import { MunicipioService } from 'src/app/services/municipio.service';
 
 // Model Entity
 import { Layers } from 'src/app/entity/layers';
@@ -50,8 +48,7 @@ export class MapComponent implements OnInit {
   private selectedLayer: any;
 
 
-  constructor(private mapService: MapService, private wmsService: WmsService, private analiseService: AnaliseDadosService,
-    private municipioService: MunicipioService) {
+  constructor(private mapService: MapService, private wmsService: WmsService) {
 
   }
 
@@ -197,7 +194,7 @@ export class MapComponent implements OnInit {
   }
 
 
-  private legenda(featuresLayer, featuresGeoserver) {
+  private legenda(featuresLayer) {
 
     var url = RepositoryApi.geoserverTerraMaLocal + "REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&legend_options=forceLabels:on&LAYER={{LAYER_NAME}}&STYLE={{STYLE_NAME}}";
     url = url.replace('{{LAYER_NAME}}', featuresLayer.workspace + ":" + featuresLayer.layername);
