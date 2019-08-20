@@ -17,11 +17,17 @@ To use a API Flask in docker image, some libraries are required and here is a si
 
 Install flask with `pip install Flask` and run with `python server.py`.
 
+## Create a volume to save your data
+
+```
+$ docker create volume api-flask_vol
+```
+
 ## Start a docker image in Dockerfile directory
 
 ```
-$ docker build -t flask_docker:latest .
+$ docker build -t api-flask:latest .
 ```
 ```
-$ docker run -d -p 5000:5000 flask_docker:latest
+$ docker run -d -v api-flask:'//your_data' -p 5000:5000 api-flask:latest
 ```

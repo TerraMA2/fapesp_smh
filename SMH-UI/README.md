@@ -37,6 +37,11 @@ $ ng build
 ```
 $ cp Dockerfile dist/SMH-UI && cd dist/SMH-UI
 ```
+Create a volume to save your data.
+
+```
+$ docker volume create smh-ui_vol
+```
 
 Create a docker image and run it.
 
@@ -45,7 +50,7 @@ $ docker build -t smh-ui:latest .
 ```
 
 ```
-$ docker run -d -p 8082:8080 smh-ui:latest
+$ docker run -d -v smh-ui_vol:'//your_data' -p 8082:8080 smh-ui:latest
 ```
 
 
