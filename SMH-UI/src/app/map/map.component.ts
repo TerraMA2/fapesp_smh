@@ -5,7 +5,6 @@ import Map from 'ol/Map';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
-import TileWMS from 'ol/source/TileWMS';
 import Stamen from 'ol/source/Stamen';
 import GeoJSON from 'ol/format/GeoJSON';
 import FullScreen from 'ol/control/FullScreen';
