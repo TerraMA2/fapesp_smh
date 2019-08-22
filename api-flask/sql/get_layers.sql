@@ -1,1 +1,4 @@
-select l.id,l.name As layername,workspace,uri, v.name, v.source_type from terrama2.layers l inner join terrama2.registered_views rv on l.registered_view_id = rv.id inner join terrama2.views v on rv.view_id = v.id
+SELECT layer.id, layer.name AS layername, workspace, uri, view.name, view.source_type
+FROM terrama2.layers layer
+INNER JOIN terrama2.registered_views register_view ON layer.registered_view_id = register_view.id 
+INNER JOIN terrama2.views view ON register_view.view_id = view.id;

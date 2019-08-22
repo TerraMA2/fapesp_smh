@@ -195,6 +195,7 @@ export class AnaliseMensalComponent implements OnInit {
       );
     } else {
       if (this.end < this.start) {
+        alert("Data final maior que a inicial!");
         this.end = new Date((this.start.getFullYear() + 1),this.start.getMonth(),1);
         this.loadAnalise();
       } else {

@@ -50,7 +50,7 @@ $ docker build -t smh-ui:latest .
 ```
 
 ```
-$ docker run -d -v smh-ui_vol:'//your_data' -p 8082:8080 smh-ui:latest
+$ docker container run --name app-smh-ui -d -v smh-ui_vol:'//your_data' -p 8082:8080 smh-ui:latest
 ```
 
 

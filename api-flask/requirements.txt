@@ -1,5 +1,5 @@
 psycopg2
-numpy 
+numpy
 pandas
 sqlalchemy
 georaster
