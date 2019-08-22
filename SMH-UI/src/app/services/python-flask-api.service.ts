@@ -91,10 +91,6 @@ export class PythonFlaskAPIService{
   }
 
   compareDates(start: Date, end: Date){
-    var startY = start.getFullYear();
-    var endY = end.getFullYear();
-    var startM = start.getMonth();
-    var endM = end.getMonth();
-    return Math.abs((endM+12*endY)-(startM+12*startY));
+    return Math.abs((end.getMonth()+12*end.getFullYear())-(start.getMonth()+12*start.getFullYear()));
   }
 }
