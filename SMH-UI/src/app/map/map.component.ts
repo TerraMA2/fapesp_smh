@@ -13,8 +13,8 @@ import DragRotateAndZoom from 'ol/interaction/DragRotateAndZoom';
 // service
 import { MapService } from 'src/app/services/map.service';
 import { WmsService } from 'src/app/services/wms.service';
-import { AnaliseDadosService } from 'src/app/services/analise-dados.service';
-import { MunicipioService } from 'src/app/services/municipio.service';
+// import { AnaliseDadosService } from 'src/app/services/analise-dados.service';
+// import { MunicipioService } from 'src/app/services/municipio.service';
 import { PythonFlaskAPIService } from 'src/app/services/python-flask-api.service';
 
 // Model Entity
@@ -51,8 +51,7 @@ export class MapComponent implements OnInit {
   private selectedLayer: any;
 
 
-  constructor(private mapService: MapService, private wmsService: WmsService, private analiseService: AnaliseDadosService,
-    private municipioService: MunicipioService, private apiFlask: PythonFlaskAPIService, ) {
+  constructor(private mapService: MapService, private wmsService: WmsService, private apiFlask: PythonFlaskAPIService, ) {
 
   }
 

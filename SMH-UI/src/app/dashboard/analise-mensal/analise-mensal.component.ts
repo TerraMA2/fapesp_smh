@@ -10,8 +10,8 @@ import DragRotateAndZoom from 'ol/interaction/DragRotateAndZoom';
 
 // Service
 import { PythonFlaskAPIService } from 'src/app/services/python-flask-api.service';
-import { AnaliseDadosService } from 'src/app/services/analise-dados.service';
-import { MunicipioService } from 'src/app/services/municipio.service';
+
+
 
 // Inteface
 import { Uf } from 'src/app/interface/uf';
@@ -33,13 +33,13 @@ export class AnaliseMensalComponent implements OnInit {
 
   private mapAnalise;
   private osm;
-  
+
   dados: AnaliseGeotiffDiffLimitDate[];
   private dataGrafico: any;
-  private start: Date = new Date(1998,0,31);
-  private end: Date = new Date(1998,11,31);
-  private min: Date = new Date(1998,0,31);
-  private max: Date = new Date(2004,11,31);
+  private start: Date = new Date(1998, 0, 31);
+  private end: Date = new Date(1998, 11, 31);
+  private min: Date = new Date(1998, 0, 31);
+  private max: Date = new Date(2004, 11, 31);
 
   private cities: City[];
   private selectedCity: City;
@@ -54,7 +54,7 @@ export class AnaliseMensalComponent implements OnInit {
   ];
   private selectedGrafico: Grafico;
 
-  constructor( private apiFlask: PythonFlaskAPIService, private analiseService: AnaliseDadosService, private municipioService: MunicipioService) { }
+  constructor(private apiFlask: PythonFlaskAPIService) { }
 
   ngOnInit() {
     this.initilizeUfList();
@@ -63,7 +63,7 @@ export class AnaliseMensalComponent implements OnInit {
 
   initilizeUfList() {
     this.apiFlask.getStates().toPromise().then((data: any) => {
-      this.uf = this.apiFlask.convertToStateAPI(data.estado,data.uf);
+      this.uf = this.apiFlask.convertToStateAPI(data.estado, data.uf);
     });
   }
 
@@ -71,7 +71,7 @@ export class AnaliseMensalComponent implements OnInit {
     this.cities = [];
     this.apiFlask.getCities(this.selectedUf.uf).toPromise().then((data: any) => {
       this.cities = this.apiFlask.convertToCityAPI(
-        data.nome1,data.longitude,data.latitude,data.geocodigo
+        data.nome1, data.longitude, data.latitude, data.geocodigo
       );
     });
   }
@@ -116,9 +116,9 @@ export class AnaliseMensalComponent implements OnInit {
       center: [this.selectedCity.longitude, this.selectedCity.latitude], zoom: 12, projection: 'EPSG:4326'
     }));
     console.log(this.apiFlask.compareDates(this.end, this.start));
-    if ( this.apiFlask.compareDates(this.end, this.start) < 20 && this.end >= this.start ) {
+    if (this.apiFlask.compareDates(this.end, this.start) < 20 && this.end >= this.start) {
       this.apiFlask.getMonthlyMaxMeanDiffLimitDate(this.selectedCity.geocodigo, this.start, this.end).toPromise().then(
-        (data: any) =>  {
+        (data: any) => {
           this.dados = this.apiFlask.convertToAnliseAPI(
             data.ano,
             data.maxima,
@@ -131,7 +131,7 @@ export class AnaliseMensalComponent implements OnInit {
             data.var_media,
             data.format_date
           );
-          switch(this.selectedGrafico.nomeGrafico) {
+          switch (this.selectedGrafico.nomeGrafico) {
             case "Máxima":
               this.dataGrafico = {
                 labels: this.apiFlask.convertToArray(data.format_date),
@@ -196,7 +196,7 @@ export class AnaliseMensalComponent implements OnInit {
     } else {
       if (this.end < this.start) {
         alert("Data inicial maior que a final!");
-        this.end = new Date((this.start.getFullYear() + 1),this.start.getMonth(),1);
+        this.end = new Date((this.start.getFullYear() + 1), this.start.getMonth(), 1);
         this.loadAnalise();
       } else {
         alert("O limite é apenas 20 meses!");
