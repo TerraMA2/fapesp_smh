@@ -4,6 +4,7 @@ import { City } from '../interface/city';
 import { AnaliseGeotiffDiffLimitDate } from '../raster/analise-geotiff-diff-limit-date';
 import { RepositoryApi } from '../enums/repository-api.enum';
 import { Uf } from '../interface/uf';
+import { Layers } from 'src/app/models/layers';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,14 @@ export class PythonFlaskAPIService{
     let states: Uf[] = [];
     for( let i in estado ){ states[i] = { estado : estado[i], uf : uf[i] }; }
     return states;
+  }
+
+  convertToLayerAPI(layername: string[], name: string[], source_type: number[], uri: string[], workspace: string[]) {
+    let layers: Layers[] = [];
+       for (let i in layername) {
+      layers[i] = { layername: layername[i], name: name[i], source_type: source_type[i], uri: uri[i], workspace: workspace[i] };
+    }
+    return layers;
   }
 
   convertToAnliseAPI(

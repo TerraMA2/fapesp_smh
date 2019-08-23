@@ -15,9 +15,11 @@ import { MapService } from 'src/app/services/map.service';
 import { WmsService } from 'src/app/services/wms.service';
 import { AnaliseDadosService } from 'src/app/services/analise-dados.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
+import { PythonFlaskAPIService } from 'src/app/services/python-flask-api.service';
 
 // Model Entity
-import { Layers } from 'src/app/entity/layers';
+// import { Layers } from 'src/app/entity/layers';
+import { Layers } from 'src/app/models/layers';
 
 // Enum
 import { RepositoryApi } from 'src/app/enums/repository-api.enum';
@@ -50,7 +52,7 @@ export class MapComponent implements OnInit {
 
 
   constructor(private mapService: MapService, private wmsService: WmsService, private analiseService: AnaliseDadosService,
-    private municipioService: MunicipioService) {
+    private municipioService: MunicipioService, private apiFlask: PythonFlaskAPIService, ) {
 
   }
 
@@ -234,13 +236,16 @@ export class MapComponent implements OnInit {
 
 
   initLayer() {
-    this.mapService.listar(RepositoryApi.smh_api + "/viewslayer").toPromise()
+    // this.mapService.listar(RepositoryApi.smh_api_spring + "/viewslayer").toPromise()
+    this.mapService.listar(RepositoryApi.smh_api + "/layers").toPromise()
       .then((data: any) => {
-        this.jsonObj = data;
-        data.forEach(element => {
-          console.log(element.name)
-          console.log(element.uri.substring(23) + "/wms?")
-          console.log(element.uri.replace("admin:geoserver@", "") + "/wms?")
+        console.log(data);
+        let dataApi = this.apiFlask.convertToLayerAPI(data.layername, data.name, data.source_type, data.uri, data.workspace);
+        this.jsonObj = dataApi;
+
+        dataApi.forEach(element => {
+          // console.log(element.uri.substring(23) + "/wms?")
+          // console.log(element.uri.replace("admin:geoserver@", "") + "/wms?")
           this.features[element.name] = this.wmsService.camadas(element);
           this.map.addLayer(this.features[element.name]);
         });
