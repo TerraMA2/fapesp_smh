@@ -14,9 +14,9 @@ import { PythonFlaskAPIService } from 'src/app/services/python-flask-api.service
 
 
 // Inteface
-import { Uf } from 'src/app/interface/uf';
-import { Grafico } from 'src/app/interface/grafico';
-import { City } from 'src/app/interface/city';
+import { Uf } from 'src/app/models/uf';
+import { Grafico } from 'src/app/models/grafico';
+import { City } from 'src/app/models/city';
 import { AnaliseGeotiffDiffLimitDate } from 'src/app/raster/analise-geotiff-diff-limit-date';
 
 // Enum

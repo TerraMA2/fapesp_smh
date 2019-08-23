@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { AnaliseMensalComponent } from './dashboard/analise-mensal/analise-mensal.component';
+import { AnaliseDiariaComponent } from './dashboard/analise-diaria/analise-diaria.component';
 
 import { FormsModule } from '@angular/forms';
 
@@ -33,11 +34,13 @@ import { TabMenuModule } from 'primeng/tabmenu';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    AnaliseMensalComponent
+    AnaliseMensalComponent,
+    AnaliseDiariaComponent
   ],
   imports: [
     BrowserModule,

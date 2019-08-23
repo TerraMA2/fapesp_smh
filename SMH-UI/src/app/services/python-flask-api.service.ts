@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { City } from '../interface/city';
+import { City } from '../models/city';
 import { AnaliseGeotiffDiffLimitDate } from '../raster/analise-geotiff-diff-limit-date';
 import { RepositoryApi } from '../enums/repository-api.enum';
-import { Uf } from '../interface/uf';
+import { Uf } from '../models/uf';
 import { Layers } from 'src/app/models/layers';
 
 @Injectable({

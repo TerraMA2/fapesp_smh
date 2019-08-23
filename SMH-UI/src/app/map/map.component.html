@@ -72,11 +72,11 @@
 
                     <div class="ui-g">
                         <div class="ui-g-12">
-                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise
+                            <a href="#" class="btn btn-primary btn-success" (click)="SidebarAnaliseMensal = true">Análise
                                 Mensal</a>
                         </div>
                         <div class="ui-g-12">
-                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise
+                            <a href="#" class="btn btn-primary btn-success" (click)="SidebarAnaliseDiaria = true">Análise
                                 Diária</a>
                         </div>
                         <div class="ui-g-12">
@@ -309,6 +309,11 @@
 </p-sidebar>
 
 <!-- Analise de dados  -->
-<p-sidebar [(visible)]="visibleSidebar5" [fullScreen]="true" [baseZIndex]="10000">
+<p-sidebar [(visible)]="SidebarAnaliseMensal" [fullScreen]="true" [baseZIndex]="10000">
     <app-analise-mensal></app-analise-mensal>
+</p-sidebar>
+
+<!-- Analise de dados  -->
+<p-sidebar [(visible)]="SidebarAnaliseDiaria" [fullScreen]="true" [baseZIndex]="10000">
+    <app-analise-diaria></app-analise-diaria>
 </p-sidebar>
