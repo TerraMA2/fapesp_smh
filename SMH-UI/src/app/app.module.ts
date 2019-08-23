@@ -28,8 +28,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';
 import { SpinnerModule } from 'primeng/spinner';
 import { TableModule } from 'primeng/table';
-import {SelectButtonModule} from 'primeng/selectbutton';
-import {TabMenuModule} from 'primeng/tabmenu';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 
 

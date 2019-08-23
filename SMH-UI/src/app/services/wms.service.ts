@@ -43,7 +43,9 @@ export class WmsService {
     this.features = new TileLayer({
       title: Layers.name,
       source: new TileWMS({
-        url: Layers.uri.replace("admin:geoserver@", "") + "/wms?",
+        // url: Layers.uri.replace("admin:geoserver@", "") + "/wms?",
+        url: Layers.uri.replace("admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver", "150.163.2.217:59989/chuva/geoserver/wms?") + "/wms?",
+
         params: {
           'LAYERS': Layers.workspace + ":" + Layers.layername,
           'VERSION': '1.1.1',
