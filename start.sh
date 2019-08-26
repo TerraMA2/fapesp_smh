@@ -1,3 +1,8 @@
+cd api-flask/
+docker build -t api-flask:latest .
+docker container run --name flask -d -p 5000:5000 api-flask:latest
+cd ../SMH-UI
+npm install
 ng build
 cp Dockerfile dist/SMH-UI
 docker build -t smh-ui:latest dist/SMH-UI
