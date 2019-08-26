@@ -4,6 +4,6 @@ COPY . .
 RUN npm install -g http-server
 RUN npm install -g @angular/cli@7.1
 RUN ng build
-RUN cd /dist/SMH-UI
+RUN cd dist/SMH-UI
 CMD http-server
 EXPOSE 8080
