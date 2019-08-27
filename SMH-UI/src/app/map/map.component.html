@@ -67,21 +67,19 @@
         </div>
 
         <ul class="list-unstyled CTAs">
+            
             <p-accordion>
                 <p-accordionTab header="Análise Temporal Mensal">
 
                     <div class="ui-g">
                         <div class="ui-g-12">
-                            <a href="#" class="btn btn-primary btn-success" (click)="SidebarAnaliseMensal = true">Análise
-                                Mensal</a>
+                            <a href="#" class="btn btn-primary btn-success" (click)="SidebarAnaliseMensal = true">Análise Mensal</a>
                         </div>
                         <div class="ui-g-12">
-                            <a href="#" class="btn btn-primary btn-success" (click)="SidebarAnaliseDiaria = true">Análise
-                                Diária</a>
+                            <a href="#" class="btn btn-primary btn-success" (click)="SidebarAnaliseDiaria = true">Análise Diária</a>
                         </div>
                         <div class="ui-g-12">
-                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise
-                                3horas</a>
+                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise 3horas</a>
                         </div>
                     </div>
                 </p-accordionTab>
@@ -120,11 +118,9 @@
                             </div>
                         </div>
                     </div>
-
                 </p-accordionTab>
 
                 <p-accordionTab header="Análise Espacial Bácia">
-
                     <ul class="list-unstyled components connected list">
                         <li *ngFor="let layer of jsonObj">
                             <a href="#layer{{ layer.id }}" data-toggle="collapse" aria-expanded="false"
@@ -155,21 +151,14 @@
                             </ul>
                         </li>
                     </ul>
-
-
                 </p-accordionTab>
-
             </p-accordion>
-
             <br />
-
         </ul>
 
         <ul class="list-unstyled CTAs">
-            <li><a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">PORTAL SIGMA SMH 1.0 -
-                    CHUVA</a></li>
+            <li><a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">PORTAL SIGMA SMH 1.0 - CHUVA</a></li>
         </ul>
-
 
     </nav>
     <!-- Menu superior -->
