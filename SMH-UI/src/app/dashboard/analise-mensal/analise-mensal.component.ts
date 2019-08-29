@@ -39,7 +39,7 @@ export class AnaliseMensalComponent implements OnInit {
   private start: Date = new Date(1998, 0, 31);
   private end: Date = new Date(1998, 11, 31);
   private min: Date = new Date(1998, 0, 31);
-  private max: Date = new Date(2004, 11, 31);
+  private max: Date = new Date(2018, 11, 31);
 
   private cities: City[];
   private selectedCity: City;
