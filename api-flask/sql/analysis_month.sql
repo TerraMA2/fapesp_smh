@@ -1,14 +1,14 @@
 SELECT 
-municipio.nome1 as nome_municipio,
-(monthly.maxima * EXTRACT(DAY FROM monthly.execution_date)) as maxima_ano,
-(merge_monthly.maxima * EXTRACT(DAY FROM merge_monthly.execution_date)) as maxima,
-((monthly.maxima - merge_monthly.maxima) * EXTRACT(DAY FROM merge_monthly.execution_date)) as var_maxima,
-(monthly.media * EXTRACT(DAY FROM monthly.execution_date)) as media_ano,
-(merge_monthly.media * EXTRACT(DAY FROM merge_monthly.execution_date)) as media,
-((monthly.media - merge_monthly.media) * EXTRACT(DAY FROM merge_monthly.execution_date)) as var_media,
-monthly.ano as ano,
-merge_monthly.mes as mes,
-monthly.mes || ' / ' || monthly.ano as format_date
+municipio.nome1 AS nome_municipio,
+(monthly.maxima * EXTRACT(DAY FROM monthly.execution_date)) AS maxima_ano,
+(merge_monthly.maxima * EXTRACT(DAY FROM merge_monthly.execution_date)) AS maxima,
+((monthly.maxima - merge_monthly.maxima) * EXTRACT(DAY FROM merge_monthly.execution_date)) AS var_maxima,
+(monthly.media * EXTRACT(DAY FROM monthly.execution_date)) AS media_ano,
+(merge_monthly.media * EXTRACT(DAY FROM merge_monthly.execution_date)) AS media,
+((monthly.media - merge_monthly.media) * EXTRACT(DAY FROM merge_monthly.execution_date)) AS var_media,
+monthly.ano AS ano,
+merge_monthly.mes AS mes,
+monthly.mes || ' / ' || monthly.ano AS format_date
 FROM public.municipios_brasil municipio, public.an_municipio_monthly monthly, public.an_municipio_merge_monthly merge_monthly
 WHERE municipio.fid = monthly.fid AND municipio.fid = merge_monthly.fid
 AND municipio.geocodigo = '{geocodigo}'

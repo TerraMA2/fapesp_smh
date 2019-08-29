@@ -87,3 +87,27 @@ api.add_resource(Layers, '/layers')
 
 if __name__ == '__main__':
     app.run( debug = True, host = '0.0.0.0' )
+
+# from connection_pg import Connection_pg
+
+# conect = Connection_pg("merge_monthly")
+
+# meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
+# ano = 2015
+# while ano <= 2016:
+#     for mes in meses:
+#         data = conect.load_data("SELECT municipio.fid, municipio.geocodigo, (monthly.media - merge_monthly.media) as anomalia " +
+#             "FROM public.municipios_brasil municipio, public.an_municip_monthly_dynamic monthly, public.an_municip_monthly merge_monthly "
+#             "WHERE municipio.fid = monthly.fid AND municipio.fid = merge_monthly.fid " +
+#             "AND monthly.mes = merge_monthly.mes " +
+#             "AND monthly.ano = " + str(ano) + " " +
+#             "AND monthly.mes = '" + mes + "'"
+#         )
+#         for i in range(len(data)):
+#             conect.getCursor().execute("UPDATE public.an_municip_monthly_dynamic monthly " +
+#                 "SET anomalia = " + data['anomalia'][i] + " " + 
+#                 "WHERE fid = " + data['fid'][i] + " "
+#                 "AND ano = " + str(ano) + " " +
+#                 "AND mes = '" + mes + "'"
+#             )
+#     ano = ano + 1
