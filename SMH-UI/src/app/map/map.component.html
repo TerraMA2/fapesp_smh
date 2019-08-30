@@ -1,46 +1,46 @@
-<div class="wrapper" id="connected">
+<div class = "wrapper" id = "connected">
     <!-- Sidebar Holder -->
-    <nav id="sidebar">
+    <nav id = "sidebar">
 
-        <div class="sidebar-header">
-            <img src="assets/img/logo-inpe.png" class="material-icons md-light md-inactive" alt="portugues">&nbsp;
-            <img src="assets/img/logo-cptec.png" height="31px" width="62" class="material-icons md-light md-inactive"
-                alt="portugues">&nbsp;
-            <img src="assets/img/logo_fapesp_branco_pt_alta.png" height="30px" width="62px"
-                class="material-icons md-light md-inactive" alt="portugues">&nbsp;
-            <img src="assets/img/terrama2_logo_whit.png" height="42px" width="42px"
-                class="material-icons md-light md-inactive" alt="portugues">
+        <div class = "sidebar-header">
+            <img src = "assets/img/logo-inpe.png" class = "material-icons md-light md-inactive" alt = "portugues">&nbsp;
+            <img src = "assets/img/logo-cptec.png" height = "31px" width = "62" class = "material-icons md-light md-inactive"
+                alt = "portugues">&nbsp;
+            <img src = "assets/img/logo_fapesp_branco_pt_alta.png" height = "30px" width = "62px"
+                class = "material-icons md-light md-inactive" alt = "portugues">&nbsp;
+            <img src = "assets/img/terrama2_logo_whit.png" height = "42px" width = "42px"
+                class = "material-icons md-light md-inactive" alt = "portugues">
         </div>
 
 
 
-        <ul class="list-unstyled components connected list">
+        <ul class = "list-unstyled components connected list">
 
-            <li *ngFor="let layer of modelLayer">
-                <a href="#layer{{ layer.id }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="material-icons configura">settings</i> {{ layer.name }}
-                    <div class="fontecamada">Fonte da camada: {{ layer.fonte }}</div>
+            <li *ngFor = "let layer of modelLayer">
+                <a href = "#layer{{ layer.id }}" data-toggle = "collapse" aria-expanded = "false" class = "dropdown-toggle">
+                    <i class = "material-icons configura">settings</i> {{ layer.name }}
+                    <div class = "fontecamada">Fonte da camada: {{ layer.fonte }}</div>
                 </a>
-                <div class="material-switch pull-right">
-                    <!-- <input id="{{ layer.name }}" name="someSwitchOption001" (click)="setLayerType(layer.name)"  type="checkbox" checked/> -->
-                    <input id="{{ layer.name }}" name="someSwitchOption001" (click)="setLayerType(layer.name)"
-                        type="checkbox" />
-                    <!-- <p-inputSwitch id="{{ layer.name }}"  (click)="setLayerType(layer.name)"></p-inputSwitch> -->
-                    <label for="{{ layer.name }}" class="bg-white"></label>
+                <div class = "material-switch pull-right">
+                    <!-- <input id = "{{ layer.name }}" name = "someSwitchOption001" (click) = "setLayerType(layer.name)"  type = "checkbox" checked/> -->
+                    <input id = "{{ layer.name }}" name = "someSwitchOption001" (click) = "setLayerType(layer.name)"
+                        type = "checkbox" />
+                    <!-- <p-inputSwitch id = "{{ layer.name }}"  (click) = "setLayerType(layer.name)"></p-inputSwitch> -->
+                    <label for = "{{ layer.name }}" class = "bg-white"></label>
                 </div>
 
-                <ul class="collapse list-unstyled" id="layer{{ layer.id }}">
+                <ul class = "collapse list-unstyled" id = "layer{{ layer.id }}">
                     <li>
-                        <div class="fe-camadas">
-                            <button type="button" class="btn" (click)="activeLayer(layer.name)"><i
-                                    class="material-icons md-dark">swap_vert</i></button>
-                            <button type="button" class="btn" (click)="LegendaSidebar = true"
-                                (click)="legenda(layer.paramsLayer,layer.url)"><i
-                                    class="material-icons md-dark">palette</i></button>
-                            <button type="button" class="btn"><i
-                                    class="material-icons md-dark md-inactive">add_location</i></button>
-                            <button type="button" class="btn"><i
-                                    class="material-icons md-dark">brightness_6</i></button>
+                        <div class = "fe-camadas">
+                            <button type = "button" class = "btn" (click) = "activeLayer(layer.name)"><i
+                                    class = "material-icons md-dark">swap_vert</i></button>
+                            <button type = "button" class = "btn" (click) = "LegendaSidebar = true"
+                                (click) = "legenda(layer.paramsLayer,layer.url)"><i
+                                    class = "material-icons md-dark">palette</i></button>
+                            <button type = "button" class = "btn"><i
+                                    class = "material-icons md-dark md-inactive">add_location</i></button>
+                            <button type = "button" class = "btn"><i
+                                    class = "material-icons md-dark">brightness_6</i></button>
                         </div>
 
                     </li>
@@ -50,166 +50,165 @@
 
         </ul>
 
-        <div class="ferramentas">
+        <div class = "ferramentas">
 
-            <dfn data-info="Dados Analises">
-                <button type="button" class="btn"><i class="material-icons md-dark md-inactive"> <img
-                            src="assets/img/icon-notes.png"></i></button>
+            <dfn data-info = "Dados Analises">
+                <button type = "button" class = "btn"><i class = "material-icons md-dark md-inactive"> <img
+                            src = "assets/img/icon-notes.png"></i></button>
             </dfn>
-            <dfn data-info="Mapas">
-                <button type="button" class="btn"><i class="material-icons md-dark md-inactive"> <img
-                            src="assets/img/icon-brasil.png"></i></button>
+            <dfn data-info = "Mapas">
+                <button type = "button" class = "btn"><i class = "material-icons md-dark md-inactive"> <img
+                            src = "assets/img/icon-brasil.png"></i></button>
             </dfn>
-            <dfn data-info="Sobre">
-                <button type="button" class="btn"><i class="material-icons md-dark md-inactive"> <img
-                            src="assets/img/icon-help.png"></i></button>
+            <dfn data-info = "Sobre">
+                <button type = "button" class = "btn"><i class = "material-icons md-dark md-inactive"> <img
+                            src = "assets/img/icon-help.png"></i></button>
             </dfn>
         </div>
 
-        <ul class="list-unstyled CTAs">
+        <ul class = "list-unstyled CTAs">
             
             <p-accordion>
-                <p-accordionTab header="Análise Temporal Mensal">
+                <p-accordionTab header = "Análise Temporal Mensal">
 
-                    <div class="ui-g">
-                        <div class="ui-g-12">
-                            <a href="#" class="btn btn-primary btn-success" (click)="SidebarAnaliseMensal = true">Análise Mensal</a>
+                    <div class = "ui-g">
+                        <div class = "ui-g-12">
+                            <a href = "#" class = "btn btn-primary btn-success" (click) = "SidebarAnaliseMensal = true">Análise Mensal</a>
                         </div>
-                        <div class="ui-g-12">
-                            <a href="#" class="btn btn-primary btn-success" (click)="SidebarAnaliseDiaria = true">Análise Diária</a>
+                        <div class = "ui-g-12">
+                            <a href = "#" class = "btn btn-primary btn-success" (click) = "SidebarAnaliseDiaria = true">Análise Diária</a>
                         </div>
-                        <div class="ui-g-12">
-                            <a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">Análise 3horas</a>
+                        <div class = "ui-g-12">
+                            <a href = "#" class = "btn btn-primary btn-success" (click) = "visibleSidebar5 = true">Análise 3horas</a>
                         </div>
                     </div>
                 </p-accordionTab>
             </p-accordion>
 
             <p-accordion>
-                <p-accordionTab header="Análise Espacial Município">
-                    <div class="p-col-12">
-                        <div class="p-grid">
-                            <div class="p-col-12">
-                                <p-calendar [(ngModel)]="valueDateInit" [inline]="false" view="month" dateFormat="MM/yy"
-                                    [yearNavigator]="false" yearRange="1998:2019" [showIcon]="false"></p-calendar>
-                                <p-dropdown [options]="jsonObj" [(ngModel)]="selectedLayer"
-                                    (click)="activeLayerAnTemporalMunicipal()" [disabled]="false" filter="false"
-                                    placeholder="Variável" optionLabel="name" [showClear]="true">
+                <p-accordionTab header = "Análise Espacial Município">
+                    <div class = "p-col-12">
+                        <div class = "p-grid">
+                            <div class = "p-col-12">
+                                <p-calendar [(ngModel)] = "valueDateInit" view = "month" dateFormat = "MM / yy"
+                                    [yearNavigator] = "false" yearRange = "1998:2019"></p-calendar>
+
+                                <p-dropdown [options] = "jsonObj" [(ngModel)] = "selectedLayer"
+                                    (click) = "activeLayerAnTemporalMunicipal()" [disabled] = "false" filter = "false"
+                                    placeholder = "Variável" optionLabel = "name" [showClear] = "true">
                                 </p-dropdown>
 
-                                <button type="button" (click)="setLayer()" class="btn"><i
-                                        class="material-icons md-dark md-inactive"> <img
-                                            src="assets/img/icon-regua.png"></i></button>
+                                <button type = "button" (click) = "setLayer()" class = "btn"><i
+                                        class = "material-icons md-dark md-inactive"> <img
+                                            src = "assets/img/icon-regua.png"></i></button>
 
-                                <button type="button" (click)="legendaToAEM()" (click)="LegendaSidebar = true"
-                                    class="btn"><i class="material-icons md-dark md-inactive"> <img
-                                            src="assets/img/icon-help.png"></i></button>
+                                <button type = "button" (click) = "legendaToAEM()" (click) = "LegendaSidebar = true"
+                                    class = "btn"><i class = "material-icons md-dark md-inactive"> <img
+                                            src = "assets/img/icon-help.png"></i></button>
 
-                                <!-- <button type="button" (click)="setLayer()" class="btn"><i
-                                        class="material-icons md-dark md-inactive"> <img
-                                            src="assets/img/icon-regua.png"></i></button> -->
+                                <!-- <button type = "button" (click) = "setLayer()" class = "btn"><i
+                                        class = "material-icons md-dark md-inactive"> <img
+                                            src = "assets/img/icon-regua.png"></i></button> -->
 
 
-                                <!-- <button pButton type="button" (click)="setLayer()" label="Buscar" class="ui-button-success"></button> -->
-                                <!-- <button pButton type="button" (click)="legendaToAEM()" (click)="LegendaSidebar = true" label="Legenda" class="ui-button-success"></button> -->
-                                <!-- <button type="button" class="btn" (click)="LegendaSidebar = true"
-                                (click)="legendaToAEM()"><i class="material-icons md-dark">palette</i></button> -->
+                                <!-- <button pButton type = "button" (click) = "setLayer()" label = "Buscar" class = "ui-button-success"></button> -->
+                                <!-- <button pButton type = "button" (click) = "legendaToAEM()" (click) = "LegendaSidebar = true" label = "Legenda" class = "ui-button-success"></button> -->
+                                <!-- <button type = "button" class = "btn" (click) = "LegendaSidebar = true"
+                                (click) = "legendaToAEM()"><i class = "material-icons md-dark">palette</i></button> -->
 
                             </div>
                         </div>
                     </div>
                 </p-accordionTab>
 
-                <p-accordionTab header="Análise Espacial Bácia">
-                    <ul class="list-unstyled components connected list">
-                        <li *ngFor="let layer of jsonObj">
-                            <a href="#layer{{ layer.id }}" data-toggle="collapse" aria-expanded="false"
-                                class="dropdown-toggle">
-                                <i class="material-icons configura">settings</i> {{ layer.name }}
-                                <!-- <div class="fontecamada">Fonte da camada: {{ layer.source_type }}</div> -->
-                                <!-- <div class="fontecamada">Fonte da camada: TerraMA Local</div> -->
+                <p-accordionTab header = "Análise Espacial Bácia">
+                    <!-- <ul class = "list-unstyled components connected list">
+                        <li *ngFor = "let layer of jsonObj">
+                            <a href = "#layer{{ layer.id }}" data-toggle = "collapse" aria-expanded = "false"
+                                class = "dropdown-toggle">
+                                <i class = "material-icons configura">settings</i> {{ layer.name }}
                             </a>
-                            <div class="material-switch pull-right">
-                                <input id="{{ layer.layername }}" name="someSwitchOption001"
-                                    (click)="setLayerType(layer)" type="checkbox" />
-                                <label for="{{ layer.layername }}" class="bg-white"></label>
+                            <div class = "material-switch pull-right">
+                                <input id = "{{ layer.layername }}" name = "someSwitchOption001"
+                                    (click) = "setLayerType(layer)" type = "checkbox" />
+                                <label for = "{{ layer.layername }}" class = "bg-white"></label>
                             </div>
-                            <ul class="collapse list-unstyled" id="layer{{ layer.id }}">
+                            <ul class = "collapse list-unstyled" id = "layer{{ layer.id }}">
                                 <li>
-                                    <div class="fe-camadas">
-                                        <button type="button" class="btn" (click)="activeLayer(layer)"><i
-                                                class="material-icons md-dark">swap_vert</i></button>
-                                        <button type="button" class="btn" (click)="LegendaSidebar = true"
-                                            (click)="legenda(layer)"><i
-                                                class="material-icons md-dark">palette</i></button>
-                                        <button type="button" class="btn"><i
-                                                class="material-icons md-dark md-inactive">add_location</i></button>
-                                        <button type="button" class="btn"><i
-                                                class="material-icons md-dark">brightness_6</i></button>
+                                    <div class = "fe-camadas">
+                                        <button type = "button" class = "btn" (click) = "activeLayer(layer)"><i
+                                                class = "material-icons md-dark">swap_vert</i></button>
+                                        <button type = "button" class = "btn" (click) = "LegendaSidebar = true"
+                                            (click) = "legenda(layer)"><i
+                                                class = "material-icons md-dark">palette</i></button>
+                                        <button type = "button" class = "btn"><i
+                                                class = "material-icons md-dark md-inactive">add_location</i></button>
+                                        <button type = "button" class = "btn"><i
+                                                class = "material-icons md-dark">brightness_6</i></button>
                                     </div>
                                 </li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
                 </p-accordionTab>
             </p-accordion>
             <br />
         </ul>
 
-        <ul class="list-unstyled CTAs">
-            <li><a href="#" class="btn btn-primary btn-success" (click)="visibleSidebar5 = true">PORTAL SIGMA SMH 1.0 - CHUVA</a></li>
+        <ul class = "list-unstyled CTAs">
+            <li><a href = "#" class = "btn btn-primary btn-success" (click) = "visibleSidebar5 = true">PORTAL SIGMA SMH 1.0 - CHUVA</a></li>
         </ul>
 
     </nav>
     <!-- Menu superior -->
-    <div id="content">
+    <div id = "content">
 
-        <nav class="navbar navbar-expand-lg materialnav navbar-header">
-            <button class="btn btn-material navbar-btn " type="button" data-toggle="collapse" id="sidebarCollapse"
-                data-target="#navbar" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="material-icons menuicon">menu</i>
+        <nav class = "navbar navbar-expand-lg materialnav navbar-header">
+            <button class = "btn btn-material navbar-btn " type = "button" data-toggle = "collapse" id = "sidebarCollapse"
+                data-target = "#navbar" aria-controls = "navbarNavAltMarkup" aria-expanded = "false"
+                aria-label = "Toggle navigation">
+                <i class = "material-icons menuicon">menu</i>
             </button>
-            <a class="navbar-brand" href="#"><span class="amarelo">SIGMA SMH 1.0 - </span><span
-                    class="verde">CHUVA</span></a>
-            <div class="collapse navbar-collapse justify-content-between">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="#">| Sistema de Monitoramento Hidrometeorológico</a>
+            <a class = "navbar-brand" href = "#"><span class = "amarelo">SIGMA SMH 1.0 - </span><span
+                    class = "verde">CHUVA</span></a>
+            <div class = "collapse navbar-collapse justify-content-between">
+                <div class = "navbar-nav">
+                    <a class = "nav-item nav-link" href = "#">| Sistema de Monitoramento Hidrometeorológico</a>
                 </div>
 
-                <ul class="navbar-nav  navbar-right">
-                    <!-- <li class="nav-item dropdown analises">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <ul class = "navbar-nav  navbar-right">
+                    <!-- <li class = "nav-item dropdown analises">
+                        <a class = "nav-link dropdown-toggle" href = "#" id = "navbarDropdownMenuLink" role = "button"
+                            data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
                             Análises
                         </a>
-                        <div class="dropdown-menu submenu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" (click)="visibleSidebar5 = true" href="#">Análises</a>
-                            <a class="dropdown-item" href="#">Busca De Dados</a>
-                            <a class="dropdown-item" href="#">Graficos</a>
-                            <a class="dropdown-item" href="#">Exportar Dados</a>
-                            <a class="dropdown-item" (click)="filtro_sidebar = true" href="#">Filtros</a>
+                        <div class = "dropdown-menu submenu" aria-labelledby = "navbarDropdownMenuLink">
+                            <a class = "dropdown-item" (click) = "visibleSidebar5 = true" href = "#">Análises</a>
+                            <a class = "dropdown-item" href = "#">Busca De Dados</a>
+                            <a class = "dropdown-item" href = "#">Graficos</a>
+                            <a class = "dropdown-item" href = "#">Exportar Dados</a>
+                            <a class = "dropdown-item" (click) = "filtro_sidebar = true" href = "#">Filtros</a>
                         </div>
                     </li> -->
-                    <!-- <li class="nav-item active">
-                        <a class="nav-link" href="#">Sobre <span class="sr-only">(current)</span></a>
+                    <!-- <li class = "nav-item active">
+                        <a class = "nav-link" href = "#">Sobre <span class = "sr-only">(current)</span></a>
                     </li> -->
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">Contato</a>
+                    <!-- <li class = "nav-item">
+                        <a class = "nav-link" href = "#">Contato</a>
                     </li> -->
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="assets/img/br.svg" class="bandeira" alt="portugues"></a>
+                    <!-- <li class = "nav-item">
+                        <a class = "nav-link" href = "#"><img src = "assets/img/br.svg" class = "bandeira" alt = "portugues"></a>
                     </li> -->
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="assets/img/usa.svg" class="bandeira" alt="ingles"></a>
+                    <!-- <li class = "nav-item">
+                        <a class = "nav-link" href = "#"><img src = "assets/img/usa.svg" class = "bandeira" alt = "ingles"></a>
                     </li> -->
                 </ul>
             </div>
         </nav>
 
-        <div class="container-fluid mapa">
+        <div class = "container-fluid mapa">
 
-            <div id="map" class="map"></div>
+            <div id = "map" class = "map"></div>
 
         </div>
     </div>
@@ -218,34 +217,34 @@
 <!-- ----------------------------------------- -->
 <!-- / container -->
 <!-- Baselayers -->
-<div class="btnbaselayer">
-    <div class="baselayer custom-radios" (click)="setMapType()">
-        <i class="fa fa-clone"></i>
+<div class = "btnbaselayer">
+    <div class = "baselayer custom-radios" (click) = "setMapType()">
+        <i class = "fa fa-clone"></i>
         <ul>
-            <li class="icon">
-                <p-radioButton name="osm" value="osm" label=" Google Satelite " [(ngModel)]="setMap" inputId="preopt1">
+            <li class = "icon">
+                <p-radioButton name = "osm" value = "osm" label = " Google Satelite " [(ngModel)] = "setMap" inputId = "preopt1">
                 </p-radioButton>
-                <label for="radio1"><span></span></label>
-                <!-- <span class="text"></span> -->
+                <label for = "radio1"><span></span></label>
+                <!-- <span class = "text"></span> -->
             </li>
 
-            <li class="icon">
-                <p-radioButton name="Watercolor" value="Watercolor" label=" Watercolor " [(ngModel)]="setMap"
-                    inputId="preopt3"></p-radioButton>
-                <label for="radio3"><span></span></label>
-                <!-- <span class="text">Google Streets</span> -->
+            <li class = "icon">
+                <p-radioButton name = "Watercolor" value = "Watercolor" label = " Watercolor " [(ngModel)] = "setMap"
+                    inputId = "preopt3"></p-radioButton>
+                <label for = "radio3"><span></span></label>
+                <!-- <span class = "text">Google Streets</span> -->
             </li>
-            <li class="icon">
-                <p-radioButton name="Watercolor" value="Toner" label=" Toner " [(ngModel)]="setMap" inputId="preopt4">
+            <li class = "icon">
+                <p-radioButton name = "Watercolor" value = "Toner" label = " Toner " [(ngModel)] = "setMap" inputId = "preopt4">
                 </p-radioButton>
-                <label for="radio4"><span></span></label>
-                <!-- <span class="text">Google Terrain</span> -->
+                <label for = "radio4"><span></span></label>
+                <!-- <span class = "text">Google Terrain</span> -->
             </li>
-            <li class="icon">
-                <p-radioButton name="Watercolor" value="Terrain" label=" Terrain " [(ngModel)]="setMap"
-                    inputId="preopt5"></p-radioButton>
-                <label for="radio4"><span></span></label>
-                <!-- <span class="text">Google Terrain</span> -->
+            <li class = "icon">
+                <p-radioButton name = "Watercolor" value = "Terrain" label = " Terrain " [(ngModel)] = "setMap"
+                    inputId = "preopt5"></p-radioButton>
+                <label for = "radio4"><span></span></label>
+                <!-- <span class = "text">Google Terrain</span> -->
             </li>
 
         </ul>
@@ -255,54 +254,54 @@
 
 <!-- fim -->
 <!--Footer-->
-<footer class="footer">
-    <p>© 2019<a href="#"> DSA SMH </a></p>
+<footer class = "footer">
+    <p>© 2019<a href = "#"> DSA SMH </a></p>
 </footer>
 <!--/.Footer-->
 
 
 <!-- slider filtro -->
-<p-sidebar [(visible)]="filtro_sidebar" position="right" [baseZIndex]="10000">
-    <h5 style="font-weight:normal">Filtro</h5>
+<p-sidebar [(visible)] = "filtro_sidebar" position = "right" [baseZIndex] = "10000">
+    <h5 style = "font-weight:normal">Filtro</h5>
 
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a Cidade" optionLabel="nome1"
-        [showClear]="true"></p-dropdown>
+    <p-dropdown [options] = "cities" [(ngModel)] = "selectedCity" placeholder = "Select a Cidade" optionLabel = "nome1"
+        [showClear] = "true"></p-dropdown>
     <p>
-        <button pButton type="button" (click)="salvar()" label="Buscar" class="ui-button-success"></button>
-        <button pButton type="button" (click)="filtro_sidebar = false" label="Fechar"
-            class="ui-button-secondary"></button>
+        <button pButton type = "button" (click) = "salvar()" label = "Buscar" class = "ui-button-success"></button>
+        <button pButton type = "button" (click) = "filtro_sidebar = false" label = "Fechar"
+            class = "ui-button-secondary"></button>
 </p-sidebar>
 
 <!-- slide teste -->
-<p-sidebar [(visible)]="buris" position="right" [fullScreen]="true" [baseZIndex]="10000">
-    <h5 style="font-weight:normal">Filtro</h5>
+<p-sidebar [(visible)] = "buris" position = "right" [fullScreen] = "true" [baseZIndex] = "10000">
+    <h5 style = "font-weight:normal">Filtro</h5>
 
 
 </p-sidebar>
 
 
-<p-sidebar [(visible)]="layer_sidebar" position="left" [baseZIndex]="10000">
-    <h5 style="font-weight:normal">Layer</h5>
-    <nav id="sidebar">
+<p-sidebar [(visible)] = "layer_sidebar" position = "left" [baseZIndex] = "10000">
+    <h5 style = "font-weight:normal">Layer</h5>
+    <nav id = "sidebar">
 
     </nav>
-    <button pButton type="button" (click)="salvar()" label="Buscar" class="ui-button-success"></button>
-    <button pButton type="button" (click)="filtro_sidebar = false" label="Fechar" class="ui-button-secondary"></button>
+    <button pButton type = "button" (click) = "salvar()" label = "Buscar" class = "ui-button-success"></button>
+    <button pButton type = "button" (click) = "filtro_sidebar = false" label = "Fechar" class = "ui-button-secondary"></button>
 </p-sidebar>
 
 
 <!-- info camadas  -->
-<p-sidebar [(visible)]="LegendaSidebar" position="right" [baseZIndex]="10000">
-    <h5 style="font-weight:normal">Legenda</h5>
-    <div id="info">&nbsp;</div>
+<p-sidebar [(visible)] = "LegendaSidebar" position = "right" [baseZIndex] = "10000">
+    <h5 style = "font-weight:normal">Legenda</h5>
+    <div id = "info">&nbsp;</div>
 </p-sidebar>
 
 <!-- Analise de dados  -->
-<p-sidebar [(visible)]="SidebarAnaliseMensal" [fullScreen]="true" [baseZIndex]="10000">
+<p-sidebar [(visible)] = "SidebarAnaliseMensal" [fullScreen] = "true" [baseZIndex] = "10000">
     <app-analise-mensal></app-analise-mensal>
 </p-sidebar>
 
 <!-- Analise de dados  -->
-<p-sidebar [(visible)]="SidebarAnaliseDiaria" [fullScreen]="true" [baseZIndex]="10000">
+<p-sidebar [(visible)] = "SidebarAnaliseDiaria" [fullScreen] = "true" [baseZIndex] = "10000">
     <app-analise-diaria></app-analise-diaria>
 </p-sidebar>

@@ -61,6 +61,10 @@ export class AnaliseMensalComponent implements OnInit {
     this.initilizeMap();
   }
 
+  ngOnChanges() {
+    this.ngOnInit();
+  }
+
   initilizeUfList() {
     this.apiFlask.getStates().toPromise().then((data: any) => {
       this.uf = this.apiFlask.convertToStateAPI(data.estado, data.uf);
@@ -132,7 +136,7 @@ export class AnaliseMensalComponent implements OnInit {
             data.format_date
           );
           switch (this.selectedGrafico.nomeGrafico) {
-            case "Máxima":
+            case "Preciptação Máxima":
               this.dataGrafico = {
                 labels: this.apiFlask.convertToArray(data.format_date),
                 datasets: [
@@ -153,7 +157,7 @@ export class AnaliseMensalComponent implements OnInit {
                 ]
               };
               break;
-            case "Média":
+            case "Preciptação Acumulada Média":
               this.dataGrafico = {
                 labels: this.apiFlask.convertToArray(data.format_date),
                 datasets: [

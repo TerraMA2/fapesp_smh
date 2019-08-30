@@ -31,9 +31,7 @@ import { SpinnerModule } from 'primeng/spinner';
 import { TableModule } from 'primeng/table';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TabMenuModule } from 'primeng/tabmenu';
-
-
-
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @NgModule({
   declarations: [
@@ -65,6 +63,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
     TableModule,
     SelectButtonModule,
     TabMenuModule,
+    ScrollPanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]

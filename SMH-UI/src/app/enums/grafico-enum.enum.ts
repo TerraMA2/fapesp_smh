@@ -1,5 +1,5 @@
 export enum GraficoEnum {
-    Máxima = "Máxima",
-    Média = "Média",
+    Máxima = "Preciptação Máxima",
+    Média = "Preciptação Acumulada Média",
     Anomalia = "Anomalia"
 }
