@@ -33,7 +33,7 @@ echo "
 
  Finalizando OK ;)
  
-    API-FLASK => http://0.0.0.0:5000
-    SMH-UI => http://0.0.0.0:8082
+    API-FLASK => http://150.163.17.142:5000
+    SMH-UI => http://150.163.17.142:8082
 
     "
