@@ -21,7 +21,7 @@
                         <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
+                        <ogc:Literal>0</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-width">
                         <ogc:Literal>1</ogc:Literal>
@@ -51,7 +51,7 @@
                         <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
+                        <ogc:Literal>0</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-width">
                         <ogc:Literal>1</ogc:Literal>
@@ -87,7 +87,7 @@
                         <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
+                        <ogc:Literal>0</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-width">
                         <ogc:Literal>1</ogc:Literal>
@@ -123,7 +123,7 @@
                         <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
+                        <ogc:Literal>0</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-width">
                         <ogc:Literal>1</ogc:Literal>
@@ -159,7 +159,7 @@
                         <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
+                        <ogc:Literal>0</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-width">
                         <ogc:Literal>1</ogc:Literal>
@@ -195,7 +195,7 @@
                         <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
+                        <ogc:Literal>0</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-width">
                         <ogc:Literal>1</ogc:Literal>
@@ -231,7 +231,7 @@
                         <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
+                        <ogc:Literal>0</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-width">
                         <ogc:Literal>1</ogc:Literal>
@@ -267,7 +267,7 @@
                         <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
+                        <ogc:Literal>0</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-width">
                         <ogc:Literal>1</ogc:Literal>
@@ -303,7 +303,7 @@
                         <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
+                        <ogc:Literal>0</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-width">
                         <ogc:Literal>1</ogc:Literal>
@@ -339,7 +339,7 @@
                         <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
+                        <ogc:Literal>0</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-width">
                         <ogc:Literal>1</ogc:Literal>
@@ -375,7 +375,7 @@
                         <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
+                        <ogc:Literal>0</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-width">
                         <ogc:Literal>1</ogc:Literal>
@@ -411,7 +411,7 @@
                         <ogc:Literal>#000000</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
+                        <ogc:Literal>0</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="stroke-width">
                         <ogc:Literal>1</ogc:Literal>
