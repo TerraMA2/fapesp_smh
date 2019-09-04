@@ -91,14 +91,15 @@ if __name__ == '__main__':
 # import math
 # from connection_pg import Connection_pg
 
-# conect = Connection_pg("merge_monthly")
+# conect = Connection_pg("chuva")
 
 # meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
-# ano = 2015
-# while ano <= 2015:
+# ano = 1998
+# cont = 0
+# while ano <= 2009:
 #     for mes in meses:
 #         data = conect.load_data("SELECT municipio.fid, municipio.geocodigo, (monthly.media - merge_monthly.media) as anomalia " +
-#             "FROM public.municipios_brasil municipio, public.an_municip_monthly_dynamic monthly, public.an_municip_monthly merge_monthly "
+#             "FROM public.municipios_brasil municipio, public.an_municipio_monthly monthly, public.an_municipio_merge_monthly merge_monthly "
 #             "WHERE municipio.fid = monthly.fid AND municipio.fid = merge_monthly.fid " +
 #             "AND monthly.mes = merge_monthly.mes " +
 #             "AND monthly.ano = " + str(ano) + " " +
@@ -106,7 +107,7 @@ if __name__ == '__main__':
 #         )
 #         for i in range(len(data)):
 #             if not math.isnan(data['anomalia'][i]):
-#                 conect.getCursor().execute("UPDATE public.an_municip_monthly_dynamic monthly " +
+#                 conect.getCursor().execute("UPDATE public.an_municipio_monthly monthly " +
 #                     "SET anomalia = " + str(data['anomalia'][i]) + " " + 
 #                     "WHERE fid = " + str(data['fid'][i]) + " " +
 #                     "AND ano = " + str(ano) + " " +
@@ -114,6 +115,9 @@ if __name__ == '__main__':
 #                 )
 #                 print("Valor da anomalia => " + str(data['anomalia'][i]))
 #                 print(str(mes) + " / " + str(ano))
+#                 cont += 1
+#                 print(cont)
 #     ano = ano + 1
+#     conect.getConn().commit()
     
 # conect.closeAll()
