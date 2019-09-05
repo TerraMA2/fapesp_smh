@@ -66,6 +66,6 @@ class Connection_pg:
     
     def closeAll(self):
         self.connection.commit()
-        self.getConn().close()
-        self.getCursor().close()
+        self.connection.close()
+        self.cursor.close()
         print("Conexão finalizada!")
