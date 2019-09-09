@@ -51,6 +51,22 @@ class Analise(Resource):
         except:
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
 
+class Merge(Resource):
+    def get(self,geocodigo,mes):
+        try:
+            conectar = Connection_pg("chuva")
+            data = conectar.readFileSQL(
+                "sql/merge",
+                {
+                    "geocodigo":str(geocodigo),
+                    "mes":str(mes)
+                }
+            )
+            print(data)
+            return jsonify(data.to_dict())
+        except:
+            return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
+
 class CitiesByState(Resource):
     def get(self, uf):
         try:
@@ -81,43 +97,10 @@ class Layers(Resource):
             return jsonify({ 'info' : 'Impossível fazer a leitura'})
 
 api.add_resource(Analise, '/analise/<geocodigo>/<mes_inicio>/<ano_inicio>/<mes_fim>/<ano_fim>')
+api.add_resource(Merge, '/merge/<geocodigo>/<mes>')
 api.add_resource(CitiesByState, '/cities/<uf>')
 api.add_resource(States, '/states')
 api.add_resource(Layers, '/layers')
 
 if __name__ == '__main__':
     app.run( debug = True, host = '0.0.0.0' )
-
-# import math
-# from connection_pg import Connection_pg
-
-# conect = Connection_pg("chuva")
-
-# meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
-# ano = 1998
-# cont = 0
-# while ano <= 2009:
-#     for mes in meses:
-#         data = conect.load_data("SELECT municipio.fid, municipio.geocodigo, (monthly.media - merge_monthly.media) as anomalia " +
-#             "FROM public.municipios_brasil municipio, public.an_municipio_monthly monthly, public.an_municipio_merge_monthly merge_monthly "
-#             "WHERE municipio.fid = monthly.fid AND municipio.fid = merge_monthly.fid " +
-#             "AND monthly.mes = merge_monthly.mes " +
-#             "AND monthly.ano = " + str(ano) + " " +
-#             "AND monthly.mes = '" + str(mes) + "'"
-#         )
-#         for i in range(len(data)):
-#             if not math.isnan(data['anomalia'][i]):
-#                 conect.getCursor().execute("UPDATE public.an_municipio_monthly monthly " +
-#                     "SET anomalia = " + str(data['anomalia'][i]) + " " + 
-#                     "WHERE fid = " + str(data['fid'][i]) + " " +
-#                     "AND ano = " + str(ano) + " " +
-#                     "AND mes = '" + str(mes) + "'"
-#                 )
-#                 print("Valor da anomalia => " + str(data['anomalia'][i]))
-#                 print(str(mes) + " / " + str(ano))
-#                 cont += 1
-#                 print(cont)
-#     ano = ano + 1
-#     conect.getConn().commit()
-    
-# conect.closeAll()
