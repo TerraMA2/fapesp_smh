@@ -55,11 +55,16 @@ class Merge(Resource):
     def get(self,geocodigo,mes):
         try:
             conectar = Connection_pg("chuva")
+            mes_extenso = str(mes)
+            indice = (len(mes_extenso) - 1) * (-1)
             data = conectar.readFileSQL(
                 "sql/merge",
                 {
                     "geocodigo":str(geocodigo),
-                    "mes":str(mes)
+                    "mes":(
+                        (mes_extenso[:indice]).upper() +
+                        (mes_extenso[indice:]).lower()
+                    )
                 }
             )
             print(data)
