@@ -28,7 +28,7 @@ echo "
  => Executando o container com a imagem gerada SMH-UI 5/5
     
     "
-docker container run --name app-smh-ui -d -p 8082:8080 smh-ui:latest
+docker container run --name app-smh-ui -d -p 8080:8080 smh-ui:latest
 echo "
 
  Finalizando OK ;)
