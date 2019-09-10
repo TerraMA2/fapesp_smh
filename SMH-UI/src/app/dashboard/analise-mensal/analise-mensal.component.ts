@@ -131,8 +131,7 @@ export class AnaliseMensalComponent implements OnInit {
             data.media_ano,
             data.mes,
             data.nome_municipio,
-            data.var_maxima,
-            data.var_media,
+            data.anomalia,
             data.format_date
           );
           switch (this.selectedGrafico.nomeGrafico) {
@@ -184,9 +183,9 @@ export class AnaliseMensalComponent implements OnInit {
                 datasets: [
                   {
                     label: 'Anomalia mm/mês',
-                    backgroundColor: this.apiFlask.convertToColors(data.var_media),
-                    borderColor: this.apiFlask.convertToColors(data.var_media),
-                    data: this.apiFlask.convertToArray(data.var_media)
+                    backgroundColor: this.apiFlask.convertToColors(data.anomalia),
+                    borderColor: this.apiFlask.convertToColors(data.anomalia),
+                    data: this.apiFlask.convertToArray(data.anomalia)
                   }
                 ]
               }

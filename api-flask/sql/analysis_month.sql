@@ -2,10 +2,9 @@ SELECT
 municipio.nome1 AS nome_municipio,
 (monthly.maxima * EXTRACT(DAY FROM monthly.execution_date)) AS maxima_ano,
 (merge_monthly.maxima * EXTRACT(DAY FROM merge_monthly.execution_date)) AS maxima,
-((monthly.maxima - merge_monthly.maxima) * EXTRACT(DAY FROM merge_monthly.execution_date)) AS var_maxima,
 (monthly.media * EXTRACT(DAY FROM monthly.execution_date)) AS media_ano,
 (merge_monthly.media * EXTRACT(DAY FROM merge_monthly.execution_date)) AS media,
-((monthly.media - merge_monthly.media) * EXTRACT(DAY FROM merge_monthly.execution_date)) AS var_media,
+(monthly.anomalia * EXTRACT(DAY FROM merge_monthly.execution_date)) AS anomalia,
 monthly.ano AS ano,
 merge_monthly.mes AS mes,
 monthly.mes || ' / ' || monthly.ano AS format_date

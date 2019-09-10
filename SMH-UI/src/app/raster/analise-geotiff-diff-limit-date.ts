@@ -6,7 +6,6 @@ export interface AnaliseGeotiffDiffLimitDate {
     media_ano: number;
     mes: string;
     nome_municipio: string;
-    var_maxima: number;
-    var_media: number;
+    anomalia: number;
     format_date: string;
 }
