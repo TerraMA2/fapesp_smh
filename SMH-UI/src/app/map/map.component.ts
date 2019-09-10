@@ -51,14 +51,21 @@ export class MapComponent implements OnInit {
   private selectedLayer: any;
 
 
+  private layerObj: Layers[] = [
+    { layername: 'view2', name: 'Anomalia', source_type: 1, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: "terrama2_2" },
+    { layername: 'view15', name: 'Climatologico', source_type: 3, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: 'terrama2_15' },
+    { layername: 'view16', name: 'Mensal', source_type: 3, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: 'terrama2_16' }
+  ];
+
   constructor(private mapService: MapService, private wmsService: WmsService, private apiFlask: PythonFlaskAPIService, ) {
 
   }
 
   ngOnInit() {
-    this.initLayer();
+    // this.initLayer();
     this.initDataAgora();
     this.initilizeMap();
+    this.initLayerLocal();
   }
 
   ngDocheck() {
@@ -234,21 +241,29 @@ export class MapComponent implements OnInit {
   }
 
 
-  initLayer() {
-    // this.mapService.listar(RepositoryApi.smh_api_spring + "/viewslayer").toPromise()
-    this.mapService.listar(RepositoryApi.smh_api + "/layers").toPromise()
-      .then((data: any) => {
-        console.log(data);
-        let dataApi = this.apiFlask.convertToLayerAPI(data.layername, data.name, data.source_type, data.uri, data.workspace);
-        this.jsonObj = dataApi;
+  // initLayer() {
+  //   // this.mapService.listar(RepositoryApi.smh_api_spring + "/viewslayer").toPromise()
+  //   this.mapService.listar(RepositoryApi.smh_api + "/layers").toPromise()
+  //     .then((data: any) => {
+  //       console.log(data);
+  //       let dataApi = this.apiFlask.convertToLayerAPI(data.layername, data.name, data.source_type, data.uri, data.workspace);
+  //       this.jsonObj = dataApi;
 
-        dataApi.forEach(element => {
-          // console.log(element.uri.substring(23) + "/wms?")
-          // console.log(element.uri.replace("admin:geoserver@", "") + "/wms?")
-          this.features[element.name] = this.wmsService.camadas(element);
-          this.map.addLayer(this.features[element.name]);
-        });
-      });
+  //       dataApi.forEach(element => {
+  //         // console.log(element.uri.substring(23) + "/wms?")
+  //         // console.log(element.uri.replace("admin:geoserver@", "") + "/wms?")
+  //         this.features[element.name] = this.wmsService.camadas(element);
+  //         this.map.addLayer(this.features[element.name]);
+  //       });
+  //     });
+  // }
+
+  initLayerLocal() {
+    this.jsonObj = this.layerObj;
+    this.layerObj.forEach(element => {
+      this.features[element.name] = this.wmsService.camadas(element);
+      this.map.addLayer(this.features[element.name]);
+    });
   }
 
 
