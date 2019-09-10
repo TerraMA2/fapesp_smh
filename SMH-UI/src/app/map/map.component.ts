@@ -53,8 +53,8 @@ export class MapComponent implements OnInit {
 
   private layerObj: Layers[] = [
     { layername: 'view2', name: 'Anomalia', source_type: 1, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: "terrama2_2" },
-    { layername: 'view15', name: 'Climatologico', source_type: 3, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: 'terrama2_15' },
-    { layername: 'view16', name: 'Mensal', source_type: 3, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: 'terrama2_16' }
+    { layername: 'view15', name: 'Precipitação Máxima', source_type: 3, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: 'terrama2_15' },
+    { layername: 'view16', name: 'Precipitação Acumulada Média', source_type: 3, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: 'terrama2_16' }
   ];
 
   constructor(private mapService: MapService, private wmsService: WmsService, private apiFlask: PythonFlaskAPIService, ) {
