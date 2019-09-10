@@ -6,30 +6,6 @@
          <se:Name>Style</se:Name>
          <se:FeatureTypeStyle version="1.1.0">
             <se:Rule>
-               <se:Name>Default</se:Name>
-               <se:PolygonSymbolizer version="1.1.0">
-                  <se:Fill>
-                     <se:SvgParameter name="fill">
-                        <ogc:Literal>#FEE1E2</ogc:Literal>
-                     </se:SvgParameter>
-                     <se:SvgParameter name="fill-opacity">
-                        <ogc:Literal>0.498039</ogc:Literal>
-                     </se:SvgParameter>
-                  </se:Fill>
-                  <se:Stroke>
-                     <se:SvgParameter name="stroke">
-                        <ogc:Literal>#000000</ogc:Literal>
-                     </se:SvgParameter>
-                     <se:SvgParameter name="stroke-opacity">
-                        <ogc:Literal>0</ogc:Literal>
-                     </se:SvgParameter>
-                     <se:SvgParameter name="stroke-width">
-                        <ogc:Literal>1</ogc:Literal>
-                     </se:SvgParameter>
-                  </se:Stroke>
-               </se:PolygonSymbolizer>
-            </se:Rule>
-            <se:Rule>
                <se:Name>-5</se:Name>
                <ogc:Filter>
                   <ogc:PropertyIsLessThanOrEqualTo>
