@@ -6,12 +6,192 @@
          <se:Name>Style</se:Name>
          <se:FeatureTypeStyle version="1.1.0">
             <se:Rule>
-               <se:Name>-5</se:Name>
+               <se:Name>-30</se:Name>
                <ogc:Filter>
                   <ogc:PropertyIsLessThanOrEqualTo>
                      <ogc:PropertyName>anomalia</ogc:PropertyName>
-                     <ogc:Literal>-5</ogc:Literal>
+                     <ogc:Literal>-30</ogc:Literal>
                   </ogc:PropertyIsLessThanOrEqualTo>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#6A3C3C</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>-20</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>-30</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>-20</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#6F2121</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>-10</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>-20</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>-10</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#480606</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>-8</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>-10</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>-8</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#960000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>-6</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>-8</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>-6</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#DE0000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>-5</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>-6</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>-5</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
                </ogc:Filter>
                <se:PolygonSymbolizer version="1.1.0">
                   <se:Fill>
@@ -377,6 +557,186 @@
                   <se:Fill>
                      <se:SvgParameter name="fill">
                         <ogc:Literal>#00B2FF</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>6</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>5</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>6</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#0091D0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>8</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>6</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>8</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#0076A9</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>10</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>8</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>10</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#104962</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>20</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>10</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>20</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#1E5A73</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="fill-opacity">
+                        <ogc:Literal>0.498039</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Fill>
+                  <se:Stroke>
+                     <se:SvgParameter name="stroke">
+                        <ogc:Literal>#000000</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-opacity">
+                        <ogc:Literal>0</ogc:Literal>
+                     </se:SvgParameter>
+                     <se:SvgParameter name="stroke-width">
+                        <ogc:Literal>1</ogc:Literal>
+                     </se:SvgParameter>
+                  </se:Stroke>
+               </se:PolygonSymbolizer>
+            </se:Rule>
+            <se:Rule>
+               <se:Name>30</se:Name>
+               <ogc:Filter>
+                  <ogc:And>
+                     <ogc:PropertyIsGreaterThan>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>20</ogc:Literal>
+                     </ogc:PropertyIsGreaterThan>
+                     <ogc:PropertyIsLessThanOrEqualTo>
+                        <ogc:PropertyName>anomalia</ogc:PropertyName>
+                        <ogc:Literal>30</ogc:Literal>
+                     </ogc:PropertyIsLessThanOrEqualTo>
+                  </ogc:And>
+               </ogc:Filter>
+               <se:PolygonSymbolizer version="1.1.0">
+                  <se:Fill>
+                     <se:SvgParameter name="fill">
+                        <ogc:Literal>#2F5869</ogc:Literal>
                      </se:SvgParameter>
                      <se:SvgParameter name="fill-opacity">
                         <ogc:Literal>0.498039</ogc:Literal>
