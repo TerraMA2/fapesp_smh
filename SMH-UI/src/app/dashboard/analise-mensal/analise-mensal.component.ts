@@ -39,7 +39,7 @@ export class AnaliseMensalComponent implements OnInit {
   private start: Date = new Date(1998, 0, 31);
   private end: Date = new Date(1998, 11, 31);
   private min: Date = new Date(1998, 0, 31);
-  private max: Date = new Date(2018, 11, 31);
+  private max: Date = new Date();
 
   private cities: City[];
   private selectedCity: City;
@@ -116,86 +116,97 @@ export class AnaliseMensalComponent implements OnInit {
   }
 
   loadAnalise() {
-    this.mapAnalise.setView(new View({
-      center: [this.selectedCity.longitude, this.selectedCity.latitude], zoom: 12, projection: 'EPSG:4326'
-    }));
-    console.log(this.apiFlask.compareDates(this.end, this.start));
     if (this.apiFlask.compareDates(this.end, this.start) < 20 && this.end >= this.start) {
-      this.apiFlask.getMonthlyMaxMeanDiffLimitDate(this.selectedCity.geocodigo, this.start, this.end).toPromise().then(
-        (data: any) => {
-          this.dados = this.apiFlask.convertToAnliseAPI(
-            data.ano,
-            data.maxima,
-            data.maxima_ano,
-            data.media,
-            data.media_ano,
-            data.mes,
-            data.nome_municipio,
-            data.anomalia,
-            data.format_date
-          );
-          switch (this.selectedGrafico.nomeGrafico) {
-            case "Preciptação Máxima":
-              this.dataGrafico = {
-                labels: this.apiFlask.convertToArray(data.format_date),
-                datasets: [
-                  {
-                    label: "Climatológico mm/mês",
-                    backgroundColor: '#007bff',
-                    borderColor: '#55a7ff',
-                    /// fill: false,
-                    data: this.apiFlask.convertToArray(data.maxima)
-                  },
-                  {
-                    label: "Máxima mm/mês",
-                    backgroundColor: '#80bdff',
-                    borderColor: '#9ecdff',
-                    /// fill: false,
-                    data: this.apiFlask.convertToArray(data.maxima_ano)
-                  }
-                ]
-              };
-              break;
-            case "Preciptação Acumulada Média":
-              this.dataGrafico = {
-                labels: this.apiFlask.convertToArray(data.format_date),
-                datasets: [
-                  {
-                    label: "Climatológico mm/mês",
-                    backgroundColor: '#007bff',
-                    borderColor: '#55a7ff',
-                    /// fill: false,
-                    data: this.apiFlask.convertToArray(data.media)
-                  },
-                  {
-                    label: "Média mm/mês",
-                    backgroundColor: '#80bdff',
-                    borderColor: '#9ecdff',
-                    /// fill: false,
-                    data: this.apiFlask.convertToArray(data.media_ano)
-                  }
-                ]
-              };
-              break;
-            case "Anomalia":
-              this.dataGrafico = {
-                labels: this.apiFlask.convertToArray(data.format_date),
-                datasets: [
-                  {
-                    label: 'Anomalia mm/mês',
-                    backgroundColor: this.apiFlask.convertToColors(data.anomalia),
-                    borderColor: this.apiFlask.convertToColors(data.anomalia),
-                    data: this.apiFlask.convertToArray(data.anomalia)
-                  }
-                ]
+      if (this.selectedCity) {
+        this.mapAnalise.setView(new View({
+          center: [this.selectedCity.longitude, this.selectedCity.latitude], zoom: 12, projection: 'EPSG:4326'
+        }));
+        this.apiFlask.getMonthlyMaxMeanDiffLimitDate(this.selectedCity.geocodigo, this.start, this.end).toPromise().then(
+          (data: any) => {
+            if (data.info) {
+              alert(data.info);
+            } else {
+              this.dados = this.apiFlask.convertToAnliseAPI(
+                data.ano,
+                data.maxima,
+                data.maxima_ano,
+                data.media,
+                data.media_ano,
+                data.mes,
+                data.nome_municipio,
+                data.anomalia,
+                data.format_date
+              );
+              if (this.dados.length > 0) {
+                switch (this.selectedGrafico.nomeGrafico) {
+                  case "Preciptação Máxima":
+                    this.dataGrafico = {
+                      labels: this.apiFlask.convertToArray(data.format_date),
+                      datasets: [
+                        {
+                          label: "Climatológico mm/mês",
+                          backgroundColor: '#007bff',
+                          borderColor: '#55a7ff',
+                          /// fill: false,
+                          data: this.apiFlask.convertToArray(data.maxima)
+                        },
+                        {
+                          label: "Máxima mm/mês",
+                          backgroundColor: '#80bdff',
+                          borderColor: '#9ecdff',
+                          /// fill: false,
+                          data: this.apiFlask.convertToArray(data.maxima_ano)
+                        }
+                      ]
+                    };
+                    break;
+                  case "Preciptação Acumulada Média":
+                    this.dataGrafico = {
+                      labels: this.apiFlask.convertToArray(data.format_date),
+                      datasets: [
+                        {
+                          label: "Climatológico mm/mês",
+                          backgroundColor: '#007bff',
+                          borderColor: '#55a7ff',
+                          /// fill: false,
+                          data: this.apiFlask.convertToArray(data.media)
+                        },
+                        {
+                          label: "Média mm/mês",
+                          backgroundColor: '#80bdff',
+                          borderColor: '#9ecdff',
+                          /// fill: false,
+                          data: this.apiFlask.convertToArray(data.media_ano)
+                        }
+                      ]
+                    };
+                    break;
+                  case "Anomalia":
+                    this.dataGrafico = {
+                      labels: this.apiFlask.convertToArray(data.format_date),
+                      datasets: [
+                        {
+                          label: 'Anomalia mm/mês',
+                          backgroundColor: this.apiFlask.convertToColors(data.anomalia),
+                          borderColor: this.apiFlask.convertToColors(data.anomalia),
+                          data: this.apiFlask.convertToArray(data.anomalia)
+                        }
+                      ]
+                    }
+                    break;
+                  default:
+                    alert("Selecione uma cidade e um estado com uma variável do gráfico!");
+                    break;
+                }
+              } else {
+                alert("Dados não encontrados ou ainda não foram processados!");
               }
-              break;
-            default:
-              alert("Selecione uma cidade e um estado com uma variável do gráfico!");
-              break;
+            }
           }
-        }
-      );
+        );
+      } else {
+        alert("Selecione uma cidade e um estado com uma variável do gráfico!");
+      }
     } else {
       if (this.end < this.start) {
         alert("Data inicial maior que a final!");
