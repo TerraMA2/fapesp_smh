@@ -17,7 +17,7 @@ import { PythonFlaskAPIService } from 'src/app/services/python-flask-api.service
 import { Uf } from 'src/app/models/uf';
 import { Grafico } from 'src/app/models/grafico';
 import { City } from 'src/app/models/city';
-import { AnaliseGeotiffDiffLimitDate } from 'src/app/raster/analise-geotiff-diff-limit-date';
+import { AnaliseGeotiffDiffLimitDateMonthly } from 'src/app/raster/analise-geotiff-diff-limit-date-monthly';
 
 // Enum
 import { UfEnum } from 'src/app/enums/uf-enum.enum';
@@ -34,7 +34,7 @@ export class AnaliseMensalComponent implements OnInit {
   private mapAnalise;
   private osm;
 
-  dados: AnaliseGeotiffDiffLimitDate[];
+  dados: AnaliseGeotiffDiffLimitDateMonthly[];
   private dataGrafico: any;
   private start: Date = new Date(1998, 0, 31);
   private end: Date = new Date(1998, 11, 31);
@@ -126,7 +126,7 @@ export class AnaliseMensalComponent implements OnInit {
             if (data.info) {
               alert(data.info);
             } else {
-              this.dados = this.apiFlask.convertToAnliseAPI(
+              this.dados = this.apiFlask.convertToAnliseMonthlyAPI(
                 data.ano,
                 data.maxima,
                 data.maxima_ano,

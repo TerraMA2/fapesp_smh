@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { City } from '../models/city';
-import { AnaliseGeotiffDiffLimitDate } from '../raster/analise-geotiff-diff-limit-date';
+import { AnaliseGeotiffDiffLimitDateMonthly } from '../raster/analise-geotiff-diff-limit-date-monthly';
+import { AnaliseGeotiffDiffLimitDateDaily } from '../raster/analise-geotiff-diff-limit-date-daily';
 import { RepositoryApi } from '../enums/repository-api.enum';
 import { Uf } from '../models/uf';
 import { Layers } from 'src/app/models/layers';
@@ -23,14 +24,22 @@ export class PythonFlaskAPIService {
   }
 
   getMonthlyMaxMeanDiffLimitDate(geocodigo: string, start: Date, end: Date) {
-    return this.httpClient.get<AnaliseGeotiffDiffLimitDate>(
+    return this.httpClient.get<AnaliseGeotiffDiffLimitDateMonthly>(
       RepositoryApi.smh_api +
-      '/analise/' +
+      '/analise-monthly/' +
       geocodigo + '/' +
       (start.getMonth() + 1) + '/' +
       start.getFullYear() + '/' +
       (end.getMonth() + 1) + '/' +
       end.getFullYear()
+    );
+  }
+
+  getDailylyMaxMeanDiffLimitDate(geocodigo: string) {
+    return this.httpClient.get<AnaliseGeotiffDiffLimitDateMonthly>(
+      RepositoryApi.smh_api +
+      '/analise-monthly/' +
+      geocodigo
     );
   }
 
@@ -54,7 +63,7 @@ export class PythonFlaskAPIService {
     return layers;
   }
 
-  convertToAnliseAPI(
+  convertToAnliseMonthlyAPI(
     ano: number[],
     maxima: number[],
     maxima_ano: number[],
@@ -65,7 +74,7 @@ export class PythonFlaskAPIService {
     anomalia: number[],
     format_date: string[],
   ) {
-    let analises: AnaliseGeotiffDiffLimitDate[] = [];
+    let analises: AnaliseGeotiffDiffLimitDateMonthly[] = [];
     for (let i in ano) {
       analises[i] = {
         ano: ano[i],
@@ -77,6 +86,26 @@ export class PythonFlaskAPIService {
         nome_municipio: nome_municipio[i],
         anomalia: anomalia[i],
         format_date: format_date[i],
+      }
+    }
+    return analises;
+  }
+
+  convertToAnliseDailyAPI(
+    maxima: number[],
+    media: number[],
+    dia: number[],
+    mes: string[],
+    nome_municipio: string[]
+  ) {
+    let analises: AnaliseGeotiffDiffLimitDateDaily[] = [];
+    for (let i in dia) {
+      analises[i] = {
+        maxima: maxima[i],
+        media: media[i],
+        dia: dia[i],
+        mes: mes[i],
+        nome_municipio: nome_municipio[i] 
       }
     }
     return analises;

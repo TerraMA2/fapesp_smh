@@ -30,7 +30,7 @@ CORS(app)
 def hello():
     return jsonify({'text':'Hello World!!!'})
 
-class Analise(Resource):
+class AnaliseMonthly(Resource):
     def get(self,geocodigo,mes_inicio,ano_inicio,mes_fim,ano_fim):
         try:
             conectar = Connection_pg("chuva")
@@ -39,11 +39,11 @@ class Analise(Resource):
             data = conectar.readFileSQL(
                 "sql/analysis_month",
                 {
-                    "geocodigo":str(geocodigo),
-                    "mes_inicio":str(mes_inicio),
-                    "ano_inicio":str(ano_inicio),
-                    "mes_fim":str(mes),
-                    "ano_fim":str(ano)
+                    "geocodigo": str(geocodigo),
+                    "mes_inicio": str(mes_inicio),
+                    "ano_inicio": str(ano_inicio),
+                    "mes_fim": str(mes),
+                    "ano_fim": str(ano)
                 }
             )
             print(data)
@@ -51,7 +51,7 @@ class Analise(Resource):
         except:
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
 
-class Merge(Resource):
+class MergeMonthly(Resource):
     def get(self,geocodigo,mes):
         try:
             conectar = Connection_pg("chuva")
@@ -60,11 +60,26 @@ class Merge(Resource):
             data = conectar.readFileSQL(
                 "sql/merge",
                 {
-                    "geocodigo":str(geocodigo),
-                    "mes":(
+                    "geocodigo": str(geocodigo),
+                    "mes": (
                         (mes_extenso[:indice]).upper() +
                         (mes_extenso[indice:]).lower()
                     )
+                }
+            )
+            print(data)
+            return jsonify(data.to_dict())
+        except:
+            return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
+
+class AnaliseDaily(Resource):
+    def get(self,geocodigo):
+        try:
+            conectar = Connection_pg("chuva")
+            data = conectar.readFileSQL(
+                "sql/analysis_daily",
+                {
+                    "geocodigo": str(geocodigo)
                 }
             )
             print(data)
@@ -76,7 +91,7 @@ class CitiesByState(Resource):
     def get(self, uf):
         try:
             conectar = Connection_pg("chuva")
-            data = conectar.readFileSQL("sql/cities_by_state",{'uf':str(uf).upper()})
+            data = conectar.readFileSQL("sql/cities_by_state",{'uf': str(uf).upper()})
             print(data)
             return jsonify(data.to_dict())
         except:
@@ -101,8 +116,9 @@ class Layers(Resource):
         except:
             return jsonify({ 'info' : 'Impossível fazer a leitura'})
 
-api.add_resource(Analise, '/analise/<geocodigo>/<mes_inicio>/<ano_inicio>/<mes_fim>/<ano_fim>')
-api.add_resource(Merge, '/merge/<geocodigo>/<mes>')
+api.add_resource(AnaliseMonthly, '/analise-monthly/<geocodigo>/<mes_inicio>/<ano_inicio>/<mes_fim>/<ano_fim>')
+api.add_resource(MergeMonthly, '/merge-monthly/<geocodigo>/<mes>')
+api.add_resource(AnaliseDaily,'/analise-daily/<geocodigo>')
 api.add_resource(CitiesByState, '/cities/<uf>')
 api.add_resource(States, '/states')
 api.add_resource(Layers, '/layers')

@@ -1,4 +1,4 @@
-export interface AnaliseGeotiffDiffLimitDate {
+export interface AnaliseGeotiffDiffLimitDateMonthly {
     ano: number;
     maxima: number;
     maxima_ano: number;
