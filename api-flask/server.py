@@ -73,13 +73,19 @@ class MergeMonthly(Resource):
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
 
 class AnaliseDaily(Resource):
-    def get(self,geocodigo):
+    def get(self,geocodigo,mes):
         try:
             conectar = Connection_pg("chuva")
+            mes_extenso = str(mes)
+            indice = (len(mes_extenso) - 1) * (-1)
             data = conectar.readFileSQL(
                 "sql/analysis_daily",
                 {
-                    "geocodigo": str(geocodigo)
+                    "geocodigo": str(geocodigo),
+                    "mes": (
+                        (mes_extenso[:indice]).upper() +
+                        (mes_extenso[indice:]).lower()
+                    )
                 }
             )
             print(data)
@@ -116,9 +122,9 @@ class Layers(Resource):
         except:
             return jsonify({ 'info' : 'Impossível fazer a leitura'})
 
-api.add_resource(AnaliseMonthly, '/analise-monthly/<geocodigo>/<mes_inicio>/<ano_inicio>/<mes_fim>/<ano_fim>')
+api.add_resource(AnaliseMonthly, '/analysis-monthly/<geocodigo>/<mes_inicio>/<ano_inicio>/<mes_fim>/<ano_fim>')
 api.add_resource(MergeMonthly, '/merge-monthly/<geocodigo>/<mes>')
-api.add_resource(AnaliseDaily,'/analise-daily/<geocodigo>')
+api.add_resource(AnaliseDaily,'/analysis-daily/<geocodigo>/<mes>')
 api.add_resource(CitiesByState, '/cities/<uf>')
 api.add_resource(States, '/states')
 api.add_resource(Layers, '/layers')

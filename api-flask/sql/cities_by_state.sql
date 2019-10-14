@@ -1,1 +1,1 @@
-SELECT nome1, geocodigo, latitude, longitude FROM public.municipios_brasil WHERE uf = '{uf}' ORDER BY nome1;
+SELECT nome1 as nome_municipio, geocodigo, latitude, longitude FROM public.municipios_brasil WHERE uf = '{uf}' ORDER BY nome1;

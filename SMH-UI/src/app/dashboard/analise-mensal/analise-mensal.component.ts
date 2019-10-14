@@ -11,8 +11,6 @@ import DragRotateAndZoom from 'ol/interaction/DragRotateAndZoom';
 // Service
 import { PythonFlaskAPIService } from 'src/app/services/python-flask-api.service';
 
-
-
 // Inteface
 import { Uf } from 'src/app/models/uf';
 import { Grafico } from 'src/app/models/grafico';
@@ -75,7 +73,7 @@ export class AnaliseMensalComponent implements OnInit {
     this.cities = [];
     this.apiFlask.getCities(this.selectedUf.uf).toPromise().then((data: any) => {
       this.cities = this.apiFlask.convertToCityAPI(
-        data.nome1, data.longitude, data.latitude, data.geocodigo
+        data.nome_municipio, data.longitude, data.latitude, data.geocodigo
       );
     });
   }
@@ -117,7 +115,7 @@ export class AnaliseMensalComponent implements OnInit {
 
   loadAnalise() {
     if (this.apiFlask.compareDates(this.end, this.start) < 20 && this.end >= this.start) {
-      if (this.selectedCity) {
+      if (this.selectedCity && this.selectedGrafico) {
         this.mapAnalise.setView(new View({
           center: [this.selectedCity.longitude, this.selectedCity.latitude], zoom: 12, projection: 'EPSG:4326'
         }));

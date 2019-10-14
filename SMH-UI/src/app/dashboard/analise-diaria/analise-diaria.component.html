@@ -1,3 +1,57 @@
 <p>
-  analise-diaria works!
+  Análise Diária Dados de Preciptação
 </p>
+<h4 style = "font-weight:normal">Busca de Dados</h4>
+
+<div class = "p-grid">
+  <div class = "p-col-12">
+    <div class = "p-grid">
+      <div class = "p-col-3">
+        <div class = "p-col">
+          <p-dropdown [options] = "options" [(ngModel)] = "selected" placeholder = "Mês" optionLabel = "name" [showClear] = "true"></p-dropdown>
+        </div>
+        <div class = "p-col">
+          <p-dropdown [options] = "uf" [(ngModel)] = "selectedUf" filter = "true" (onChange) = "loadCityByUf()" placeholder = "Estado" optionLabel = "estado" [showClear] = "true"></p-dropdown>
+        </div>
+        <div class = "p-col">
+          <p-dropdown [options] = "cities" [(ngModel)] = "selectedCity" filter = "true" placeholder = "Município" optionLabel = "nome_municipio" [showClear] = "true"></p-dropdown>
+        </div>
+        <div class = "p-col-6">
+          <div class = "p-grid">
+            <div class = "p-col-5">
+              <button pButton type = "button" (click) = "loadAnalise()" label = "Buscar" class = "ui-button-success"></button>
+            </div>
+            <div class = "p-col-5">
+              <button pButton type = "button" (click) = "SidebarAnaliseMensal = false" label = "Fechar" class = "ui-button-warning"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class = "p-col-6">
+        <p-chart type = "line"  height = "350" [data] = "dataGrafico"></p-chart>
+      </div>
+      <div class = "p-col-12">
+          <p-scrollPanel [style] = "{width: '100%', height: '500px'}" styleClass = "custom">
+              <p-table [value] = "dados">
+                  <ng-template pTemplate = "header">
+                      <tr>
+                          <th>Data</th>
+                          <th>Média Climatoligica (mm/dia)</th>
+                          <th>Máxima Climatoligica (mm/dia)</th>
+                          <th>Municipio</th>
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate = "body" let-dado>
+                      <tr>
+                          <td> {{ dado.mes }} / {{ dado.dia }}</td>
+                          <td>{{ dado.media.toFixed(2) }}</td>
+                          <td>{{ dado.maxima.toFixed(2) }}</td>
+                          <td>{{ dado.nome_municipio }}</td>
+                      </tr>
+                  </ng-template>
+              </p-table>
+          </p-scrollPanel>
+      </div>
+    </div>
+  </div>
+</div>

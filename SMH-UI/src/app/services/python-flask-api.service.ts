@@ -26,7 +26,7 @@ export class PythonFlaskAPIService {
   getMonthlyMaxMeanDiffLimitDate(geocodigo: string, start: Date, end: Date) {
     return this.httpClient.get<AnaliseGeotiffDiffLimitDateMonthly>(
       RepositoryApi.smh_api +
-      '/analise-monthly/' +
+      '/analysis-monthly/' +
       geocodigo + '/' +
       (start.getMonth() + 1) + '/' +
       start.getFullYear() + '/' +
@@ -35,17 +35,18 @@ export class PythonFlaskAPIService {
     );
   }
 
-  getDailylyMaxMeanDiffLimitDate(geocodigo: string) {
+  getDailylyMaxMeanDiffLimitDate(geocodigo: string, mes: string) {
     return this.httpClient.get<AnaliseGeotiffDiffLimitDateMonthly>(
       RepositoryApi.smh_api +
-      '/analise-monthly/' +
-      geocodigo
+      '/analysis-daily/' +
+      geocodigo + '/' +
+      mes
     );
   }
 
-  convertToCityAPI(nome1: string[], longitude: number[], latitude: number[], geocodigo: string[]) {
+  convertToCityAPI(nome_municipio: string[], longitude: number[], latitude: number[], geocodigo: string[]) {
     let cities: City[] = [];
-    for (let i in nome1) { cities[i] = { nome1: nome1[i], longitude: longitude[i], latitude: latitude[i], geocodigo: geocodigo[i] }; }
+    for (let i in nome_municipio) { cities[i] = { nome_municipio: nome_municipio[i], longitude: longitude[i], latitude: latitude[i], geocodigo: geocodigo[i] }; }
     return cities;
   }
 
