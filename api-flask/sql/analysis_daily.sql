@@ -3,4 +3,4 @@ FROM public.municipios_brasil municipio, public.an_municipio_clim_daily clim_dai
 WHERE municipio.geocodigo = '{geocodigo}'
 AND clim_daily.mes = '{mes}'
 AND municipio.fid = clim_daily.fid
-ORDER BY execution_date;
+ORDER BY clim_daily.execution_date;
