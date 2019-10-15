@@ -3,5 +3,6 @@ export interface AnaliseGeotiffDiffLimitDateDaily {
     media: number;
     dia: number;
     mes: string;
+    execution_date: Date;
     nome_municipio: string;
 }

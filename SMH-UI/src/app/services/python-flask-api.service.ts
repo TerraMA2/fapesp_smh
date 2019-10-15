@@ -97,6 +97,7 @@ export class PythonFlaskAPIService {
     media: number[],
     dia: number[],
     mes: string[],
+    execution_date: Date[],
     nome_municipio: string[]
   ) {
     let analises: AnaliseGeotiffDiffLimitDateDaily[] = [];
@@ -106,6 +107,7 @@ export class PythonFlaskAPIService {
         media: media[i],
         dia: dia[i],
         mes: mes[i],
+        execution_date: execution_date[i],
         nome_municipio: nome_municipio[i] 
       }
     }

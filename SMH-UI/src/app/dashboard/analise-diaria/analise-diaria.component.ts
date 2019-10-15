@@ -21,7 +21,7 @@ export class AnaliseDiariaComponent implements OnInit {
   private dataGrafico: any;
 
   private options: Option[];
-  private selected: Option;
+  private selected: Option = { name: "Janeiro", value: 1 };
 
   private cities: City[];
   private selectedCity: City;
@@ -76,6 +76,7 @@ export class AnaliseDiariaComponent implements OnInit {
           data.media,
           data.dia,
           data.mes,
+          data.execution_date,
           data.nome_municipio
         );
         this.dataGrafico = {
