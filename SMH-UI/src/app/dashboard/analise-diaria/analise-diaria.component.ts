@@ -83,14 +83,14 @@ export class AnaliseDiariaComponent implements OnInit {
           labels: this.apiFlask.convertToArray(data.dia),
           datasets: [
             {
-              label: "Média Climatológica " + this.selected.name + " mm/mês",
+              label: "Média Climatológica " + this.selected.name + " mm/dia",
               backgroundColor: '#55a7ff',
               borderColor: '#55a7ff',
               fill: false,
               data: this.apiFlask.convertToArray(data.media)
             },
             {
-              label: "Máxima Climatológica " + this.selected.name + " mm/mês",
+              label: "Máxima Climatológica " + this.selected.name + " mm/dia",
               backgroundColor: '#ff0000',
               borderColor: '#ff0000',
               fill: false,
