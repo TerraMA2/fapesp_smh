@@ -8,7 +8,24 @@
     <div class = "p-grid">
       <div class = "p-col-3">
         <div class = "p-col">
-          <p-dropdown [options] = "options" [(ngModel)] = "selected" placeholder = "Mês" optionLabel = "name" [showClear] = "true"></p-dropdown>
+          <h6 style = "font-weight:normal">Data Inicial:</h6>
+          <p-calendar
+              [(ngModel)] = "start"
+              dateFormat = "dd / MM / yy"
+              [minDate] = "min"
+              [maxDate] = "max"
+              [showIcon] = "true"
+          ></p-calendar>
+        </div>
+        <div class = "p-col">
+          <h6 style = "font-weight:normal">Data Fim:</h6>
+          <p-calendar
+              [(ngModel)] = "end"
+              dateFormat = "dd / MM / yy"
+              [minDate] = "min"
+              [maxDate] = "max"
+              [showIcon] = "true"
+          ></p-calendar>
         </div>
         <div class = "p-col">
           <p-dropdown [options] = "uf" [(ngModel)] = "selectedUf" filter = "true" (onChange) = "loadCityByUf()" placeholder = "Estado" optionLabel = "estado" [showClear] = "true"></p-dropdown>
@@ -35,7 +52,6 @@
               <p-table [value] = "dados">
                   <ng-template pTemplate = "header">
                       <tr>
-                          <th>{{ selected.name }}</th>
                           <th>Data de Execução</th>
                           <th>Média Climatoligica (mm/dia)</th>
                           <th>Máxima Climatoligica (mm/dia)</th>
@@ -44,7 +60,6 @@
                   </ng-template>
                   <ng-template pTemplate = "body" let-dado>
                       <tr>
-                          <td>{{ dado.dia }}°</td>
                           <td>{{ dado.execution_date }}</td>
                           <td>{{ dado.media.toFixed(2) }}</td>
                           <td>{{ dado.maxima.toFixed(2) }}</td>

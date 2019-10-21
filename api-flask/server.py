@@ -21,6 +21,15 @@ class CustomJSONEncoder(JSONEncoder):
             return list(iterable)
         return JSONEncoder.default(self, obj)
 
+class Month():
+    def format(mes):
+        mes_extenso = str(mes)
+        indice = (len(mes_extenso) - 1) * (-1)
+        return (
+            (mes_extenso[:indice]).upper() +
+            (mes_extenso[indice:]).lower()
+        )
+
 app = Flask(__name__)
 app.json_encoder = CustomJSONEncoder
 api = Api(app)
@@ -30,7 +39,7 @@ CORS(app)
 def hello():
     return jsonify({'text':'Hello World!!!'})
 
-class AnaliseMonthly(Resource):
+class AnalysisMonthly(Resource):
     def get(self,geocodigo,mes_inicio,ano_inicio,mes_fim,ano_fim):
         try:
             conectar = Connection_pg("chuva")
@@ -51,20 +60,15 @@ class AnaliseMonthly(Resource):
         except:
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
 
-class MergeMonthly(Resource):
+class ClimMonthly(Resource):
     def get(self,geocodigo,mes):
         try:
             conectar = Connection_pg("chuva")
-            mes_extenso = str(mes)
-            indice = (len(mes_extenso) - 1) * (-1)
             data = conectar.readFileSQL(
                 "sql/merge",
                 {
                     "geocodigo": str(geocodigo),
-                    "mes": (
-                        (mes_extenso[:indice]).upper() +
-                        (mes_extenso[indice:]).lower()
-                    )
+                    "mes": Month.format(str(mes))
                 }
             )
             print(data)
@@ -72,20 +76,33 @@ class MergeMonthly(Resource):
         except:
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
 
-class AnaliseDaily(Resource):
-    def get(self,geocodigo,mes):
+class AnalysisDaily(Resource):
+    def get(self,geocodigo,dia_inicio,mes_inicio,ano_inicio,dia_fim,mes_fim,ano_fim):
         try:
             conectar = Connection_pg("chuva")
-            mes_extenso = str(mes)
-            indice = (len(mes_extenso) - 1) * (-1)
             data = conectar.readFileSQL(
                 "sql/analysis_daily",
                 {
                     "geocodigo": str(geocodigo),
-                    "mes": (
-                        (mes_extenso[:indice]).upper() +
-                        (mes_extenso[indice:]).lower()
-                    )
+                    "dia_inicio":str(dia_inicio), "mes_inicio":str(mes_inicio), "ano_inicio":str(ano_inicio),
+                    "dia_fim":str(dia_fim), "mes_fim":str(mes_fim), "ano_fim":str(ano_fim)
+                }
+            )
+            print(data)
+            return jsonify(data.to_dict())
+        except:
+            return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
+
+class ClimDaily(Resource):
+    def get(self,geocodigo,mes,dia):
+        try:
+            conectar = Connection_pg("chuva")
+            data = conectar.readFileSQL(
+                "sql/clim_daily",
+                {
+                    "geocodigo": str(geocodigo),
+                    "mes": Month.format(str(mes)),
+                    "dia": str(dia)
                 }
             )
             print(data)
@@ -122,9 +139,10 @@ class Layers(Resource):
         except:
             return jsonify({ 'info' : 'Impossível fazer a leitura'})
 
-api.add_resource(AnaliseMonthly, '/analysis-monthly/<geocodigo>/<mes_inicio>/<ano_inicio>/<mes_fim>/<ano_fim>')
-api.add_resource(MergeMonthly, '/merge-monthly/<geocodigo>/<mes>')
-api.add_resource(AnaliseDaily,'/analysis-daily/<geocodigo>/<mes>')
+api.add_resource(AnalysisMonthly, '/analysis-monthly/<geocodigo>/<mes_inicio>/<ano_inicio>/<mes_fim>/<ano_fim>')
+api.add_resource(ClimMonthly, '/clim-monthly/<geocodigo>/<mes>')
+api.add_resource(AnalysisDaily,'/analysis-daily/<geocodigo>/<dia_inicio>/<mes_inicio>/<ano_inicio>/<dia_fim>/<mes_fim>/<ano_fim>')
+api.add_resource(ClimDaily, '/clim-daily/<geocodigo>/<mes>/<dia>')
 api.add_resource(CitiesByState, '/cities/<uf>')
 api.add_resource(States, '/states')
 api.add_resource(Layers, '/layers')

@@ -20,8 +20,10 @@ export class AnaliseDiariaComponent implements OnInit {
 
   private dataGrafico: any;
 
-  private options: Option[];
-  private selected: Option = { name: "Janeiro", value: 1 };
+  private start: Date = new Date(2018, 0, 1);
+  private end: Date = new Date(2018, 0, 31);
+  private min: Date = new Date(2018, 0, 1);
+  private max: Date = new Date(2018, 12, 31);
 
   private cities: City[];
   private selectedCity: City;
@@ -32,20 +34,6 @@ export class AnaliseDiariaComponent implements OnInit {
   constructor(private apiFlask: PythonFlaskAPIService) { }
 
   ngOnInit() {
-    this.options = [
-      { name: 'Janeiro', value: 1 },
-      { name: 'Fevereiro', value: 2 },
-      { name: 'Março', value: 3 },
-      { name: 'Abril', value: 4 },
-      { name: 'Maio', value: 5 },
-      { name: 'Junho', value: 6 },
-      { name: 'Julho', value: 7 },
-      { name: 'Agosto', value: 8 },
-      { name: 'Setembro', value: 9 },
-      { name: 'Outubro', value: 10 },
-      { name: 'Novembro', value: 11 },
-      { name: 'Dezembro', value: 12 }
-    ]
     this.initilizeUfList();
   }
 
@@ -69,7 +57,7 @@ export class AnaliseDiariaComponent implements OnInit {
   }
 
   loadAnalise() {
-    this.apiFlask.getDailylyMaxMeanDiffLimitDate(this.selectedCity.geocodigo, this.selected.name).toPromise().then(
+    this.apiFlask.getDailylyMaxMeanDiffLimitDate(this.selectedCity.geocodigo, this.start, this.end).toPromise().then(
       (data: any) => {
         this.dados = this.apiFlask.convertToAnliseDailyAPI(
           data.maxima,
@@ -80,21 +68,21 @@ export class AnaliseDiariaComponent implements OnInit {
           data.nome_municipio
         );
         this.dataGrafico = {
-          labels: this.apiFlask.convertToArray(data.dia),
+          labels: this.apiFlask.convertToArray(data.execution_date),
           datasets: [
             {
-              label: "Média Climatológica " + this.selected.name + " mm/dia",
+              label: "Média Climatológica " + this.dados[0].mes + " mm/dia",
               backgroundColor: '#55a7ff',
               borderColor: '#55a7ff',
               fill: false,
-              data: this.apiFlask.convertToArray(data.media)
+              data: this.apiFlask.convertToArray(data.dia)
             },
             {
-              label: "Máxima Climatológica " + this.selected.name + " mm/dia",
+              label: "Máxima Climatológica " + this.dados[0].mes + " mm/dia",
               backgroundColor: '#ff0000',
               borderColor: '#ff0000',
               fill: false,
-              data: this.apiFlask.convertToArray(data.maxima)
+              data: this.apiFlask.convertToArray(data.execution_date)
             }
           ]
         };
