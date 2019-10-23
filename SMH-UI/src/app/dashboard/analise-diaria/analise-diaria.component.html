@@ -28,6 +28,9 @@
           ></p-calendar>
         </div>
         <div class = "p-col">
+          <p-dropdown [options] = "grafico" [(ngModel)] = "selectedGrafico" [disabled] = "false" placeholder = "Variável" optionLabel = "nomeGrafico" [showClear] = "true"></p-dropdown>
+        </div>
+        <div class = "p-col">
           <p-dropdown [options] = "uf" [(ngModel)] = "selectedUf" filter = "true" (onChange) = "loadCityByUf()" placeholder = "Estado" optionLabel = "estado" [showClear] = "true"></p-dropdown>
         </div>
         <div class = "p-col">

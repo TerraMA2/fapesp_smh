@@ -18,9 +18,7 @@ import { City } from 'src/app/models/city';
 import { AnaliseGeotiffDiffLimitDateMonthly } from 'src/app/raster/analise-geotiff-diff-limit-date-monthly';
 
 // Enum
-import { UfEnum } from 'src/app/enums/uf-enum.enum';
 import { GraficoEnum } from 'src/app/enums/grafico-enum.enum';
-import { RepositoryApi } from 'src/app/enums/repository-api.enum';
 
 @Component({
   selector: 'app-analise-mensal',

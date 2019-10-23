@@ -22,7 +22,7 @@ class CustomJSONEncoder(JSONEncoder):
         return JSONEncoder.default(self, obj)
 
 class Month():
-    def format(mes):
+    def format(self, mes):
         mes_extenso = str(mes)
         indice = (len(mes_extenso) - 1) * (-1)
         return (
@@ -68,7 +68,7 @@ class ClimMonthly(Resource):
                 "sql/merge",
                 {
                     "geocodigo": str(geocodigo),
-                    "mes": Month.format(str(mes))
+                    "mes": Month().format(str(mes))
                 }
             )
             print(data)
@@ -84,8 +84,8 @@ class AnalysisDaily(Resource):
                 "sql/analysis_daily",
                 {
                     "geocodigo": str(geocodigo),
-                    "dia_inicio":str(dia_inicio), "mes_inicio":str(mes_inicio), "ano_inicio":str(ano_inicio),
-                    "dia_fim":str(dia_fim), "mes_fim":str(mes_fim), "ano_fim":str(ano_fim)
+                    "dia_inicio": str(dia_inicio), "mes_inicio": str(mes_inicio), "ano_inicio": str(ano_inicio),
+                    "dia_fim": str(dia_fim), "mes_fim": str(mes_fim), "ano_fim": str(ano_fim)
                 }
             )
             print(data)
@@ -101,7 +101,7 @@ class ClimDaily(Resource):
                 "sql/clim_daily",
                 {
                     "geocodigo": str(geocodigo),
-                    "mes": Month.format(str(mes)),
+                    "mes": Month().format(str(mes)),
                     "dia": str(dia)
                 }
             )
