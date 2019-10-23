@@ -10,21 +10,21 @@
         <div class = "p-col">
           <h6 style = "font-weight:normal">Data Inicial:</h6>
           <p-calendar
-              [(ngModel)] = "start"
-              dateFormat = "dd / MM / yy"
-              [minDate] = "min"
-              [maxDate] = "max"
-              [showIcon] = "true"
+            [(ngModel)] = "start"
+            dateFormat = "dd / MM / yy"
+            [minDate] = "min"
+            [maxDate] = "max"
+            [showIcon] = "true"
           ></p-calendar>
         </div>
         <div class = "p-col">
-          <h6 style = "font-weight:normal">Data Fim:</h6>
+          <h6 style = "font-weight:normal">Data Final:</h6>
           <p-calendar
-              [(ngModel)] = "end"
-              dateFormat = "dd / MM / yy"
-              [minDate] = "min"
-              [maxDate] = "max"
-              [showIcon] = "true"
+            [(ngModel)] = "end"
+            dateFormat = "dd / MM / yy"
+            [minDate] = "min"
+            [maxDate] = "max"
+            [showIcon] = "true"
           ></p-calendar>
         </div>
         <div class = "p-col">
@@ -50,27 +50,30 @@
       <div class = "p-col-6">
         <p-chart type = "line"  height = "350" [data] = "dataGrafico"></p-chart>
       </div>
+      <div class = "p-col-3">
+        <div id = "mapAnalysisDaily"  class = "mapG"></div>
+      </div>
       <div class = "p-col-12">
-          <p-scrollPanel [style] = "{width: '100%', height: '510px'}" styleClass = "custom">
-              <p-table [value] = "dados">
-                  <ng-template pTemplate = "header">
-                      <tr>
-                          <th>Data de Execução</th>
-                          <th>Média Climatoligica (mm/dia)</th>
-                          <th>Máxima Climatoligica (mm/dia)</th>
-                          <th>Municipio</th>
-                      </tr>
-                  </ng-template>
-                  <ng-template pTemplate = "body" let-dado>
-                      <tr>
-                          <td>{{ dado.execution_date }}</td>
-                          <td>{{ dado.media.toFixed(2) }}</td>
-                          <td>{{ dado.maxima.toFixed(2) }}</td>
-                          <td>{{ dado.nome_municipio }}</td>
-                      </tr>
-                  </ng-template>
-              </p-table>
-          </p-scrollPanel>
+        <p-scrollPanel [style] = "{width: '100%', height: '510px'}" styleClass = "custom">
+          <p-table [value] = "dados">
+            <ng-template pTemplate = "header">
+              <tr>
+                <th>Data de Execução</th>
+                <th>Média Climatoligica (mm/dia)</th>
+                <th>Máxima Climatoligica (mm/dia)</th>
+                <th>Municipio</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate = "body" let-dado>
+              <tr>
+                <td>{{ dado.execution_date }}</td>
+                <td>{{ dado.media.toFixed(2) }}</td>
+                <td>{{ dado.maxima.toFixed(2) }}</td>
+                <td>{{ dado.nome_municipio }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-scrollPanel>
       </div>
     </div>
   </div>

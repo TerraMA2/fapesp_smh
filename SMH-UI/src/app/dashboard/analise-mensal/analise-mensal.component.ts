@@ -27,7 +27,7 @@ import { GraficoEnum } from 'src/app/enums/grafico-enum.enum';
 })
 export class AnaliseMensalComponent implements OnInit {
 
-  private mapAnalise;
+  private mapAnalysisMonthly;
   private osm;
 
   dados: AnaliseGeotiffDiffLimitDateMonthly[];
@@ -95,15 +95,15 @@ export class AnaliseMensalComponent implements OnInit {
     });
 
     var layers = [this.osm];
-    this.mapAnalise = new Map({
-      target: 'mapAnalise',
+    this.mapAnalysisMonthly = new Map({
+      target: 'mapAnalysisMonthly',
       layers: layers,
       // interactions: [interaction],
       controls: [control],
       view: view
     });
 
-    this.mapAnalise.on('singleclick', function (evt) {
+    this.mapAnalysisMonthly.on('singleclick', function (evt) {
       console.log(evt.pixel);
     });
     function changeMap() {
@@ -114,7 +114,7 @@ export class AnaliseMensalComponent implements OnInit {
   loadAnalise() {
     if (this.apiFlask.compareDates(this.end, this.start) < 20 && this.end >= this.start) {
       if (this.selectedCity && this.selectedGrafico) {
-        this.mapAnalise.setView(new View({
+        this.mapAnalysisMonthly.setView(new View({
           center: [this.selectedCity.longitude, this.selectedCity.latitude], zoom: 12, projection: 'EPSG:4326'
         }));
         this.apiFlask.getMonthlyMaxMeanDiffLimitDate(this.selectedCity.geocodigo, this.start, this.end).toPromise().then(

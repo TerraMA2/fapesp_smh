@@ -21,15 +21,6 @@ class CustomJSONEncoder(JSONEncoder):
             return list(iterable)
         return JSONEncoder.default(self, obj)
 
-class Month():
-    def format(self, mes):
-        mes_extenso = str(mes)
-        indice = (len(mes_extenso) - 1) * (-1)
-        return (
-            (mes_extenso[:indice]).upper() +
-            (mes_extenso[indice:]).lower()
-        )
-
 app = Flask(__name__)
 app.json_encoder = CustomJSONEncoder
 api = Api(app)
@@ -65,10 +56,10 @@ class ClimMonthly(Resource):
         try:
             conectar = Connection_pg("chuva")
             data = conectar.readFileSQL(
-                "sql/merge",
+                "sql/clim_monthly",
                 {
                     "geocodigo": str(geocodigo),
-                    "mes": Month().format(str(mes))
+                    "mes": str(mes)
                 }
             )
             print(data)
@@ -101,7 +92,7 @@ class ClimDaily(Resource):
                 "sql/clim_daily",
                 {
                     "geocodigo": str(geocodigo),
-                    "mes": Month().format(str(mes)),
+                    "mes": str(mes),
                     "dia": str(dia)
                 }
             )

@@ -36,14 +36,7 @@ export class PythonFlaskAPIService {
   }
 
   getDailylyMaxMeanDiffLimitDate(geocodigo: string, start: Date, end: Date) {
-    console.log(
-      RepositoryApi.smh_api +
-      '/analysis-daily/' +
-      geocodigo + '/' +
-      start.getDate() + '/' + (start.getMonth() + 1) +'/' + start.getFullYear() + '/' +
-      end.getDate() + '/' + (end.getMonth() + 1) +'/' + end.getFullYear()
-    );
-    return this.httpClient.get<AnaliseGeotiffDiffLimitDateMonthly>(
+    return this.httpClient.get<AnaliseGeotiffDiffLimitDateDaily>(
       RepositoryApi.smh_api +
       '/analysis-daily/' +
       geocodigo + '/' +
@@ -103,6 +96,9 @@ export class PythonFlaskAPIService {
   convertToAnliseDailyAPI(
     maxima: number[],
     media: number[],
+    maxima_mes: number[],
+    media_mes: number[],
+    anomalia: number[],
     dia: number[],
     mes: string[],
     execution_date: Date[],
@@ -113,6 +109,9 @@ export class PythonFlaskAPIService {
       analises[i] = {
         maxima: maxima[i],
         media: media[i],
+        maxima_mes: maxima_mes[i],
+        media_mes: media_mes[i],
+        anomalia: anomalia[i],
         dia: dia[i],
         mes: mes[i],
         execution_date: execution_date[i],
