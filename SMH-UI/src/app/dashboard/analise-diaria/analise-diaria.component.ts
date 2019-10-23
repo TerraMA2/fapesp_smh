@@ -85,8 +85,8 @@ export class AnaliseDiariaComponent implements OnInit {
                 datasets: [
                   {
                     label: "Máxima Climatológica " + this.dados[0].mes + " mm/dia",
-                    backgroundColor: '#ff0000',
-                    borderColor: '#ff0000',
+                    backgroundColor: '#007bff',
+                    borderColor: '#007bff',
                     fill: false,
                     data: this.apiFlask.convertToArray(data.maxima)
                   }
@@ -99,8 +99,8 @@ export class AnaliseDiariaComponent implements OnInit {
                 datasets: [
                   {
                     label: "Média Climatológica " + this.dados[0].mes + " mm/dia",
-                    backgroundColor: '#ff0000',
-                    borderColor: '#ff0000',
+                    backgroundColor: '#007bff',
+                    borderColor: '#007bff',
                     fill: false,
                     data: this.apiFlask.convertToArray(data.media)
                   }
