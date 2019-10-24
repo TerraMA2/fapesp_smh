@@ -8,6 +8,11 @@ from flask_restful import Resource, Api
 from flask_jsonpify import *
 from flask.json import JSONEncoder
 from datetime import date
+# Controle das análises
+import time
+import timeit
+import csv
+# =====================
 
 class CustomJSONEncoder(JSONEncoder):
     def default(self, obj):
@@ -85,7 +90,29 @@ class AnalysisDaily(Resource):
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
 
 class ClimDaily(Resource):
-    def get(self,geocodigo,mes,dia):
+    # Controle das análises
+    def getLog(self):
+        try:
+            logs = pd.read_csv('logs.csv', sep = ',')
+            return logs
+        except:
+            return {}
+    def saveLog(self, data):
+        try:
+            with open('logs.csv', mode = 'w', encoding = 'utf-8') as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames = ["inicio","fim","tempo","municipios_processados"])
+                writer.writeheader()
+                writer.writerow({
+                    "inicio" : float(data["inicio"]),
+                    "fim" : float(data["fim"]),
+                    "tempo" : float(data["tempo"]),
+                    "municipios_processados" : float(data["municipios_processados"])
+                })
+            return True
+        except:
+            return False
+    # =====================
+    def get(self,geocodigo,mes,dia):  
         try:
             conectar = Connection_pg("chuva")
             data = conectar.readFileSQL(
@@ -97,6 +124,20 @@ class ClimDaily(Resource):
                 }
             )
             print(data)
+            # Controle das análises
+            log = self.getLog()
+            ok = self.saveLog({
+                "inicio" : float(log["inicio"][0]),
+                "fim" : float(log["fim"][0]) + timeit.default_timer(),
+                "tempo" : round(float(float(log["fim"][0]) - float(log["inicio"][0])),2),
+                "municipios_processados" : int(log["municipios_processados"][0]) + 1
+            })
+            if ok: print("\n\n => Save Log OK ", end = "")
+            else: print("\n\n => Save Log False ", end = "")
+            log = self.getLog()
+            pc = int(log["municipios_processados"][0])
+            print(" %.2f por cento concluído, %.0f municípios processados \n\n" %(((pc/5556) * 100),pc))
+            # =====================
             return jsonify(data.to_dict())
         except:
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
