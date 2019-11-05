@@ -47,14 +47,17 @@ export class MapComponent implements OnInit {
   setMap: string = 'osm';
   private data;
 
-  private valueDateInit: Date;
+  private valueDateInit: Date = new Date(1998, 0, 1);
+  private valueDateClim: Date = new Date(2018, 11, 1);
   private selectedLayer: any;
 
 
   private layerObj: Layers[] = [
     { layername: 'view2', name: 'Anomalia', source_type: 1, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: "terrama2_2" },
-    { layername: 'view15', name: 'Precipitação Máxima', source_type: 3, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: 'terrama2_15' },
-    { layername: 'view16', name: 'Precipitação Acumulada Média', source_type: 3, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: 'terrama2_16' }
+    { layername: 'view15', name: 'Prec. Média', source_type: 3, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: 'terrama2_15' },
+    { layername: 'view16', name: 'Prec. Acum. Média', source_type: 1, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: 'terrama2_16' },
+    { layername: 'view33', name: 'Prec. Day. Média', source_type: 4, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: 'terrama2_33' },
+    { layername: 'view37', name: 'Anomalia Day', source_type: 5, uri: 'http://admin:geoserver@www.terrama2.dpi.inpe.br/chuva/geoserver', workspace: 'terrama2_37' }
   ];
 
   constructor(private mapService: MapService, private wmsService: WmsService, private apiFlask: PythonFlaskAPIService, ) {
@@ -222,9 +225,15 @@ export class MapComponent implements OnInit {
       url = url.replace('{{LAYER_NAME}}', this.selectedLayer.workspace + ":" + this.selectedLayer.layername);
       url = url.replace('{{STYLE_NAME}}', this.selectedLayer.workspace + ":" + this.selectedLayer.layername + '_style');
       if (url) {
-        var parser = new GeoJSON();
         document.getElementById('info').innerHTML =
-          '<iframe allowfullscreen height="800" src="' + url + '"></iframe>';
+          "<div class=\"container\">" +
+          "    <div class=\"card\">" +
+          "        <div class=\"card-body\">" +
+          '<iframe allowfullscreen HEIGHT=800px WIDTH=100% src="' + url + '"></iframe>'
+        "        </div>" +
+          "    </div>" +
+          "</div>"
+          ;
       }
     } catch (e) {
       console.log(e.message);
@@ -233,6 +242,7 @@ export class MapComponent implements OnInit {
 
 
   private setLayerType(featuresLayer) {
+    this.selectedLayer = featuresLayer;
     if (this.features[featuresLayer.name].getVisible() == true) {
       this.features[featuresLayer.name].setVisible(false);
     } else {
@@ -326,6 +336,11 @@ export class MapComponent implements OnInit {
     console.log("setLayer");
     console.log(this.selectedLayer);
     this.features[this.selectedLayer.name].getSource().updateParams({ 'TIME': this.valueDateInit.getFullYear() + "-" + (this.valueDateInit.getMonth() + 1) });
+  }
+
+  setLayerClimatologica() {
+    console.log("setLayerClimatologica");
+    this.features[this.selectedLayer.name].getSource().updateParams({ 'TIME': "2018" + "-" + (this.valueDateClim.getMonth() + 1) });
   }
 
   defaultMap() {

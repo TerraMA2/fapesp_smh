@@ -86,39 +86,186 @@
             </p-accordion>
 
             <p-accordion>
-                <p-accordionTab header = "Análise Espacial Município">
-                    <div class = "p-col-12">
-                        <div class = "p-grid">
-                            <div class = "p-col-12">
-                                <p-calendar [(ngModel)] = "valueDateInit" view = "month" dateFormat = "MM / yy"
-                                    [yearNavigator] = "false" yearRange = "1998:2019"></p-calendar>
+                <p-accordionTab [selected]="true" header = "Análise Espacial Município">
+                  
+                    <p-accordion>
+                        <p-accordionTab [selected]="true" header="Analise Mensal">
 
-                                <p-dropdown [options] = "jsonObj" [(ngModel)] = "selectedLayer"
-                                    (click) = "activeLayerAnTemporalMunicipal()" [disabled] = "false" filter = "false"
-                                    placeholder = "Variável" optionLabel = "name" [showClear] = "true">
-                                </p-dropdown>
+                            <!-- <p-dropdown [options]="jsonObj" [(ngModel)]="selectedLayer"
+                                (click)="activeLayerAnTemporalMunicipal()" [disabled]="false" filter="false"
+                                placeholder="Variável" optionLabel="name" [showClear]="true">
+                            </p-dropdown> -->
 
-                                <button type = "button" (click) = "setLayer()" class = "btn"><i
-                                        class = "material-icons md-dark md-inactive"> <img
-                                            src = "assets/img/icon-regua.png"></i></button>
+                            <p-calendar [(ngModel)]="valueDateInit" [inputStyle]="{'width':'82%'}"
+                                view="month" dateFormat="MM/yy" [yearNavigator]="false"
+                                [readonlyInput]="true" yearRange="1998:2020" [showIcon]="true">
+                            </p-calendar>
 
-                                <button type = "button" (click) = "legendaToAEM()" (click) = "LegendaSidebar = true"
-                                    class = "btn"><i class = "material-icons md-dark md-inactive"> <img
-                                            src = "assets/img/icon-help.png"></i></button>
+                            <!-- <input id="dataInt" valeu="2017-06-01" data-date-format="DD-YYYY-MM" type="date"
+                                [(ngModel)]="valueDateInit" /> -->
 
-                                <button type = "button" (click) = "setLayer()" class = "btn"><i
-                                        class = "material-icons md-dark md-inactive"> <img
-                                            src = "assets/img/icon-regua.png"></i></button>
+                            <!-- <mat-form-field>
+                            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                          </mat-form-field> -->
+
+                            <ul class="list-unstyled components connected list">
+                                <li *ngFor="let layer of jsonObj">
 
 
-                                <button pButton type = "button" (click) = "setLayer()" label = "Buscar" class = "ui-button-success"></button>
-                                <button pButton type = "button" (click) = "legendaToAEM()" (click) = "LegendaSidebar = true" label = "Legenda" class = "ui-button-success"></button>
-                                <button type = "button" class = "btn" (click) = "LegendaSidebar = true"
-                                (click) = "legendaToAEM()"><i class = "material-icons md-dark">palette</i></button>
+                                    <!-- <div class="ui-g-12">
+                                        <p-radioButton name="{{ layer.id }}" value="{{ layer.name }}"
+                                            label="{{ layer.name }}"
+                                            (click)="activeLayerAnTemporalMunicipal()"
+                                            [(ngModel)]="selectedLayer2" inputId="{{ layer.name }}">
+                                        </p-radioButton>
+                                    </div> -->
 
+                                    <ng-container *ngIf="layer.source_type === 1">
+                                        <div class="ui-g-12">
+                                            <p-checkbox class="ui-chkbox-box" name="{{ layer.id }}"
+                                                value="{{ layer.name }}" (click)="setLayerType(layer)"
+                                                label="{{ layer.name }}" [(ngModel)]="selectedLayer2"
+                                                inputId="{{ layer.id }}">
+                                            </p-checkbox>
+                                        </div>
+                                    </ng-container>
+
+
+                                </li>
+                            </ul>
+
+                            <!-- <div class="ui-g-12">
+                                <p-radioButton name="Anomalia" value="Anomalia" label="Teste"
+                                (click)="activeLayerAnTemporalMunicipal()" [(ngModel)]="selectedLayer2" inputId="Anomalia"></p-radioButton>
+                            </div> -->
+
+
+                            <!-- <div class="ui-g-12">
+                                <p-radioButton name="group1" value="Option 2" label="Anomalia"
+                                    [(ngModel)]="selectedLayer2" inputId="opt2"></p-radioButton>
+                            </div> -->
+                            <!-- <div class="ui-g-12">
+                                <p-radioButton name="group1" value="Option 3" label="Option 3"
+                                    [(ngModel)]="val1" inputId="opt3"></p-radioButton>
+                            </div> -->
+
+
+                            <button type="button" (click)="setLayer()" class="btn"><i
+                                    class="material-icons md-dark"> <img
+                                        src="assets/img/icon-play.png"></i></button>
+
+                            <button type="button" (click)="legendaToAEM()" (click)="LegendaSidebar = true"
+                                class="btn"><i class="material-icons md-dark"> <img
+                                        src="assets/img/icon-legenda.png"></i></button>
+                            <!-- 
+                            <dfn data-info="Animação">
+
+                                <img src="assets/img/icon-play.png">
+
+                            </dfn>
+
+                            <dfn data-info="Legendas">
+
+                                <img src="assets/img/icon-legenda.png">
+
+                            </dfn> -->
+
+
+                            <!-- <button type="button" (click)="legendaToAEM()" (click)="LegendaSidebar = true"
+                                class="btn"><i class="material-icons md-dark md-inactive"> <img
+                                        src="assets/img/icon-legenda.png"></i></button> -->
+
+
+
+                        </p-accordionTab>
+
+                        <!-- <p-accordionTab header="Header 3">
+                            Content 3
+                        </p-accordionTab> -->
+                    </p-accordion>
+
+
+                    <p-accordion>
+
+                        <p-accordionTab [selected]="true" header="Climatologico">
+
+
+                            <p-calendar [(ngModel)]="valueDateClim" [style]="{'width':'100%'}"
+                                [inputStyle]="{'width':'80%'}" view="month" dateFormat="MM"
+                                [yearNavigator]="false" yearRange="1998:1998" [showIcon]="true">
+                            </p-calendar>
+
+                            <div class="ui-g" style="width:250px;margin-bottom:10px">
+
+                                <ul class="list-unstyled components connected list">
+                                    <li *ngFor="let layer of jsonObj">
+                                        <ng-container *ngIf="layer.source_type === 3">
+                                            <div class="ui-g-12">
+                                                <p-checkbox name="{{ layer.id }}" value="{{ layer.name }}"
+                                                    (click)="setLayerType(layer)" label="{{ layer.name }}"
+                                                    [(ngModel)]="selectedLayer2" inputId="{{ layer.id }}">
+                                                </p-checkbox>
+                                            </div>
+                                        </ng-container>
+
+                                        <!-- <div class="ui-g-12">
+                                            <p-radioButton name="{{ layer.id }}" value="{{ layer.name }}"
+                                                label="{{ layer.name }}"
+                                                (click)="setLayerType(layer)"
+                                                [(ngModel)]="selectedLayer2" inputId="{{ layer.name }}">
+                                            </p-radioButton>
+                                        </div> -->
+                                    </li>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
+
+                            <button type="button" (click)="setLayerClimatologica()" class="btn"><i
+                                    class="material-icons md-dark"> <img
+                                        src="assets/img/icon-play.png"></i></button>
+
+                            <button type="button" (click)="legendaToAEM()" (click)="LegendaSidebar = true"
+                                class="btn"><i class="material-icons md-dark"> <img
+                                        src="assets/img/icon-legenda.png"></i></button>
+
+
+                        </p-accordionTab>
+                        <!-- <p-accordionTab header="Header 3">
+                            Content 3
+                        </p-accordionTab> -->
+                    </p-accordion>
+
+
+                    <!-- <p-calendar [(ngModel)]="valueDateInit" [inline]="true" [showWeek]="true"></p-calendar> -->
+
+
+
+
+                    <!-- <button type="button" (click)="setLayer()" class="btn"><i
+                            class="material-icons md-dark md-inactive"> <img
+                                src="assets/img/icon-regua.png"></i></button> -->
+
+                    <!-- <button type="button" (click)="legendaToAEM()" (click)="LegendaSidebar = true"
+                        class="btn"><i class="material-icons md-dark md-inactive"> <img
+                                src="assets/img/icon-help.png"></i></button> -->
+
+                    <!-- <button type="button" (click)="setLayer()" class="btn"><i
+                            class="material-icons md-dark md-inactive"> <img
+                                src="assets/img/icon-regua.png"></i></button>
+
+
+                     <button pButton type="button" (click)="setLayer()" label="Buscar" class="ui-button-success"></button> -->
+                    <!-- <button pButton type="button" (click)="legendaToAEM()" (click)="LegendaSidebar = true" label="Legenda" class="ui-button-success"></button> -->
+                    <!-- <button type="button" class="btn" (click)="LegendaSidebar = true"
+                    (click)="legendaToAEM()"><i class="material-icons md-dark">palette</i></button> -->
+
+                <!-- </div>
+            </div>
+        </div> -->
+
+
+
                 </p-accordionTab>
 
                 <!-- <p-accordionTab header = "Análise Espacial Bácia"> -->
