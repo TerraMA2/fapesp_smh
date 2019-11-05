@@ -126,12 +126,13 @@ export class AnaliseDiariaComponent implements OnInit {
           data.dia,
           data.mes,
           data.execution_date,
-          data.nome_municipio
+          data.nome_municipio,
+          data.format_date
         );
         switch (this.selectedGrafico.nomeGrafico) {
           case "Preciptação Máxima":
             this.dataGrafico = {
-              labels: this.apiFlask.convertToArray(data.execution_date),
+              labels: this.apiFlask.convertToArray(data.format_date),
               datasets: [
                 {
                   label: "Máxima Climatológica mm/dia",
@@ -152,7 +153,7 @@ export class AnaliseDiariaComponent implements OnInit {
             break;
           case "Preciptação Acumulada Média":
             this.dataGrafico = {
-              labels: this.apiFlask.convertToArray(data.execution_date),
+              labels: this.apiFlask.convertToArray(data.format_date),
               datasets: [
                 {
                   label: "Média Climatológica mm/dia",

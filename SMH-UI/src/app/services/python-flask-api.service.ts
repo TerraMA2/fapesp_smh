@@ -26,7 +26,7 @@ export class PythonFlaskAPIService {
   getMonthlyMaxMeanDiffLimitDate(geocodigo: string, start: Date, end: Date) {
     return this.httpClient.get<AnaliseGeotiffDiffLimitDateMonthly>(
       RepositoryApi.smh_api +
-      '/analysis-monthly/' +
+      '/analysis-monthly-by-city/' +
       geocodigo + '/' +
       (start.getMonth() + 1) + '/' +
       start.getFullYear() + '/' +
@@ -38,7 +38,7 @@ export class PythonFlaskAPIService {
   getDailylyMaxMeanDiffLimitDate(geocodigo: string, start: Date, end: Date) {
     return this.httpClient.get<AnaliseGeotiffDiffLimitDateDaily>(
       RepositoryApi.smh_api +
-      '/analysis-daily/' +
+      '/analysis-daily-by-city/' +
       geocodigo + '/' +
       start.getDate() + '/' + (start.getMonth() + 1) +'/' + start.getFullYear() + '/' +
       end.getDate() + '/' + (end.getMonth() + 1) +'/' + end.getFullYear()
@@ -102,7 +102,8 @@ export class PythonFlaskAPIService {
     dia: number[],
     mes: string[],
     execution_date: Date[],
-    nome_municipio: string[]
+    nome_municipio: string[],
+    format_date: string[]
   ) {
     let analises: AnaliseGeotiffDiffLimitDateDaily[] = [];
     for (let i in dia) {
@@ -115,7 +116,8 @@ export class PythonFlaskAPIService {
         dia: dia[i],
         mes: mes[i],
         execution_date: execution_date[i],
-        nome_municipio: nome_municipio[i] 
+        nome_municipio: nome_municipio[i],
+        format_date: format_date[i]
       }
     }
     return analises;
