@@ -30,7 +30,7 @@ CORS(app)
 def hello():
     return jsonify({'text':'Hello World!!!'})
 
-class AnalysisMonthly(Resource):
+class AnalysisMonthlyByCity(Resource):
     def get(self,geocodigo,mes_inicio,ano_inicio,mes_fim,ano_fim):
         try:
             conectar = Connection_pg("chuva")
@@ -51,7 +51,7 @@ class AnalysisMonthly(Resource):
         except:
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
 
-class ClimMonthly(Resource):
+class ClimMonthlyByCity(Resource):
     def get(self,geocodigo,mes):
         try:
             conectar = Connection_pg("chuva")
@@ -67,7 +67,7 @@ class ClimMonthly(Resource):
         except:
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
 
-class AnalysisDaily(Resource):
+class AnalysisDailyByCity(Resource):
     def get(self,geocodigo,dia_inicio,mes_inicio,ano_inicio,dia_fim,mes_fim,ano_fim):
         try:
             conectar = Connection_pg("chuva")
@@ -84,7 +84,7 @@ class AnalysisDaily(Resource):
         except:
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
 
-class ClimDaily(Resource):
+class ClimDailyByCity(Resource):
     def get(self,geocodigo,mes,dia):  
         try:
             conectar = Connection_pg("chuva")
@@ -130,10 +130,10 @@ class Layers(Resource):
         except:
             return jsonify({ 'info' : 'Impossível fazer a leitura'})
 
-api.add_resource(AnalysisMonthly, '/analysis-monthly/<geocodigo>/<mes_inicio>/<ano_inicio>/<mes_fim>/<ano_fim>')
-api.add_resource(ClimMonthly, '/clim-monthly/<geocodigo>/<mes>')
-api.add_resource(AnalysisDaily,'/analysis-daily/<geocodigo>/<dia_inicio>/<mes_inicio>/<ano_inicio>/<dia_fim>/<mes_fim>/<ano_fim>')
-api.add_resource(ClimDaily, '/clim-daily/<geocodigo>/<mes>/<dia>')
+api.add_resource(AnalysisMonthlyByCity, '/analysis-monthly-by-city/<geocodigo>/<mes_inicio>/<ano_inicio>/<mes_fim>/<ano_fim>')
+api.add_resource(ClimMonthlyByCity, '/clim-monthly-by-city/<geocodigo>/<mes>')
+api.add_resource(AnalysisDailyByCity,'/analysis-daily-by-city/<geocodigo>/<dia_inicio>/<mes_inicio>/<ano_inicio>/<dia_fim>/<mes_fim>/<ano_fim>')
+api.add_resource(ClimDailyByCity, '/clim-daily-by-city/<geocodigo>/<mes>/<dia>')
 api.add_resource(CitiesByState, '/cities/<uf>')
 api.add_resource(States, '/states')
 api.add_resource(Layers, '/layers')

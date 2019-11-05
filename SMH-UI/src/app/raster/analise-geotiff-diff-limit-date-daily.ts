@@ -8,4 +8,5 @@ export interface AnaliseGeotiffDiffLimitDateDaily {
     mes: string;
     execution_date: Date;
     nome_municipio: string;
+    format_date: string;
 }

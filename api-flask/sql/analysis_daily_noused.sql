@@ -8,6 +8,12 @@ daily.anomalia,
 daily.execution_date,
 EXTRACT(DAY FROM daily.execution_date) AS dia,
 TRIM(TO_CHAR(daily.execution_date, 'Month')) AS mes
+EXTRACT(DAY FROM clim_daily.execution_date)
+|| ' - ' ||
+TRIM(TO_CHAR(clim_daily.execution_date, 'Month'))
+|| ' - ' ||
+EXTRACT(YEAR FROM clim_daily.execution_date)
+AS format_date
 FROM public.municipios_brasil municipio, public.an_municipio_clim_daily clim_daily, public.an_municipio_daily daily
 WHERE municipio.fid = daily.fid AND municipio.fid = clim_daily.fid
 AND EXTRACT(DAY FROM daily.execution_date) = EXTRACT(DAY FROM clim_daily.execution_date)
