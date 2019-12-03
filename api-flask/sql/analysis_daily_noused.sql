@@ -7,7 +7,7 @@ daily.media AS media_mes,
 daily.anomalia,
 daily.execution_date,
 EXTRACT(DAY FROM daily.execution_date) AS dia,
-TRIM(TO_CHAR(daily.execution_date, 'Month')) AS mes
+TRIM(TO_CHAR(daily.execution_date, 'Month')) AS mes,
 EXTRACT(DAY FROM clim_daily.execution_date)
 || ' - ' ||
 TRIM(TO_CHAR(clim_daily.execution_date, 'Month'))
