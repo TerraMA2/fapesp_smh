@@ -81,7 +81,7 @@ class ClimMonthlyByHydrography(Resource):
             print(data)
             return jsonify(data.to_dict())
         except:
-            return jsonify({ 'info' : 'Impossível ler o codigo {}'.format(str(geocodigo)) })
+            return jsonify({ 'info' : 'Impossível ler o codigo {}'.format(str(codigo)) })
 
 class AnalysisDailyByCity(Resource):
     def get(self,geocodigo,dia_inicio,mes_inicio,ano_inicio,dia_fim,mes_fim,ano_fim):
