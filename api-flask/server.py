@@ -37,7 +37,7 @@ class AnalysisMonthlyByCity(Resource):
             mes, ano = (int(mes_fim) + 1), int(ano_fim)
             if mes > 12: mes, ano = 1, ano + 1
             data = conectar.readFileSQL(
-                "sql/analysis_month",
+                "sql/analysis_month_city",
                 {
                     "geocodigo": str(geocodigo),
                     "mes_inicio": str(mes_inicio),
@@ -56,7 +56,7 @@ class ClimMonthlyByCity(Resource):
         try:
             conectar = Connection_pg("chuva")
             data = conectar.readFileSQL(
-                "sql/clim_monthly",
+                "sql/clim_monthly_city",
                 {
                     "geocodigo": str(geocodigo),
                     "mes": str(mes)
@@ -67,12 +67,28 @@ class ClimMonthlyByCity(Resource):
         except:
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
 
+class ClimMonthlyByHydrography(Resource):
+    def get(self,codigo,mes):
+        try:
+            conectar = Connection_pg("chuva")
+            data = conectar.readFileSQL(
+                "sql/clim_monthly_hydrography",
+                {
+                    "codigo": str(codigo),
+                    "mes": str(mes)
+                }
+            )
+            print(data)
+            return jsonify(data.to_dict())
+        except:
+            return jsonify({ 'info' : 'Impossível ler o codigo {}'.format(str(geocodigo)) })
+
 class AnalysisDailyByCity(Resource):
     def get(self,geocodigo,dia_inicio,mes_inicio,ano_inicio,dia_fim,mes_fim,ano_fim):
         try:
             conectar = Connection_pg("chuva")
             data = conectar.readFileSQL(
-                "sql/analysis_daily",
+                "sql/analysis_daily_city",
                 {
                     "geocodigo": str(geocodigo),
                     "dia_inicio": str(dia_inicio), "mes_inicio": str(mes_inicio), "ano_inicio": str(ano_inicio),
@@ -89,7 +105,7 @@ class ClimDailyByCity(Resource):
         try:
             conectar = Connection_pg("chuva")
             data = conectar.readFileSQL(
-                "sql/clim_daily",
+                "sql/clim_daily_city",
                 {
                     "geocodigo": str(geocodigo),
                     "mes": str(mes),
@@ -100,6 +116,16 @@ class ClimDailyByCity(Resource):
             return jsonify(data.to_dict())
         except:
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
+
+class Hydrography(Resource):
+    def get(self):
+        try:
+            conectar = Connection_pg("chuva")
+            data = conectar.readFileSQL("sql/hydrography",{})
+            print(data)
+            return jsonify(data.to_dict())
+        except:
+            return jsonify({ 'info' : 'Nenhuma bacia para exibir' })
 
 class CitiesByState(Resource):
     def get(self, uf):
@@ -132,8 +158,10 @@ class Layers(Resource):
 
 api.add_resource(AnalysisMonthlyByCity, '/analysis-monthly-by-city/<geocodigo>/<mes_inicio>/<ano_inicio>/<mes_fim>/<ano_fim>')
 api.add_resource(ClimMonthlyByCity, '/clim-monthly-by-city/<geocodigo>/<mes>')
+api.add_resource(ClimMonthlyByHydrography, '/clim-monthly-by-hydrography/<codigo>/<mes>')
 api.add_resource(AnalysisDailyByCity,'/analysis-daily-by-city/<geocodigo>/<dia_inicio>/<mes_inicio>/<ano_inicio>/<dia_fim>/<mes_fim>/<ano_fim>')
 api.add_resource(ClimDailyByCity, '/clim-daily-by-city/<geocodigo>/<mes>/<dia>')
+api.add_resource(Hydrography, '/bacias')
 api.add_resource(CitiesByState, '/cities/<uf>')
 api.add_resource(States, '/states')
 api.add_resource(Layers, '/layers')
