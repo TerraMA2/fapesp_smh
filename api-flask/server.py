@@ -7,7 +7,7 @@ from flask_cors import CORS, cross_origin
 from flask_restful import Resource, Api
 from flask_jsonpify import *
 from flask.json import JSONEncoder
-from datetime import date
+from datetime import date, datetime
 
 class CustomJSONEncoder(JSONEncoder):
     def default(self, obj):
@@ -31,17 +31,20 @@ def hello():
     return jsonify({'text':'Hello World!!!'})
 
 class AnalysisMonthlyByCity(Resource):
-    def get(self,geocodigo,mes_inicio,ano_inicio,mes_fim,ano_fim):
+    def get(self,geocodigo):
         try:
             conectar = Connection_pg("chuva")
-            mes, ano = (int(mes_fim) + 1), int(ano_fim)
-            if mes > 12: mes, ano = 1, ano + 1
+            format = "%Y-%m"
+            start_date = datetime.strptime(str(request.args['start_date']), format)
+            end_date = datetime.strptime(str(request.args['end_date']), format)
+            mes, ano = (int(end_date.month) + 1), int(end_date.year)
+            if mes > 12: mes, ano = 1, end_date.year + 1
             data = conectar.readFileSQL(
                 "sql/analysis_month_city",
                 {
                     "geocodigo": str(geocodigo),
-                    "mes_inicio": str(mes_inicio),
-                    "ano_inicio": str(ano_inicio),
+                    "mes_inicio": str(start_date.month),
+                    "ano_inicio": str(start_date.year),
                     "mes_fim": str(mes),
                     "ano_fim": str(ano)
                 }
@@ -49,7 +52,9 @@ class AnalysisMonthlyByCity(Resource):
             print(data)
             return jsonify(data.to_dict())
         except:
-            return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
+            return jsonify({
+                'info' : 'Impossível ler o geocodigo {}, falta atributos de busca como data inicial e final'.format(str(geocodigo))
+            })
 
 class ClimMonthlyByCity(Resource):
     def get(self,geocodigo,mes):
@@ -84,21 +89,23 @@ class ClimMonthlyByHydrography(Resource):
             return jsonify({ 'info' : 'Impossível ler o codigo {}'.format(str(codigo)) })
 
 class AnalysisDailyByCity(Resource):
-    def get(self,geocodigo,dia_inicio,mes_inicio,ano_inicio,dia_fim,mes_fim,ano_fim):
+    def get(self,geocodigo):
         try:
             conectar = Connection_pg("chuva")
             data = conectar.readFileSQL(
                 "sql/analysis_daily_city",
                 {
-                    "geocodigo": str(geocodigo),
-                    "dia_inicio": str(dia_inicio), "mes_inicio": str(mes_inicio), "ano_inicio": str(ano_inicio),
-                    "dia_fim": str(dia_fim), "mes_fim": str(mes_fim), "ano_fim": str(ano_fim)
+                    "geocodigo" : str(geocodigo),
+                    "start_date" : str(request.args['start_date']),
+                    "end_date" : str(request.args['end_date'])
                 }
             )
             print(data)
             return jsonify(data.to_dict())
         except:
-            return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
+            return jsonify({
+                'info' : 'Impossível ler o geocodigo {}, falta atributos de busca como data inicial e final'.format(str(geocodigo))
+            })
 
 class ClimDailyByCity(Resource):
     def get(self,geocodigo,mes,dia):  
@@ -156,10 +163,10 @@ class Layers(Resource):
         except:
             return jsonify({ 'info' : 'Impossível fazer a leitura'})
 
-api.add_resource(AnalysisMonthlyByCity, '/analysis-monthly-by-city/<geocodigo>/<mes_inicio>/<ano_inicio>/<mes_fim>/<ano_fim>')
+api.add_resource(AnalysisMonthlyByCity, '/analysis-monthly-by-city/<geocodigo>')
 api.add_resource(ClimMonthlyByCity, '/clim-monthly-by-city/<geocodigo>/<mes>')
 api.add_resource(ClimMonthlyByHydrography, '/clim-monthly-by-hydrography/<codigo>/<mes>')
-api.add_resource(AnalysisDailyByCity,'/analysis-daily-by-city/<geocodigo>/<dia_inicio>/<mes_inicio>/<ano_inicio>/<dia_fim>/<mes_fim>/<ano_fim>')
+api.add_resource(AnalysisDailyByCity,'/analysis-daily-by-city/<geocodigo>')
 api.add_resource(ClimDailyByCity, '/clim-daily-by-city/<geocodigo>/<mes>/<dia>')
 api.add_resource(Hydrography, '/bacias')
 api.add_resource(CitiesByState, '/cities/<uf>')

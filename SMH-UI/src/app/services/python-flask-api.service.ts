@@ -27,21 +27,26 @@ export class PythonFlaskAPIService {
     return this.httpClient.get<AnaliseGeotiffDiffLimitDateMonthly>(
       RepositoryApi.smh_api +
       '/analysis-monthly-by-city/' +
-      geocodigo + '/' +
-      (start.getMonth() + 1) + '/' +
-      start.getFullYear() + '/' +
-      (end.getMonth() + 1) + '/' +
-      end.getFullYear()
+      geocodigo + '?' +
+      'start_date=' + start.getFullYear() + '-' + (start.getMonth() + 1) + '&' +
+      'end_date=' + end.getFullYear() + '-' + (end.getMonth() + 1)
     );
   }
-
+  
   getDailylyMaxMeanDiffLimitDate(geocodigo: string, start: Date, end: Date) {
+    console.log(
+      RepositoryApi.smh_api +
+      '/analysis-daily-by-city/' +
+      geocodigo + '?' +
+      'start_date=' + start.getFullYear() + '-' + (start.getMonth() + 1) + '-' + start.getDate() + '&' +
+      'end_date=' + end.getFullYear() + '-' + (end.getMonth() + 1) + '-' + end.getDate()
+    ) 
     return this.httpClient.get<AnaliseGeotiffDiffLimitDateDaily>(
       RepositoryApi.smh_api +
       '/analysis-daily-by-city/' +
-      geocodigo + '/' +
-      start.getDate() + '/' + (start.getMonth() + 1) +'/' + start.getFullYear() + '/' +
-      end.getDate() + '/' + (end.getMonth() + 1) +'/' + end.getFullYear()
+      geocodigo + '?' +
+      'start_date=' + start.getFullYear() + '-' + (start.getMonth() + 1) + '-' + start.getDate() + '&' +
+      'end_date=' + end.getFullYear() + '-' + (end.getMonth() + 1) + '-' + end.getDate()
     );
   }
 
