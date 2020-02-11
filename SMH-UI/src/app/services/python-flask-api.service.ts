@@ -33,7 +33,7 @@ export class PythonFlaskAPIService {
     );
   }
   
-  getDailylyMaxMeanDiffLimitDate(geocodigo: string, start: Date, end: Date) {
+  getDailyMaxMeanDiffLimitDate(geocodigo: string, start: Date, end: Date) {
     return this.httpClient.get<AnaliseGeotiffDiffLimitDateDaily>(
       RepositoryApi.smh_api +
       '/analysis-daily-by-city/' +
