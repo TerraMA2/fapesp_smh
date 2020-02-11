@@ -115,7 +115,7 @@ export class AnaliseDiariaComponent implements OnInit {
     this.mapAnalysisDaily.setView(new View({
       center: [this.selectedCity.longitude, this.selectedCity.latitude], zoom: 12, projection: 'EPSG:4326'
     }));
-    this.apiFlask.getDailylyMaxMeanDiffLimitDate(this.selectedCity.geocodigo, this.start, this.end).toPromise().then(
+    this.apiFlask.getDailyMaxMeanDiffLimitDate(this.selectedCity.geocodigo, this.start, this.end).toPromise().then(
       (data: any) => {
         this.dados = this.apiFlask.convertToAnliseDailyAPI(
           data.maxima,
