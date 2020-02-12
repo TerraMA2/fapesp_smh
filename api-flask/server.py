@@ -53,7 +53,9 @@ class AnalysisMonthlyByCity(Resource):
             return jsonify(data.to_dict())
         except:
             return jsonify({
-                'info' : 'Impossível ler o geocodigo {}, falta atributos de busca como data inicial e final'.format(str(geocodigo))
+                'info' :
+                    'Impossível ler o geocodigo {}, falta atributos de busca como data inicial e final'
+                    .format(str(geocodigo))
             })
 
 class ClimMonthlyByCity(Resource):
