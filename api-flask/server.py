@@ -149,7 +149,12 @@ class CitiesByState(Resource):
 class States(Resource):
     def get(self):
         try:
-            data = pd.DataFrame(data = { 'estado' : open('txt/states.txt', 'r').read().split('\n'), 'uf' : open('txt/states-sigla.txt', 'r').read().split('\n') })
+            data = pd.DataFrame(
+                data = {
+                    'estado' : open('txt/states.txt', 'r').read().split('\n'),
+                    'uf' : open('txt/states-sigla.txt', 'r').read().split('\n')
+                }
+            )
             print(data)
             return jsonify(data.to_dict())
         except:
