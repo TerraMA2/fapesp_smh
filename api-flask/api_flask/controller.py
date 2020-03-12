@@ -1,7 +1,7 @@
-import json 
+import json
 import datetime
 import pandas as pd
-from connection_pg import Connection_pg
+from .model.connection_pg import Connection_pg
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 from flask_restful import Resource, Api
@@ -110,7 +110,7 @@ class AnalysisDailyByCity(Resource):
             })
 
 class ClimDailyByCity(Resource):
-    def get(self,geocodigo,mes,dia):  
+    def get(self,geocodigo,mes,dia):
         try:
             conectar = Connection_pg("chuva")
             data = conectar.readFileSQL(
@@ -148,17 +148,25 @@ class CitiesByState(Resource):
 
 class States(Resource):
     def get(self):
-        try:
-            data = pd.DataFrame(
-                data = {
-                    'estado' : open('txt/states.txt', 'r').read().split('\n'),
-                    'uf' : open('txt/states-sigla.txt', 'r').read().split('\n')
-                }
-            )
-            print(data)
-            return jsonify(data.to_dict())
-        except:
-            return jsonify({ 'info' : 'Impossível fazer a leitura'})
+        data = pd.DataFrame(
+            data = {
+                'estado' : open('txt/states.txt', 'r').read().split('\n'),
+                'uf' : open('txt/states-sigla.txt', 'r').read().split('\n')
+            }
+        )
+        print(data)
+        return jsonify(data.to_dict())
+        # try:
+        #     data = pd.DataFrame(
+        #         data = {
+        #             'estado' : open('txt/states.txt', 'r').read().split('\n'),
+        #             'uf' : open('txt/states-sigla.txt', 'r').read().split('\n')
+        #         }
+        #     )
+        #     print(data)
+        #     return jsonify(data.to_dict())
+        # except:
+        #     return jsonify({ 'info' : 'Impossível fazer a leitura'})
 
 class Layers(Resource):
     def get(self):
@@ -179,6 +187,3 @@ api.add_resource(Hydrography, '/bacias')
 api.add_resource(CitiesByState, '/cities/<uf>')
 api.add_resource(States, '/states')
 api.add_resource(Layers, '/layers')
-
-if __name__ == '__main__':
-    app.run( debug = True, host = '0.0.0.0' )

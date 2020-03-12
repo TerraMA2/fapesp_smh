@@ -2,18 +2,18 @@ import psycopg2
 import sys, os
 import numpy as np
 import pandas as pd
-import pg as creds
 import pandas.io.sql as psql
+from . import pg as creds
 from sqlalchemy import create_engine
 
 class Connection_pg:
     def __init__(self, pgDataBase):
         try:
             self.string_connection = (
-                "host = " + creds.pgHost + 
-                " port = " + creds.pgPort + 
-                " dbname = " + pgDataBase + 
-                " user = " + creds.pgUser + 
+                "host = " + creds.pgHost +
+                " port = " + creds.pgPort +
+                " dbname = " + pgDataBase +
+                " user = " + creds.pgUser +
                 " password = " + creds.pgPassWord
             )
             self.connection = psycopg2.connect(self.string_connection)
@@ -27,7 +27,7 @@ class Connection_pg:
             print("Conexao criada com sucesso!")
         except:
             print("Impossivel criar conexao!")
-    
+
     def readFileSQL(self, arquivo, mapping):
         try:
             sql_command = (" ".join(open(arquivo + '.sql', 'r').read().split('\n'))).format(**mapping)
@@ -47,7 +47,7 @@ class Connection_pg:
         except:
             print("Impossivel ler : " + sql_command)
             return None
-            
+
     def save_data(self, table_name, data_frame):
         try:
             data_frame.to_sql(name = table_name, con = self.engine, if_exists = 'replace', index = False)
@@ -60,10 +60,10 @@ class Connection_pg:
 
     def getConn(self):
         return self.connection
-        
+
     def getCursor(self):
         return self.cursor
-    
+
     def closeAll(self):
         self.connection.commit()
         self.connection.close()
