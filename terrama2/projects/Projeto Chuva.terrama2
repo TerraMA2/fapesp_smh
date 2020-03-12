@@ -1,0 +1,1780 @@
+{
+  "Projects": [
+    {
+      "version": 4,
+      "name": "Projeto Chuva",
+      "description": "Projeto Sistema de Monitoramento Hidrometeorológico (SMH) Baseado em Produtos de Sensoriamento Remoto - FAPESP",
+      "protected": null,
+      "active": true,
+      "user_name": "Administrator",
+      "$id": 2
+    }
+  ],
+  "DataProviders": [
+    {
+      "project_id": 2,
+      "data_provider_type": {
+        "id": 2,
+        "name": "FTP",
+        "description": "Desc FTP"
+      },
+      "data_provider_intent_id": 1,
+      "name": "DSA - INPE",
+      "timeout": "8",
+      "description": "Servidor da DSA",
+      "uri": "ftp://terrama:terr%40m%40inpe@server-ftpdsa.cptec.inpe.br:21/",
+      "active": true,
+      "$id": 6
+    },
+    {
+      "project_id": 2,
+      "data_provider_type": {
+        "id": 1,
+        "name": "FILE",
+        "description": "Desc File"
+      },
+      "data_provider_intent_id": 1,
+      "name": "Dados Climatológicos Mensal- Entrada",
+      "description": null,
+      "uri": "file:///shared-data/proj_chuva/dados_entrada/merge/monthly",
+      "active": true,
+      "$id": 20
+    },
+    {
+      "project_id": 2,
+      "data_provider_type": {
+        "id": 1,
+        "name": "FILE",
+        "description": "Desc File"
+      },
+      "data_provider_intent_id": 1,
+      "name": "DADOS Compartilhados",
+      "description": null,
+      "uri": "file:///shared-data/proj_chuva",
+      "active": true,
+      "$id": 5
+    },
+    {
+      "project_id": 2,
+      "data_provider_type": {
+        "id": 4,
+        "name": "POSTGIS",
+        "description": "Desc Postgis"
+      },
+      "data_provider_intent_id": 1,
+      "name": "Local Database PostGIS",
+      "description": "Local Database PostGIS data server",
+      "uri": "postgis://chuva:secreto@terrama2_pg:5432/chuva",
+      "active": true,
+      "$id": 4
+    },
+    {
+      "project_id": 2,
+      "data_provider_type": {
+        "id": 1,
+        "name": "FILE",
+        "description": "Desc File"
+      },
+      "data_provider_intent_id": 1,
+      "name": "Local Folder - DATA",
+      "description": "Local Folder data server",
+      "uri": "file:///shared-data/proj_chuva",
+      "active": true,
+      "$id": 3
+    }
+  ],
+  "DataSeries": [
+    {
+      "project_id": 2,
+      "name": "MERGE 4 km",
+      "description": null,
+      "data_provider_id": 5,
+      "data_series_semantics_id": 13,
+      "data_series_semantics_code": "GRID-geotiff",
+      "active": true,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 1,
+          "data_series_id": 1,
+          "active": true,
+          "format": {
+            "timestamp_property": "file_timestamp",
+            "temporal": "false",
+            "bytes_after": "0",
+            "bytes_before": "0",
+            "number_of_bands": "1",
+            "srid": "4326",
+            "timezone": "0",
+            "mask": "prec/prec4km_masked_%YYYY%MM%DD_%hh%mm.tif"
+          }
+        }
+      ],
+      "data_provider": {
+        "id": 5,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 1,
+          "name": "FILE",
+          "description": "Desc File"
+        },
+        "data_provider_intent_id": 1,
+        "name": "DADOS Compartilhados",
+        "description": null,
+        "uri": "file:///shared-data/proj_chuva",
+        "active": true
+      },
+      "$id": 1
+    },
+    {
+      "project_id": 2,
+      "name": "Radar_SR_input",
+      "description": null,
+      "data_provider_id": 6,
+      "data_series_semantics_id": 16,
+      "data_series_semantics_code": "GRID-grads",
+      "active": true,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 8,
+          "data_series_id": 8,
+          "active": true,
+          "format": {
+            "timestamp_property": "file_timestamp",
+            "binary_file_mask": "R13537439_%YYYY%MM%DD%hh%mm.raw.gz",
+            "data_type": "FLOAT32",
+            "value_multiplier": "1",
+            "temporal": "false",
+            "bytes_after": "0",
+            "bytes_before": "0",
+            "number_of_bands": "1",
+            "timezone": "0",
+            "srid": "4326",
+            "ctl_filename": "radar_SR/radar_SR.ctl"
+          }
+        }
+      ],
+      "data_provider": {
+        "id": 6,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 2,
+          "name": "FTP",
+          "description": "Desc FTP"
+        },
+        "data_provider_intent_id": 1,
+        "name": "DSA - INPE",
+        "description": "Servidor da DSA",
+        "uri": "ftp://terrama:terr%40m%40inpe@server-ftpdsa.cptec.inpe.br:21/",
+        "active": true
+      },
+      "$id": 8
+    },
+    {
+      "project_id": 2,
+      "name": "Radar_SR",
+      "description": null,
+      "data_provider_id": 5,
+      "data_series_semantics_id": 13,
+      "data_series_semantics_code": "GRID-geotiff",
+      "active": true,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 9,
+          "data_series_id": 9,
+          "active": true,
+          "format": {
+            "inout_attribute_map": "{\"file_timestamp\":\"file_timestamp\"}",
+            "mask": "radar_SR/R13537439_%YYYY%MM%DD%hh%mm.tif",
+            "binary_file_mask": "R13537439_%YYYY%MM%DD%hh%mm.raw.gz",
+            "data_type": "FLOAT32",
+            "value_multiplier": "1",
+            "temporal": "false",
+            "bytes_after": "0",
+            "bytes_before": "0",
+            "number_of_bands": "1",
+            "timezone": "0",
+            "srid": "4326",
+            "ctl_filename": "radar_SR/radar_SR.ctl",
+            "timestamp_property": "file_timestamp"
+          }
+        }
+      ],
+      "data_provider": {
+        "id": 5,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 1,
+          "name": "FILE",
+          "description": "Desc File"
+        },
+        "data_provider_intent_id": 1,
+        "name": "DADOS Compartilhados",
+        "description": null,
+        "uri": "file:///shared-data/proj_chuva",
+        "active": true
+      },
+      "$id": 9
+    },
+    {
+      "project_id": 2,
+      "name": "Acumulado Mensal - Janeiro",
+      "description": null,
+      "data_provider_id": 3,
+      "data_series_semantics_id": 23,
+      "data_series_semantics_code": "GRID-static_gdal",
+      "active": false,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 10,
+          "data_series_id": 10,
+          "active": true,
+          "format": {
+            "temporal": "false",
+            "timestamp_property": "file_timestamp",
+            "mask": "prec4kmclim_masked_19982018_01.tif"
+          }
+        }
+      ],
+      "data_provider": {
+        "id": 3,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 1,
+          "name": "FILE",
+          "description": "Desc File"
+        },
+        "data_provider_intent_id": 1,
+        "name": "Local Folder - DATA",
+        "description": "Local Folder data server",
+        "uri": "file:///shared-data/proj_chuva",
+        "active": true
+      },
+      "$id": 10
+    },
+    {
+      "project_id": 2,
+      "name": "Climatológico Monthly",
+      "description": null,
+      "data_provider_id": 20,
+      "data_series_semantics_id": 13,
+      "data_series_semantics_code": "GRID-geotiff",
+      "active": true,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 46,
+          "data_series_id": 41,
+          "active": true,
+          "format": {
+            "timestamp_property": "file_timestamp",
+            "temporal": "false",
+            "bytes_after": "0",
+            "bytes_before": "0",
+            "number_of_bands": "1",
+            "srid": "4326",
+            "timezone": "0",
+            "mask": "prec4kmclim_masked_1998%YYYY_%MM%DD_%hh%mm.tif"
+          }
+        }
+      ],
+      "data_provider": {
+        "id": 20,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 1,
+          "name": "FILE",
+          "description": "Desc File"
+        },
+        "data_provider_intent_id": 1,
+        "name": "Dados Climatológicos Mensal- Entrada",
+        "description": null,
+        "uri": "file:///shared-data/proj_chuva/dados_entrada/merge/monthly",
+        "active": true
+      },
+      "$id": 41
+    },
+    {
+      "project_id": 2,
+      "name": "Climatológico Monthly -Static",
+      "description": null,
+      "data_provider_id": 20,
+      "data_series_semantics_id": 23,
+      "data_series_semantics_code": "GRID-static_gdal",
+      "active": false,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 48,
+          "data_series_id": 44,
+          "active": true,
+          "format": {
+            "timestamp_property": "file_timestamp",
+            "mask": "prec4kmclim_masked_1998%YYYY_%MM%DD_%hh%mm.tif"
+          }
+        }
+      ],
+      "data_provider": {
+        "id": 20,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 1,
+          "name": "FILE",
+          "description": "Desc File"
+        },
+        "data_provider_intent_id": 1,
+        "name": "Dados Climatológicos Mensal- Entrada",
+        "description": null,
+        "uri": "file:///shared-data/proj_chuva/dados_entrada/merge/monthly",
+        "active": true
+      },
+      "$id": 44
+    },
+    {
+      "project_id": 2,
+      "name": "BRMUE250GC_SIR",
+      "description": "Municípios IBGE - 1:2.500.000 Sirgas2000",
+      "data_provider_id": 4,
+      "data_series_semantics_id": 11,
+      "data_series_semantics_code": "STATIC_DATA-postgis",
+      "active": true,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 6,
+          "data_series_id": 6,
+          "active": true,
+          "format": {
+            "table_name": "brmue250gc_sir"
+          }
+        }
+      ],
+      "data_provider": {
+        "id": 4,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 4,
+          "name": "POSTGIS",
+          "description": "Desc Postgis"
+        },
+        "data_provider_intent_id": 1,
+        "name": "Local Database PostGIS",
+        "description": "Local Database PostGIS data server",
+        "uri": "postgis://chuva:secreto@terrama2_pg:5432/chuva",
+        "active": true
+      },
+      "$id": 6
+    },
+    {
+      "project_id": 2,
+      "name": "An_PrecMax_Bacias_N2",
+      "description": "Generated by analysis An_PrecMax_Bacias_N2",
+      "data_provider_id": 4,
+      "data_series_semantics_id": 18,
+      "data_series_semantics_code": "ANALYSIS_MONITORED_OBJECT-postgis",
+      "active": true,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 12,
+          "data_series_id": 12,
+          "active": true,
+          "format": {
+            "monitored_object_pk": "nm_municip",
+            "monitored_object_id": "6"
+          },
+          "geometry_column": null,
+          "time_column": null,
+          "srid": null,
+          "id_column": null
+        }
+      ],
+      "data_provider": {
+        "id": 4,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 4,
+          "name": "POSTGIS",
+          "description": "Desc Postgis"
+        },
+        "data_provider_intent_id": 1,
+        "name": "Local Database PostGIS",
+        "description": "Local Database PostGIS data server",
+        "uri": "postgis://chuva:secreto@terrama2_pg:5432/chuva",
+        "active": true
+      },
+      "$id": 12
+    },
+    {
+      "project_id": 2,
+      "name": "BRMIE250GC_SIR",
+      "description": "Microregioes IBGE - 1:2.500.000 Sirgas2000",
+      "data_provider_id": 4,
+      "data_series_semantics_id": 11,
+      "data_series_semantics_code": "STATIC_DATA-postgis",
+      "active": true,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 5,
+          "data_series_id": 5,
+          "active": true,
+          "format": {
+            "table_name": "brmie250gc_sir"
+          }
+        }
+      ],
+      "data_provider": {
+        "id": 4,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 4,
+          "name": "POSTGIS",
+          "description": "Desc Postgis"
+        },
+        "data_provider_intent_id": 1,
+        "name": "Local Database PostGIS",
+        "description": "Local Database PostGIS data server",
+        "uri": "postgis://chuva:secreto@terrama2_pg:5432/chuva",
+        "active": true
+      },
+      "$id": 5
+    },
+    {
+      "project_id": 2,
+      "name": "Análise Climatológica Mensal por Bacia",
+      "description": "Generated by analysis Análise Climatológica Mensal por Bacia",
+      "data_provider_id": 4,
+      "data_series_semantics_id": 18,
+      "data_series_semantics_code": "ANALYSIS_MONITORED_OBJECT-postgis",
+      "active": true,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 45,
+          "data_series_id": 40,
+          "active": true,
+          "format": {
+            "srid": "null",
+            "monitored_object_pk": "ps1_nm",
+            "monitored_object_id": "2",
+            "table_name": "an_bacias_clim_monthly_teste_luiz"
+          },
+          "geometry_column": null,
+          "time_column": null,
+          "srid": null,
+          "id_column": null
+        }
+      ],
+      "data_provider": {
+        "id": 4,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 4,
+          "name": "POSTGIS",
+          "description": "Desc Postgis"
+        },
+        "data_provider_intent_id": 1,
+        "name": "Local Database PostGIS",
+        "description": "Local Database PostGIS data server",
+        "uri": "postgis://chuva:secreto@terrama2_pg:5432/chuva",
+        "active": true
+      },
+      "$id": 40
+    },
+    {
+      "project_id": 2,
+      "name": "BRUFE250GC_SIR",
+      "description": "Estados IBGE - 1:2.500.000 Sirgas2000",
+      "data_provider_id": 4,
+      "data_series_semantics_id": 11,
+      "data_series_semantics_code": "STATIC_DATA-postgis",
+      "active": true,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 7,
+          "data_series_id": 7,
+          "active": true,
+          "format": {
+            "table_name": "brufe250gc_sir"
+          }
+        }
+      ],
+      "data_provider": {
+        "id": 4,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 4,
+          "name": "POSTGIS",
+          "description": "Desc Postgis"
+        },
+        "data_provider_intent_id": 1,
+        "name": "Local Database PostGIS",
+        "description": "Local Database PostGIS data server",
+        "uri": "postgis://chuva:secreto@terrama2_pg:5432/chuva",
+        "active": true
+      },
+      "$id": 7
+    },
+    {
+      "project_id": 2,
+      "name": "Bacias - Nivel 1 - PNRH",
+      "description": "Nível 1 de Sub-bacias do Plano Nacional de Recursos Hídricos -  Arquivo GEOFT_PNRH_SUB1",
+      "data_provider_id": 4,
+      "data_series_semantics_id": 11,
+      "data_series_semantics_code": "STATIC_DATA-postgis",
+      "active": true,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 2,
+          "data_series_id": 2,
+          "active": true,
+          "format": {
+            "table_name": "geoft_pnrh_sub1"
+          }
+        }
+      ],
+      "data_provider": {
+        "id": 4,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 4,
+          "name": "POSTGIS",
+          "description": "Desc Postgis"
+        },
+        "data_provider_intent_id": 1,
+        "name": "Local Database PostGIS",
+        "description": "Local Database PostGIS data server",
+        "uri": "postgis://chuva:secreto@terrama2_pg:5432/chuva",
+        "active": true
+      },
+      "$id": 2
+    },
+    {
+      "project_id": 2,
+      "name": "BRMEE250GC_SIR",
+      "description": "Mesoregioes IBGE - 1:2.500.000 Sirgas2000",
+      "data_provider_id": 4,
+      "data_series_semantics_id": 11,
+      "data_series_semantics_code": "STATIC_DATA-postgis",
+      "active": true,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 4,
+          "data_series_id": 4,
+          "active": true,
+          "format": {
+            "table_name": "brmee250gc_sir"
+          }
+        }
+      ],
+      "data_provider": {
+        "id": 4,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 4,
+          "name": "POSTGIS",
+          "description": "Desc Postgis"
+        },
+        "data_provider_intent_id": 1,
+        "name": "Local Database PostGIS",
+        "description": "Local Database PostGIS data server",
+        "uri": "postgis://chuva:secreto@terrama2_pg:5432/chuva",
+        "active": true
+      },
+      "$id": 4
+    },
+    {
+      "project_id": 2,
+      "name": "An_PrecMedia_Bacias_N1",
+      "description": "Generated by analysis An_PrecMedia_Bacias_N1",
+      "data_provider_id": 4,
+      "data_series_semantics_id": 18,
+      "data_series_semantics_code": "ANALYSIS_MONITORED_OBJECT-postgis",
+      "active": true,
+      "dataSets": [
+        {
+          "class": "DataSet",
+          "id": 3,
+          "data_series_id": 3,
+          "active": true,
+          "format": {
+            "table_name": "an_precmedia_bacias_n1",
+            "monitored_object_id": "2",
+            "monitored_object_pk": "gid",
+            "srid": "null"
+          },
+          "geometry_column": null,
+          "time_column": null,
+          "srid": null,
+          "id_column": null
+        }
+      ],
+      "data_provider": {
+        "id": 4,
+        "project_id": 2,
+        "data_provider_type": {
+          "id": 4,
+          "name": "POSTGIS",
+          "description": "Desc Postgis"
+        },
+        "data_provider_intent_id": 1,
+        "name": "Local Database PostGIS",
+        "description": "Local Database PostGIS data server",
+        "uri": "postgis://chuva:secreto@terrama2_pg:5432/chuva",
+        "active": true
+      },
+      "$id": 3
+    }
+  ],
+  "Collectors": [
+    {
+      "class": "Collector",
+      "project_id": 2,
+      "service_instance_id": null,
+      "input_data_series": 8,
+      "output_data_series": 9,
+      "input_output_map": [
+        {
+          "input": 8,
+          "output": 9
+        }
+      ],
+      "schedule_type": 3,
+      "schedule": {},
+      "filter": {
+        "class": "Filter",
+        "frequency": null,
+        "frequency_unit": null,
+        "discard_before": "2019-02-28T15:00:22.353+00:00",
+        "discard_after": null,
+        "region": null,
+        "by_value": null,
+        "crop_raster": null,
+        "collector_id": 1,
+        "data_series_id": null
+      },
+      "intersection": [],
+      "active": true,
+      "dataSeriesOutput": {
+        "class": "DataSeries",
+        "id": 9,
+        "project_id": 2,
+        "name": "Radar_SR",
+        "description": null,
+        "data_provider_id": 5,
+        "semantics": "GRID-geotiff",
+        "active": true,
+        "datasets": [
+          {
+            "class": "DataSet",
+            "id": 9,
+            "data_series_id": 9,
+            "active": true,
+            "format": {
+              "inout_attribute_map": "{\"file_timestamp\":\"file_timestamp\"}",
+              "mask": "radar_SR/R13537439_%YYYY%MM%DD%hh%mm.tif",
+              "binary_file_mask": "R13537439_%YYYY%MM%DD%hh%mm.raw.gz",
+              "data_type": "FLOAT32",
+              "value_multiplier": "1",
+              "temporal": "false",
+              "bytes_after": "0",
+              "bytes_before": "0",
+              "number_of_bands": "1",
+              "timezone": "0",
+              "srid": "4326",
+              "ctl_filename": "radar_SR/radar_SR.ctl",
+              "timestamp_property": "file_timestamp"
+            }
+          }
+        ]
+      },
+      "$id": 1
+    }
+  ],
+  "Analysis": [
+    {
+      "class": "Analysis",
+      "project_id": 2,
+      "script": "var1 = grid.zonal.mean(\"prec\", 0)\n\nadd_value(\"prec_media\", var1)",
+      "script_language": 1,
+      "type": {
+        "id": 2,
+        "name": "Monitored Object",
+        "description": "Description Monitored"
+      },
+      "name": "An_PrecMedia_Bacias_N1",
+      "description": "Análise de precipitação média por SubBacias N1",
+      "active": true,
+      "output_dataseries_id": 3,
+      "output_dataset_id": 3,
+      "metadata": {},
+      "analysis_dataseries_list": [
+        {
+          "class": "AnalysisDataSeries",
+          "data_series_id": 2,
+          "type": 1,
+          "alias": "Bacias - Nivel 1 - PNRH",
+          "metadata": {
+            "identifier": "gid"
+          },
+          "analysis_id": 1,
+          "dataSeries": {},
+          "$id": 1
+        },
+        {
+          "class": "AnalysisDataSeries",
+          "data_series_id": 1,
+          "type": 4,
+          "alias": "prec",
+          "metadata": {},
+          "analysis_id": 1,
+          "dataSeries": {},
+          "$id": 2
+        }
+      ],
+      "schedule": {
+        "class": "Schedule",
+        "id": 1,
+        "frequency": 24,
+        "frequency_unit": "hours",
+        "frequency_start_time": "12:00:00-03:00",
+        "schedule": 0,
+        "schedule_time": "",
+        "schedule_unit": "",
+        "schedule_retry": 0,
+        "schedule_retry_unit": "",
+        "schedule_timeout": 0,
+        "schedule_timeout_unit": "",
+        "scheduleType": 2,
+        "historical": {
+          "startDate": "1998-01-02T14:00:00.000+00:00",
+          "endDate": "1999-01-01T14:00:00.000+00:00"
+        }
+      },
+      "automatic_schedule": {
+        "class": "AutomaticSchedule",
+        "data_ids": []
+      },
+      "service_instance_id": null,
+      "output_grid": null,
+      "schedule_type": 2,
+      "dataSeries": {
+        "id": 3,
+        "project_id": 2,
+        "name": "An_PrecMedia_Bacias_N1",
+        "description": "Generated by analysis An_PrecMedia_Bacias_N1",
+        "data_provider_id": 4,
+        "data_series_semantics_id": 18,
+        "data_series_semantics_code": "ANALYSIS_MONITORED_OBJECT-postgis",
+        "data_series_semantics": {
+          "id": 18,
+          "code": "ANALYSIS_MONITORED_OBJECT-postgis",
+          "data_format_name": "POSTGIS",
+          "data_series_type_name": "ANALYSIS_MONITORED_OBJECT",
+          "name": "Monitored object analysis",
+          "driver": "ANALYSIS_MONITORED_OBJECT-postgis",
+          "type": "ANALYSIS_MONITORED_OBJECT",
+          "temporality": "DYNAMIC",
+          "format": "POSTGIS",
+          "providers_type_list": [
+            "POSTGIS"
+          ],
+          "allow_storage": true,
+          "gui": {
+            "schema": {
+              "properties": {
+                "table_name": {
+                  "type": "string",
+                  "title": "Table Name",
+                  "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$"
+                }
+              },
+              "required": [
+                "table_name"
+              ]
+            },
+            "form": [
+              {
+                "key": "table_name",
+                "htmlClass": "col-md-12",
+                "validationMessage": {
+                  "202": "Invalid table name"
+                }
+              }
+            ]
+          }
+        },
+        "active": true,
+        "dataSets": [
+          {
+            "class": "DataSet",
+            "id": 3,
+            "data_series_id": 3,
+            "active": true,
+            "format": {
+              "table_name": "an_precmedia_bacias_n1",
+              "monitored_object_id": "2",
+              "monitored_object_pk": "gid",
+              "srid": "null"
+            },
+            "geometry_column": null,
+            "time_column": null,
+            "srid": null,
+            "id_column": null
+          }
+        ],
+        "data_provider": {
+          "id": 4,
+          "project_id": 2,
+          "data_provider_type": {
+            "id": 4,
+            "name": "POSTGIS",
+            "description": "Desc Postgis"
+          },
+          "data_provider_intent_id": 1,
+          "name": "Local Database PostGIS",
+          "description": "Local Database PostGIS data server",
+          "uri": "postgis://chuva:secreto@terrama2_pg:5432/chuva",
+          "active": true
+        }
+      },
+      "$id": 1
+    },
+    {
+      "class": "Analysis",
+      "project_id": 2,
+      "script": "valor1 = grid.zonal.mean(prec, 0,)\n\nadd_value(\"prec_media\", var1)\nadd_value(\"nome\", \"Teste\")\n",
+      "script_language": 1,
+      "type": {
+        "id": 2,
+        "name": "Monitored Object",
+        "description": "Description Monitored"
+      },
+      "name": "An_PrecMax_Bacias_N2",
+      "description": null,
+      "active": true,
+      "output_dataseries_id": 12,
+      "output_dataset_id": 12,
+      "metadata": {},
+      "analysis_dataseries_list": [
+        {
+          "class": "AnalysisDataSeries",
+          "data_series_id": 6,
+          "type": 1,
+          "alias": "BRMUE250GC_SIR",
+          "metadata": {
+            "identifier": "nm_municip"
+          },
+          "analysis_id": 3,
+          "dataSeries": {},
+          "$id": 5
+        },
+        {
+          "class": "AnalysisDataSeries",
+          "data_series_id": 1,
+          "type": 4,
+          "alias": "prec",
+          "metadata": {},
+          "analysis_id": 3,
+          "dataSeries": {},
+          "$id": 6
+        }
+      ],
+      "schedule": {},
+      "automatic_schedule": {
+        "class": "AutomaticSchedule",
+        "data_ids": []
+      },
+      "service_instance_id": null,
+      "output_grid": null,
+      "schedule_type": 3,
+      "dataSeries": {
+        "id": 12,
+        "project_id": 2,
+        "name": "An_PrecMax_Bacias_N2",
+        "description": "Generated by analysis An_PrecMax_Bacias_N2",
+        "data_provider_id": 4,
+        "data_series_semantics_id": 18,
+        "data_series_semantics_code": "ANALYSIS_MONITORED_OBJECT-postgis",
+        "data_series_semantics": {
+          "id": 18,
+          "code": "ANALYSIS_MONITORED_OBJECT-postgis",
+          "data_format_name": "POSTGIS",
+          "data_series_type_name": "ANALYSIS_MONITORED_OBJECT",
+          "name": "Monitored object analysis",
+          "driver": "ANALYSIS_MONITORED_OBJECT-postgis",
+          "type": "ANALYSIS_MONITORED_OBJECT",
+          "temporality": "DYNAMIC",
+          "format": "POSTGIS",
+          "providers_type_list": [
+            "POSTGIS"
+          ],
+          "allow_storage": true,
+          "gui": {
+            "schema": {
+              "properties": {
+                "table_name": {
+                  "type": "string",
+                  "title": "Table Name",
+                  "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$"
+                }
+              },
+              "required": [
+                "table_name"
+              ]
+            },
+            "form": [
+              {
+                "key": "table_name",
+                "htmlClass": "col-md-12",
+                "validationMessage": {
+                  "202": "Invalid table name"
+                }
+              }
+            ]
+          }
+        },
+        "active": true,
+        "dataSets": [
+          {
+            "class": "DataSet",
+            "id": 12,
+            "data_series_id": 12,
+            "active": true,
+            "format": {
+              "monitored_object_pk": "nm_municip",
+              "monitored_object_id": "6"
+            },
+            "geometry_column": null,
+            "time_column": null,
+            "srid": null,
+            "id_column": null
+          }
+        ],
+        "data_provider": {
+          "id": 4,
+          "project_id": 2,
+          "data_provider_type": {
+            "id": 4,
+            "name": "POSTGIS",
+            "description": "Desc Postgis"
+          },
+          "data_provider_intent_id": 1,
+          "name": "Local Database PostGIS",
+          "description": "Local Database PostGIS data server",
+          "uri": "postgis://chuva:secreto@terrama2_pg:5432/chuva",
+          "active": true
+        }
+      },
+      "$id": 3
+    },
+    {
+      "class": "Analysis",
+      "project_id": 2,
+      "script": "maxima = grid.zonal.max(\"monthly\", 0)\nmedia = grid.zonal.mean(\"monthly\", 0)\nadd_value(\"maxima\", maxima)\nadd_value(\"media\", media)\n   ",
+      "script_language": 1,
+      "type": {
+        "id": 2,
+        "name": "Monitored Object",
+        "description": "Description Monitored"
+      },
+      "name": "Análise Climatológica Mensal por Bacia",
+      "description": null,
+      "active": true,
+      "output_dataseries_id": 40,
+      "output_dataset_id": 45,
+      "metadata": {},
+      "analysis_dataseries_list": [
+        {
+          "class": "AnalysisDataSeries",
+          "data_series_id": 2,
+          "type": 1,
+          "alias": "Bacias - Nivel 1 - PNRH",
+          "metadata": {
+            "identifier": "ps1_nm"
+          },
+          "analysis_id": 14,
+          "dataSeries": {},
+          "$id": 29
+        },
+        {
+          "class": "AnalysisDataSeries",
+          "data_series_id": 41,
+          "type": 4,
+          "alias": "monthly",
+          "metadata": {},
+          "analysis_id": 14,
+          "dataSeries": {},
+          "$id": 31
+        }
+      ],
+      "schedule": {
+        "class": "Schedule",
+        "id": 15,
+        "frequency": 24,
+        "frequency_unit": "hours",
+        "frequency_start_time": "00:00:00-02:00",
+        "schedule": 0,
+        "schedule_time": "",
+        "schedule_unit": "",
+        "schedule_retry": 0,
+        "schedule_retry_unit": "",
+        "schedule_timeout": 0,
+        "schedule_timeout_unit": "",
+        "scheduleType": 2,
+        "historical": {
+          "startDate": "2018-01-31T15:00:00.000+00:00",
+          "endDate": "2018-01-31T15:30:00.000+00:00"
+        }
+      },
+      "automatic_schedule": {
+        "class": "AutomaticSchedule",
+        "data_ids": []
+      },
+      "service_instance_id": null,
+      "output_grid": null,
+      "schedule_type": 2,
+      "dataSeries": {
+        "id": 40,
+        "project_id": 2,
+        "name": "Análise Climatológica Mensal por Bacia",
+        "description": "Generated by analysis Análise Climatológica Mensal por Bacia",
+        "data_provider_id": 4,
+        "data_series_semantics_id": 18,
+        "data_series_semantics_code": "ANALYSIS_MONITORED_OBJECT-postgis",
+        "data_series_semantics": {
+          "id": 18,
+          "code": "ANALYSIS_MONITORED_OBJECT-postgis",
+          "data_format_name": "POSTGIS",
+          "data_series_type_name": "ANALYSIS_MONITORED_OBJECT",
+          "name": "Monitored object analysis",
+          "driver": "ANALYSIS_MONITORED_OBJECT-postgis",
+          "type": "ANALYSIS_MONITORED_OBJECT",
+          "temporality": "DYNAMIC",
+          "format": "POSTGIS",
+          "providers_type_list": [
+            "POSTGIS"
+          ],
+          "allow_storage": true,
+          "gui": {
+            "schema": {
+              "properties": {
+                "table_name": {
+                  "type": "string",
+                  "title": "Table Name",
+                  "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$"
+                }
+              },
+              "required": [
+                "table_name"
+              ]
+            },
+            "form": [
+              {
+                "key": "table_name",
+                "htmlClass": "col-md-12",
+                "validationMessage": {
+                  "202": "Invalid table name"
+                }
+              }
+            ]
+          }
+        },
+        "active": true,
+        "dataSets": [
+          {
+            "class": "DataSet",
+            "id": 45,
+            "data_series_id": 40,
+            "active": true,
+            "format": {
+              "srid": "null",
+              "monitored_object_pk": "ps1_nm",
+              "monitored_object_id": "2",
+              "table_name": "an_bacias_clim_monthly_teste_luiz"
+            },
+            "geometry_column": null,
+            "time_column": null,
+            "srid": null,
+            "id_column": null
+          }
+        ],
+        "data_provider": {
+          "id": 4,
+          "project_id": 2,
+          "data_provider_type": {
+            "id": 4,
+            "name": "POSTGIS",
+            "description": "Desc Postgis"
+          },
+          "data_provider_intent_id": 1,
+          "name": "Local Database PostGIS",
+          "description": "Local Database PostGIS data server",
+          "uri": "postgis://chuva:secreto@terrama2_pg:5432/chuva",
+          "active": true
+        }
+      },
+      "$id": 14
+    }
+  ],
+  "Views": [
+    {
+      "class": "View",
+      "name": "MERGE 4km",
+      "description": null,
+      "dataSeries": {
+        "class": "DataSeries",
+        "id": 1,
+        "project_id": 2,
+        "name": "MERGE 4 km",
+        "description": null,
+        "data_provider_id": 5,
+        "semantics": "GRID-geotiff",
+        "active": true,
+        "datasets": []
+      },
+      "schedule": {},
+      "automatic_schedule": {},
+      "active": true,
+      "service_instance_id": null,
+      "project_id": 2,
+      "legend": {
+        "class": "ViewStyleLegend",
+        "id": 3,
+        "column": null,
+        "type": 3,
+        "colors": [],
+        "metadata": {
+          "creation_type": "precipitation_style",
+          "xml_style": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><StyledLayerDescriptor xmlns=\"http://www.opengis.net/sld\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:se=\"http://www.opengis.net/se\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"1.0.0\" xsi:schemaLocation=\"http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd\"><NamedLayer><Name>Precipitação Acumulada</Name><UserStyle><Name>Style</Name><Title>Style for a Coverage layer.</Title><FeatureTypeStyle><Rule><RasterSymbolizer><ChannelSelection><GrayChannel><SourceChannelName>1</SourceChannelName></GrayChannel></ChannelSelection><ColorMap type=\"ramp\"><ColorMapEntry color=\"#fcfcfc\" quantity=\"0.0\" opacity=\"0.0\" /><ColorMapEntry color=\"#fcfcfc\" quantity=\"0.0001\" opacity=\"1.0\" label=\"0 mm\" /><ColorMapEntry color=\"#fe9000\" quantity=\"5.0\" opacity=\"1.0\" label=\"5 mm\" /><ColorMapEntry color=\"#feb800\" quantity=\"10.0\" opacity=\"1.0\" label=\"10 mm\" /><ColorMapEntry color=\"#fee000\" quantity=\"20.0\" opacity=\"1.0\" label=\"20 mm\" /><ColorMapEntry color=\"#f4fd00\" quantity=\"30.0\" opacity=\"1.0\" label=\"30 mm\" /><ColorMapEntry color=\"#d2fe00\" quantity=\"40.0\" opacity=\"1.0\" label=\"40 mm\" /><ColorMapEntry color=\"#9efb00\" quantity=\"50.0\" opacity=\"1.0\" label=\"50 mm\" /><ColorMapEntry color=\"#5afe00\" quantity=\"100.0\" opacity=\"1.0\" label=\"100 mm\" /><ColorMapEntry color=\"#00fe96\" quantity=\"150.0\" opacity=\"1.0\" label=\"150 mm\" /><ColorMapEntry color=\"#00fdbe\" quantity=\"200.0\" opacity=\"1.0\" label=\"200 mm\" /><ColorMapEntry color=\"#00fee6\" quantity=\"250.0\" opacity=\"1.0\" label=\"250 mm\" /><ColorMapEntry color=\"#00effe\" quantity=\"300.0\" opacity=\"1.0\" label=\"300 mm\" /><ColorMapEntry color=\"#00c3f8\" quantity=\"350.0\" opacity=\"1.0\" label=\"350 mm\" /><ColorMapEntry color=\"#009ffe\" quantity=\"400.0\" opacity=\"1.0\" label=\"400 mm\" /><ColorMapEntry color=\"#0075fa\" quantity=\"500.0\" opacity=\"1.0\" label=\"500 mm\" /><ColorMapEntry color=\"#004ffe\" quantity=\"600.0\" opacity=\"1.0\" label=\"600 mm\" /><ColorMapEntry color=\"#0027fe\" quantity=\"700.0\" opacity=\"1.0\" label=\"700 mm\" /><ColorMapEntry color=\"#2308f0\" quantity=\"800.0\" opacity=\"1.0\" label=\"800 mm\" /><ColorMapEntry color=\"#9a73f4\" quantity=\"900.0\" opacity=\"1.0\" label=\"900 mm\" /><ColorMapEntry color=\"#765ab7\" quantity=\"1000.0\" opacity=\"1.0\" label=\"1000 mm\" /></ColorMap></RasterSymbolizer></Rule></FeatureTypeStyle></UserStyle></NamedLayer></StyledLayerDescriptor>",
+          "hasOneBand": "true",
+          "band": "0"
+        },
+        "band_number": null
+      },
+      "private": false,
+      "schedule_type": 3,
+      "source_type": 2,
+      "properties": {},
+      "data_series_id": 1,
+      "$id": 3
+    },
+    {
+      "class": "View",
+      "name": "GEOFT_PNRH_SUB1",
+      "description": "Sub Bacias Nivel 1",
+      "dataSeries": {
+        "class": "DataSeries",
+        "id": 2,
+        "project_id": 2,
+        "name": "Bacias - Nivel 1 - PNRH",
+        "description": "Nível 1 de Sub-bacias do Plano Nacional de Recursos Hídricos -  Arquivo GEOFT_PNRH_SUB1",
+        "data_provider_id": 4,
+        "semantics": "STATIC_DATA-postgis",
+        "active": true,
+        "datasets": []
+      },
+      "schedule": {},
+      "automatic_schedule": {},
+      "active": true,
+      "service_instance_id": null,
+      "project_id": 2,
+      "legend": {
+        "class": "ViewStyleLegend",
+        "id": 4,
+        "column": null,
+        "type": 3,
+        "colors": [
+          {
+            "id": 22,
+            "title": "Limites Bacias N1",
+            "color": "#56B7D5A2",
+            "value": "",
+            "isDefault": true,
+            "view_style_id": 4
+          }
+        ],
+        "metadata": {
+          "creation_type": "editor",
+          "attribute": "a"
+        },
+        "band_number": null
+      },
+      "private": false,
+      "schedule_type": null,
+      "source_type": 1,
+      "properties": {},
+      "data_series_id": 2,
+      "$id": 4
+    },
+    {
+      "class": "View",
+      "name": "Mesorigioes IBGE",
+      "description": null,
+      "dataSeries": {
+        "class": "DataSeries",
+        "id": 4,
+        "project_id": 2,
+        "name": "BRMEE250GC_SIR",
+        "description": "Mesoregioes IBGE - 1:2.500.000 Sirgas2000",
+        "data_provider_id": 4,
+        "semantics": "STATIC_DATA-postgis",
+        "active": true,
+        "datasets": []
+      },
+      "schedule": {},
+      "automatic_schedule": {},
+      "active": true,
+      "service_instance_id": null,
+      "project_id": 2,
+      "legend": {
+        "class": "ViewStyleLegend",
+        "id": 7,
+        "column": null,
+        "type": 3,
+        "colors": [
+          {
+            "id": 23,
+            "title": "Limites",
+            "color": "#43D3AA6B",
+            "value": "",
+            "isDefault": true,
+            "view_style_id": 7
+          }
+        ],
+        "metadata": {
+          "creation_type": "editor",
+          "attribute": "a"
+        },
+        "band_number": null
+      },
+      "private": false,
+      "schedule_type": null,
+      "source_type": 1,
+      "properties": {},
+      "data_series_id": 4,
+      "$id": 7
+    },
+    {
+      "class": "View",
+      "name": "Microregioes IBGE",
+      "description": null,
+      "dataSeries": {
+        "class": "DataSeries",
+        "id": 5,
+        "project_id": 2,
+        "name": "BRMIE250GC_SIR",
+        "description": "Microregioes IBGE - 1:2.500.000 Sirgas2000",
+        "data_provider_id": 4,
+        "semantics": "STATIC_DATA-postgis",
+        "active": true,
+        "datasets": []
+      },
+      "schedule": {},
+      "automatic_schedule": {},
+      "active": true,
+      "service_instance_id": null,
+      "project_id": 2,
+      "legend": {
+        "class": "ViewStyleLegend",
+        "id": 8,
+        "column": null,
+        "type": 3,
+        "colors": [
+          {
+            "id": 24,
+            "title": "Limites",
+            "color": "#94BB3069",
+            "value": "",
+            "isDefault": true,
+            "view_style_id": 8
+          }
+        ],
+        "metadata": {
+          "creation_type": "editor",
+          "attribute": "a"
+        },
+        "band_number": null
+      },
+      "private": false,
+      "schedule_type": null,
+      "source_type": 1,
+      "properties": {},
+      "data_series_id": 5,
+      "$id": 8
+    },
+    {
+      "class": "View",
+      "name": "Municípios IBGE",
+      "description": null,
+      "dataSeries": {
+        "class": "DataSeries",
+        "id": 6,
+        "project_id": 2,
+        "name": "BRMUE250GC_SIR",
+        "description": "Municípios IBGE - 1:2.500.000 Sirgas2000",
+        "data_provider_id": 4,
+        "semantics": "STATIC_DATA-postgis",
+        "active": true,
+        "datasets": []
+      },
+      "schedule": {},
+      "automatic_schedule": {},
+      "active": true,
+      "service_instance_id": null,
+      "project_id": 2,
+      "legend": {
+        "class": "ViewStyleLegend",
+        "id": 9,
+        "column": null,
+        "type": 3,
+        "colors": [
+          {
+            "id": 26,
+            "title": "Limites",
+            "color": "#3088C43D",
+            "value": "",
+            "isDefault": true,
+            "view_style_id": 9
+          }
+        ],
+        "metadata": {
+          "creation_type": "editor",
+          "attribute": "a"
+        },
+        "band_number": null
+      },
+      "private": false,
+      "schedule_type": null,
+      "source_type": 1,
+      "properties": {},
+      "data_series_id": 6,
+      "$id": 9
+    },
+    {
+      "class": "View",
+      "name": "Estados IBGE",
+      "description": null,
+      "dataSeries": {
+        "class": "DataSeries",
+        "id": 7,
+        "project_id": 2,
+        "name": "BRUFE250GC_SIR",
+        "description": "Estados IBGE - 1:2.500.000 Sirgas2000",
+        "data_provider_id": 4,
+        "semantics": "STATIC_DATA-postgis",
+        "active": true,
+        "datasets": []
+      },
+      "schedule": {},
+      "automatic_schedule": {},
+      "active": true,
+      "service_instance_id": null,
+      "project_id": 2,
+      "legend": {
+        "class": "ViewStyleLegend",
+        "id": 10,
+        "column": null,
+        "type": 3,
+        "colors": [
+          {
+            "id": 54,
+            "title": "TOCANTINS",
+            "color": "#16565cff",
+            "value": "TOCANTINS",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 53,
+            "title": "SERGIPE",
+            "color": "#09005cff",
+            "value": "SERGIPE",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 52,
+            "title": "SÃO PAULO",
+            "color": "#ff00aeff",
+            "value": "SÃO PAULO",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 51,
+            "title": "SANTA CATARINA",
+            "color": "#ad1700ff",
+            "value": "SANTA CATARINA",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 50,
+            "title": "RORAIMA",
+            "color": "#5c3a00ff",
+            "value": "RORAIMA",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 49,
+            "title": "RONDÔNIA",
+            "color": "#2c5c32ff",
+            "value": "RONDÔNIA",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 48,
+            "title": "RIO GRANDE DO SUL",
+            "color": "#7ae0ffff",
+            "value": "RIO GRANDE DO SUL",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 47,
+            "title": "RIO GRANDE DO NORTE",
+            "color": "#3100adff",
+            "value": "RIO GRANDE DO NORTE",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 46,
+            "title": "RIO DE JANEIRO",
+            "color": "#ad537fff",
+            "value": "RIO DE JANEIRO",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 45,
+            "title": "PIAUÍ",
+            "color": "#ff997aff",
+            "value": "PIAUÍ",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 44,
+            "title": "PERNAMBUCO",
+            "color": "#ad9300ff",
+            "value": "PERNAMBUCO",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 43,
+            "title": "PARANÁ",
+            "color": "#00ff33ff",
+            "value": "PARANÁ",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 42,
+            "title": "PARAÍBA",
+            "color": "#0079adff",
+            "value": "PARAÍBA",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 41,
+            "title": "PARÁ",
+            "color": "#4a2c5cff",
+            "value": "PARÁ",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 40,
+            "title": "MINAS GERAIS",
+            "color": "#5c002bff",
+            "value": "MINAS GERAIS",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 39,
+            "title": "MATO GROSSO DO SUL",
+            "color": "#ff5e00ff",
+            "value": "MATO GROSSO DO SUL",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 38,
+            "title": "MATO GROSSO",
+            "color": "#5c5c2cff",
+            "value": "MATO GROSSO",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 37,
+            "title": "MARANHÃO",
+            "color": "#3dffcfff",
+            "value": "MARANHÃO",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 36,
+            "title": "GOIÁS",
+            "color": "#5367adff",
+            "value": "GOIÁS",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 35,
+            "title": "ESPÍRITO SANTO",
+            "color": "#ae00ffff",
+            "value": "ESPÍRITO SANTO",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 34,
+            "title": "DISTRITO FEDERAL",
+            "color": "#ff0037ff",
+            "value": "DISTRITO FEDERAL",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 33,
+            "title": "CEARÁ",
+            "color": "#ad5e2aff",
+            "value": "CEARÁ",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 32,
+            "title": "BAHIA",
+            "color": "#e4ff7aff",
+            "value": "BAHIA",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 31,
+            "title": "AMAZONAS",
+            "color": "#53ad98ff",
+            "value": "AMAZONAS",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 30,
+            "title": "AMAPÁ",
+            "color": "#7a7fffff",
+            "value": "AMAPÁ",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 29,
+            "title": "ALAGOAS",
+            "color": "#e47affff",
+            "value": "ALAGOAS",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 28,
+            "title": "ACRE",
+            "color": "#ff7a8eff",
+            "value": "ACRE",
+            "isDefault": false,
+            "view_style_id": 10
+          },
+          {
+            "id": 27,
+            "title": "Default",
+            "color": "#FFFFFFFF",
+            "value": "",
+            "isDefault": true,
+            "view_style_id": 10
+          }
+        ],
+        "metadata": {
+          "creation_type": "editor",
+          "attribute": "nm_estado"
+        },
+        "band_number": null
+      },
+      "private": false,
+      "schedule_type": null,
+      "source_type": 1,
+      "properties": {},
+      "data_series_id": 7,
+      "$id": 10
+    },
+    {
+      "class": "View",
+      "name": "view_An_PrecMedia_Bacias_N1",
+      "description": null,
+      "dataSeries": {
+        "class": "DataSeries",
+        "id": 3,
+        "project_id": 2,
+        "name": "An_PrecMedia_Bacias_N1",
+        "description": "Generated by analysis An_PrecMedia_Bacias_N1",
+        "data_provider_id": 4,
+        "semantics": "ANALYSIS_MONITORED_OBJECT-postgis",
+        "active": true,
+        "datasets": []
+      },
+      "schedule": {},
+      "automatic_schedule": {},
+      "active": true,
+      "service_instance_id": null,
+      "project_id": 2,
+      "legend": {
+        "class": "ViewStyleLegend",
+        "id": 11,
+        "column": null,
+        "type": 2,
+        "colors": [
+          {
+            "id": 57,
+            "title": "Color 2",
+            "color": "#00FF6FFF",
+            "value": "50",
+            "isDefault": false,
+            "view_style_id": 11
+          },
+          {
+            "id": 56,
+            "title": "Color 1",
+            "color": "#2251E9FF",
+            "value": "20",
+            "isDefault": false,
+            "view_style_id": 11
+          },
+          {
+            "id": 55,
+            "title": "Dummy",
+            "color": "#FF3F3FFF",
+            "value": "",
+            "isDefault": true,
+            "view_style_id": 11
+          }
+        ],
+        "metadata": {
+          "creation_type": "editor",
+          "attribute": "prec_media"
+        },
+        "band_number": null
+      },
+      "private": false,
+      "schedule_type": 3,
+      "source_type": 3,
+      "properties": {},
+      "data_series_id": 3,
+      "$id": 11
+    },
+    {
+      "class": "View",
+      "name": "Acumulado - Janeiro",
+      "description": null,
+      "dataSeries": {
+        "class": "DataSeries",
+        "id": 10,
+        "project_id": 2,
+        "name": "Acumulado Mensal - Janeiro",
+        "description": null,
+        "data_provider_id": 3,
+        "semantics": "GRID-static_gdal",
+        "active": false,
+        "datasets": []
+      },
+      "schedule": {},
+      "automatic_schedule": {},
+      "active": true,
+      "service_instance_id": null,
+      "project_id": 2,
+      "legend": {
+        "class": "ViewStyleLegend",
+        "id": 12,
+        "column": null,
+        "type": 3,
+        "colors": [],
+        "metadata": {
+          "creation_type": "precipitation_style",
+          "xml_style": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><StyledLayerDescriptor xmlns=\"http://www.opengis.net/sld\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:se=\"http://www.opengis.net/se\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"1.0.0\" xsi:schemaLocation=\"http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd\"><NamedLayer><Name>Precipitação Acumulada</Name><UserStyle><Name>Style</Name><Title>Style for a Coverage layer.</Title><FeatureTypeStyle><Rule><RasterSymbolizer><ChannelSelection><GrayChannel><SourceChannelName>1</SourceChannelName></GrayChannel></ChannelSelection><ColorMap type=\"ramp\"><ColorMapEntry color=\"#fcfcfc\" quantity=\"0.0\" opacity=\"0.0\" /><ColorMapEntry color=\"#fcfcfc\" quantity=\"0.0001\" opacity=\"1.0\" label=\"0 mm\" /><ColorMapEntry color=\"#fe9000\" quantity=\"5.0\" opacity=\"1.0\" label=\"5 mm\" /><ColorMapEntry color=\"#feb800\" quantity=\"10.0\" opacity=\"1.0\" label=\"10 mm\" /><ColorMapEntry color=\"#fee000\" quantity=\"20.0\" opacity=\"1.0\" label=\"20 mm\" /><ColorMapEntry color=\"#f4fd00\" quantity=\"30.0\" opacity=\"1.0\" label=\"30 mm\" /><ColorMapEntry color=\"#d2fe00\" quantity=\"40.0\" opacity=\"1.0\" label=\"40 mm\" /><ColorMapEntry color=\"#9efb00\" quantity=\"50.0\" opacity=\"1.0\" label=\"50 mm\" /><ColorMapEntry color=\"#5afe00\" quantity=\"100.0\" opacity=\"1.0\" label=\"100 mm\" /><ColorMapEntry color=\"#00fe96\" quantity=\"150.0\" opacity=\"1.0\" label=\"150 mm\" /><ColorMapEntry color=\"#00fdbe\" quantity=\"200.0\" opacity=\"1.0\" label=\"200 mm\" /><ColorMapEntry color=\"#00fee6\" quantity=\"250.0\" opacity=\"1.0\" label=\"250 mm\" /><ColorMapEntry color=\"#00effe\" quantity=\"300.0\" opacity=\"1.0\" label=\"300 mm\" /><ColorMapEntry color=\"#00c3f8\" quantity=\"350.0\" opacity=\"1.0\" label=\"350 mm\" /><ColorMapEntry color=\"#009ffe\" quantity=\"400.0\" opacity=\"1.0\" label=\"400 mm\" /><ColorMapEntry color=\"#0075fa\" quantity=\"500.0\" opacity=\"1.0\" label=\"500 mm\" /><ColorMapEntry color=\"#004ffe\" quantity=\"600.0\" opacity=\"1.0\" label=\"600 mm\" /><ColorMapEntry color=\"#0027fe\" quantity=\"700.0\" opacity=\"1.0\" label=\"700 mm\" /><ColorMapEntry color=\"#2308f0\" quantity=\"800.0\" opacity=\"1.0\" label=\"800 mm\" /><ColorMapEntry color=\"#9a73f4\" quantity=\"900.0\" opacity=\"1.0\" label=\"900 mm\" /><ColorMapEntry color=\"#765ab7\" quantity=\"1000.0\" opacity=\"1.0\" label=\"1000 mm\" /></ColorMap></RasterSymbolizer></Rule></FeatureTypeStyle></UserStyle></NamedLayer></StyledLayerDescriptor>",
+          "hasOneBand": "true",
+          "band": "0"
+        },
+        "band_number": null
+      },
+      "private": false,
+      "schedule_type": null,
+      "source_type": 1,
+      "properties": {},
+      "data_series_id": 10,
+      "$id": 12
+    },
+    {
+      "class": "View",
+      "name": "An_PrecMax_Bacias_N2",
+      "description": null,
+      "dataSeries": {
+        "class": "DataSeries",
+        "id": 12,
+        "project_id": 2,
+        "name": "An_PrecMax_Bacias_N2",
+        "description": "Generated by analysis An_PrecMax_Bacias_N2",
+        "data_provider_id": 4,
+        "semantics": "ANALYSIS_MONITORED_OBJECT-postgis",
+        "active": true,
+        "datasets": []
+      },
+      "schedule": {},
+      "automatic_schedule": {},
+      "active": true,
+      "service_instance_id": null,
+      "project_id": 2,
+      "legend": {
+        "class": "ViewStyleLegend",
+        "id": 14,
+        "column": null,
+        "type": 2,
+        "colors": [
+          {
+            "id": 61,
+            "title": "Default",
+            "color": "#FFFFFFFF",
+            "value": "",
+            "isDefault": true,
+            "view_style_id": 14
+          }
+        ],
+        "metadata": {
+          "creation_type": "editor",
+          "attribute": "prec_media"
+        },
+        "band_number": null
+      },
+      "private": false,
+      "schedule_type": 3,
+      "source_type": 3,
+      "properties": {},
+      "data_series_id": 12,
+      "$id": 14
+    }
+  ],
+  "Interpolators": []
+}
