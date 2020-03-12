@@ -1,6 +1,7 @@
 # SMH-UI
 
 [![NodeJS](https://img.shields.io/badge/node-12-green)](https://nodejs.org/en/)
+[![TypeScript](https://img.shields.io/badge/typescript-latest-green)](https://www.typescriptlang.org/)
 [![Angular](https://img.shields.io/badge/angular-7.2.2-green)](https://angular.io/)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2.
