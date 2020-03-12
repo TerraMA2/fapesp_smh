@@ -7,8 +7,8 @@
 [![Angular](https://img.shields.io/badge/angular-8-green)](https://angular.io/)
 
 Projeto SMH INPE para visualização de dados de chuva.
-- [API-flask](./api_flask): api para busca de dados climatológicos;
-- [SMH-UI](./SMH-UI): sistema para visualização dos dados gerados pelo TerraMA;
+- [API-flask](./api_flask/README.md): api para busca de dados climatológicos;
+- [SMH-UI](./SMH-UI/README.md): sistema para visualização dos dados gerados pelo TerraMA;
 
 ```
 $ sudo chmod +x start.sh && ./start.sh
