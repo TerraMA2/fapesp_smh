@@ -21,7 +21,7 @@ def working_directory(path):
 def run():
     host = os.environ.get('SERVER_HOST', '0.0.0.0')
     try:
-        port = int(os.environ.get('PORT', '5001'))
+        port = int(os.environ.get('PORT', '5000'))
     except ValueError:
         port = 5000
 

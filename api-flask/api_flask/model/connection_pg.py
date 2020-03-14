@@ -5,6 +5,7 @@ import pandas as pd
 import pandas.io.sql as psql
 from . import pg as creds
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 class Connection_pg:
     def __init__(self, pgDataBase):
@@ -27,6 +28,10 @@ class Connection_pg:
             print("Conexao criada com sucesso!")
         except:
             print("Impossivel criar conexao!")
+
+    def createSession(self, obj):
+        session = sessionmaker(bind = self.getEngine())
+        return session().query(obj)
 
     def readFileSQL(self, arquivo, mapping):
         try:
@@ -63,6 +68,9 @@ class Connection_pg:
 
     def getCursor(self):
         return self.cursor
+
+    def getEngine(self):
+        return self.engine
 
     def closeAll(self):
         self.connection.commit()

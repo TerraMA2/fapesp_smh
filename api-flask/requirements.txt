@@ -2,6 +2,7 @@ psycopg2
 numpy
 pandas
 sqlalchemy
+geoalchemy2
 georaster
 Flask
 flask-api

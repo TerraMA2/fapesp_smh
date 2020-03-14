@@ -1,13 +1,17 @@
 import json
 import datetime
 import pandas as pd
-from .model.connection_pg import Connection_pg
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 from flask_restful import Resource, Api
 from flask_jsonpify import *
 from flask.json import JSONEncoder
 from datetime import date, datetime
+
+from .model.connection_pg import Connection_pg
+from .model.models.municipios_brasil import Municipio
+from .model.models.an_municipio_clim_monthly import AnClimMonthlyByCity
+
 
 class CustomJSONEncoder(JSONEncoder):
     def default(self, obj):
@@ -49,7 +53,6 @@ class AnalysisMonthlyByCity(Resource):
                     "ano_fim": str(ano)
                 }
             )
-            print(data)
             return jsonify(data.to_dict())
         except:
             return jsonify({
@@ -59,20 +62,35 @@ class AnalysisMonthlyByCity(Resource):
             })
 
 class ClimMonthlyByCity(Resource):
-    def get(self,geocodigo,mes):
+    def get(self):
         try:
+            geocodigo = str(request.args['geocodigo'])
+            mes = str(request.args['mes'])
             conectar = Connection_pg("chuva")
-            data = conectar.readFileSQL(
-                "sql/clim_monthly_city",
-                {
-                    "geocodigo": str(geocodigo),
-                    "mes": str(mes)
+            municipio = conectar.createSession(Municipio) \
+                .filter_by(geocodigo = geocodigo) \
+                    .first()
+            clim_monthly = conectar.createSession(AnClimMonthlyByCity) \
+                .filter_by(fid = municipio.fid) \
+                    .first()
+            data = {
+                "query" : {
+                    "geocodigo" : geocodigo,
+                    "mes" : mes,
+                    "timeline" : {
+                        "start" : 1998,
+                        "end" : 2019
+                    },
+                },
+                "result" : {
+                    "nome_municipio" : municipio.nome1,
+                    "maxima" : clim_monthly.maxima,
+                    "media" : clim_monthly.media
                 }
-            )
-            print(data)
-            return jsonify(data.to_dict())
+            }
+            return jsonify(data)
         except:
-            return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
+            return jsonify({ 'info' : 'Impossível ler o geocodigo selecione um geocodigo e um mes ?mes=January&geocodigo=35499s04'})
 
 class ClimMonthlyByHydrography(Resource):
     def get(self,codigo,mes):
@@ -85,7 +103,6 @@ class ClimMonthlyByHydrography(Resource):
                     "mes": str(mes)
                 }
             )
-            print(data)
             return jsonify(data.to_dict())
         except:
             return jsonify({ 'info' : 'Impossível ler o codigo {}'.format(str(codigo)) })
@@ -102,7 +119,6 @@ class AnalysisDailyByCity(Resource):
                     "end_date" : str(request.args['end_date'])
                 }
             )
-            print(data)
             return jsonify(data.to_dict())
         except:
             return jsonify({
@@ -121,7 +137,6 @@ class ClimDailyByCity(Resource):
                     "dia": str(dia)
                 }
             )
-            print(data)
             return jsonify(data.to_dict())
         except:
             return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
@@ -131,59 +146,54 @@ class Hydrography(Resource):
         try:
             conectar = Connection_pg("chuva")
             data = conectar.readFileSQL("sql/hydrography",{})
-            print(data)
             return jsonify(data.to_dict())
         except:
             return jsonify({ 'info' : 'Nenhuma bacia para exibir' })
 
 class CitiesByState(Resource):
-    def get(self, uf):
+    def get(self):
         try:
             conectar = Connection_pg("chuva")
-            data = conectar.readFileSQL("sql/cities_by_state",{'uf': str(uf).upper()})
-            print(data)
-            return jsonify(data.to_dict())
+            municipios = conectar.createSession(Municipio) \
+                .filter_by(uf = str(request.args['uf']).upper()) \
+                    .order_by(Municipio.nome1)
+            data = { "municipios" : [] }
+            for municipio in municipios:
+                data.get("municipios").append(
+                    {
+                        "nome_municipio" : municipio.nome1,
+                        "geocodigo" : municipio.geocodigo,
+                        "latitude" : municipio.latitude,
+                        "longitude" : municipio.longitude
+                    }
+                )
+            return jsonify(data)
         except:
-            return jsonify({ 'info' : 'uf {} não existe'.format(str(uf).upper()) })
+            return jsonify({ 'info' : 'uf não existe ou selecione um estado ?uf=SP' })
 
 class States(Resource):
     def get(self):
-        data = pd.DataFrame(
-            data = {
-                'estado' : open('txt/states.txt', 'r').read().split('\n'),
-                'uf' : open('txt/states-sigla.txt', 'r').read().split('\n')
-            }
-        )
-        print(data)
-        return jsonify(data.to_dict())
-        # try:
-        #     data = pd.DataFrame(
-        #         data = {
-        #             'estado' : open('txt/states.txt', 'r').read().split('\n'),
-        #             'uf' : open('txt/states-sigla.txt', 'r').read().split('\n')
-        #         }
-        #     )
-        #     print(data)
-        #     return jsonify(data.to_dict())
-        # except:
-        #     return jsonify({ 'info' : 'Impossível fazer a leitura'})
+        try:
+            data = json.loads(open("api_flask/model/models/states.json").read())
+            return jsonify(data)
+        except:
+            return jsonify({ 'info' : 'Impossível fazer a leitura'})
 
 class Layers(Resource):
     def get(self):
         try:
             conectar = Connection_pg("chuva")
             data = conectar.readFileSQL("sql/get_layers", {})
-            print(data)
             return jsonify(data.to_dict())
         except:
             return jsonify({ 'info' : 'Impossível fazer a leitura'})
 
-api.add_resource(AnalysisMonthlyByCity, '/analysis-monthly-by-city/<geocodigo>')
-api.add_resource(ClimMonthlyByCity, '/clim-monthly-by-city/<geocodigo>/<mes>')
-api.add_resource(ClimMonthlyByHydrography, '/clim-monthly-by-hydrography/<codigo>/<mes>')
+api.add_resource(AnalysisMonthlyByCity, '/api-flask/analysis-monthly-by-city/<geocodigo>')
+api.add_resource(ClimMonthlyByCity, '/api-flask/clim-monthly-by-city')
+api.add_resource(ClimMonthlyByHydrography, '/api-flask/clim-monthly-by-hydrography/<codigo>/<mes>')
 api.add_resource(AnalysisDailyByCity,'/analysis-daily-by-city/<geocodigo>')
-api.add_resource(ClimDailyByCity, '/clim-daily-by-city/<geocodigo>/<mes>/<dia>')
-api.add_resource(Hydrography, '/bacias')
-api.add_resource(CitiesByState, '/cities/<uf>')
-api.add_resource(States, '/states')
-api.add_resource(Layers, '/layers')
+api.add_resource(ClimDailyByCity, '/api-flask/clim-daily-by-city/<geocodigo>/<mes>/<dia>')
+api.add_resource(Hydrography, '/api-flask/bacias')
+api.add_resource(CitiesByState, '/api-flask/cities')
+api.add_resource(States, '/api-flask/states')
+api.add_resource(Layers, '/api-flask/layers')
