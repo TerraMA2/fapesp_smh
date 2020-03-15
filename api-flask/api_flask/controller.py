@@ -42,6 +42,20 @@ def length(obj):
         except: break
     return i
 
+def getDayMonths(date):
+    dias = {1:31,2:0,3:31,4:30,5:31,6:30,7:31,8:31,9:30,10:31,11:30,12:31}
+    ano = date.year
+    bissexto = None
+    if ano % 4 == 0:
+        if ano % 100 == 0:
+            if ano % 400 == 0: bissexto = True
+            else: bissexto = False
+        else: bissexto = True
+    else: bissexto = False
+    if bissexto: dias[2] = 29
+    else: dias[2] = 28
+    return dias.get(date.month, 0)
+
 class AnalysisMonthlyByCity(Resource):
     def get(self):
         try:
@@ -73,11 +87,19 @@ class AnalysisMonthlyByCity(Resource):
                         {
                             "date" : an_monthly[i].execution_date,
                             "climatologico" : {
-                                "clim_maxima" : clim_monthly_result.maxima,
-                                "clim_media" : clim_monthly_result.media
+                                "clim_maxima" : clim_monthly_result.maxima * getDayMonths(
+                                    clim_monthly_result.execution_date
+                                ),
+                                "clim_media" : clim_monthly_result.media * getDayMonths(
+                                    clim_monthly_result.execution_date
+                                )
                             },
-                            "prec_maxima" : an_monthly[i].maxima,
-                            "prec_media" : an_monthly[i].media
+                            "prec_maxima" : an_monthly[i].maxima * getDayMonths(
+                                an_monthly[i].execution_date
+                            ),
+                            "prec_media" : an_monthly[i].media * getDayMonths(
+                                an_monthly[i].execution_date
+                            )
                         }
                     )
 
@@ -135,8 +157,12 @@ class ClimMonthlyByCity(Resource):
                     },
                 },
                 "climatologico" : {
-                    "clim_maxima" : clim_monthly_result.maxima,
-                    "clim_media" : clim_monthly_result.media
+                    "clim_maxima" : clim_monthly_result.maxima * getDayMonths(
+                        clim_monthly_result.execution_date
+                    ),
+                    "clim_media" : clim_monthly_result.media * getDayMonths(
+                        clim_monthly_result.execution_date
+                    )
                 }
             }
 
