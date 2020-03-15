@@ -100,8 +100,8 @@ class AnalysisMonthlyByCity(Resource):
             return jsonify({
                 'info' :
                     'Impossível ler o geocodigo, \
-                        falta atributos de busca como data inicial e final como  \
-                            ?geocodigo=3549904&start_date=2015-03&end_date=2015-12'
+                        falta atributos de busca como data inicial e final como no exemplo \
+                            ?geocodigo=3549904&start_date=2015-01&end_date=2015-12'
             })
 
 class ClimMonthlyByCity(Resource):
@@ -144,14 +144,12 @@ class ClimMonthlyByCity(Resource):
 
             return jsonify(data)
         except:
-            return jsonify(
-                {
-                    'info' :
-                        'Impossível ler o geocodigo, \
-                            selecione um geocodigo e um mes \
-                                ?mes=January&geocodigo=3549904'
-                }
-            )
+            return jsonify({
+                'info' :
+                    'Impossível ler o geocodigo, \
+                        selecione um geocodigo e um mes como no exemplo \
+                            ?geocodigo=3549904&month=01'
+            })
 
 class AnalysisDailyByCity(Resource):
     def get(self):
@@ -210,7 +208,9 @@ class AnalysisDailyByCity(Resource):
             return jsonify(data)
         except:
             return jsonify({
-                'info' : 'Impossível ler o geocodigo {}, falta atributos de busca como data inicial e final'.format(str(geocodigo))
+                'info' : 'Impossível ler o geocodigo, \
+                    falta atributos de busca como data inicial e final como no exemplo \
+                        ?geocodigo=3549904&start_date=2010-01-01&end_date=2010-12-31'
             })
 
 class ClimDailyByCity(Resource):
@@ -255,7 +255,12 @@ class ClimDailyByCity(Resource):
 
             return jsonify(data)
         except:
-            return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
+            return jsonify({
+                'info' :
+                    'Impossível ler o geocodigo, \
+                        falta atributos de busca como mes e dia como no exemplo \
+                            ?geocodigo=3549904&month=01&day=01'
+            })
 
 class CitiesByState(Resource):
     def get(self):
