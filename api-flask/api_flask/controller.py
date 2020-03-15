@@ -10,8 +10,9 @@ from datetime import date, datetime
 
 from .model.connection_pg import Connection_pg
 from .model.models.municipios_brasil import Municipio
-from .model.models.an_municipio_clim_monthly import AnClimMonthlyByCity
-
+from .model.models.an_municipio import \
+    AnClimMonthlyByCity, AnMonthlyByCity, \
+         AnClimDailyByCity, AnDailyByCity
 
 class CustomJSONEncoder(JSONEncoder):
     def default(self, obj):
@@ -34,121 +35,227 @@ CORS(app)
 def hello():
     return jsonify({'text':'Hello World!!!'})
 
+def length(obj):
+    aux, i = None, 0
+    while True:
+        try: aux, i = obj[i], i + 1
+        except: break
+    return i
+
 class AnalysisMonthlyByCity(Resource):
-    def get(self,geocodigo):
+    def get(self):
         try:
+            geocodigo = str(request.args['geocodigo'])
+            start_date = datetime.strptime(str(request.args['start_date']), "%Y-%m")
+            end_date = datetime.strptime(str(request.args['end_date']), "%Y-%m")
+
             conectar = Connection_pg("chuva")
-            format = "%Y-%m"
-            start_date = datetime.strptime(str(request.args['start_date']), format)
-            end_date = datetime.strptime(str(request.args['end_date']), format)
-            mes, ano = (int(end_date.month) + 1), int(end_date.year)
-            if mes > 12: mes, ano = 1, end_date.year + 1
-            data = conectar.readFileSQL(
-                "sql/analysis_month_city",
-                {
-                    "geocodigo": str(geocodigo),
-                    "mes_inicio": str(start_date.month),
-                    "ano_inicio": str(start_date.year),
-                    "mes_fim": str(mes),
-                    "ano_fim": str(ano)
-                }
-            )
-            return jsonify(data.to_dict())
+
+            municipio = conectar.createSession(Municipio) \
+                    .filter_by(geocodigo = geocodigo) \
+                        .first()
+            an_monthly = conectar.createSession(AnMonthlyByCity) \
+                .filter_by(fid = municipio.fid)
+            clim_monthly = conectar.createSession(AnClimMonthlyByCity) \
+                    .filter_by(fid = municipio.fid)
+
+            result = []
+            for i in range(length(an_monthly)):
+                if start_date <= an_monthly[i].execution_date <= end_date:
+
+                    clim_monthly_result = AnClimMonthlyByCity()
+                    for j in range(length(clim_monthly)):
+                        if clim_monthly[j].execution_date.month == an_monthly[j].execution_date.month:
+                            clim_monthly_result = clim_monthly[i]
+                            break
+
+                    result.append(
+                        {
+                            "date" : an_monthly[i].execution_date,
+                            "climatologico" : {
+                                "clim_maxima" : clim_monthly_result.maxima,
+                                "clim_media" : clim_monthly_result.media
+                            },
+                            "prec_maxima" : an_monthly[i].maxima,
+                            "prec_media" : an_monthly[i].media
+                        }
+                    )
+
+            data = {
+                "query" : {
+                    "nome_municipio" : municipio.nome1,
+                    "geocodigo" : geocodigo,
+                    "timeline" : {
+                        "start_date" : start_date,
+                        "end_date" : end_date
+                    }
+                },
+                "result" : result
+            }
+
+            conectar.closeAll()
+
+            return jsonify(data)
         except:
             return jsonify({
                 'info' :
-                    'Impossível ler o geocodigo {}, falta atributos de busca como data inicial e final'
-                    .format(str(geocodigo))
+                    'Impossível ler o geocodigo, \
+                        falta atributos de busca como data inicial e final como  \
+                            ?geocodigo=3549904&start_date=2015-03&end_date=2015-12'
             })
 
 class ClimMonthlyByCity(Resource):
     def get(self):
         try:
             geocodigo = str(request.args['geocodigo'])
-            mes = str(request.args['mes'])
+            month = int(request.args['month'])
+
             conectar = Connection_pg("chuva")
+
             municipio = conectar.createSession(Municipio) \
                 .filter_by(geocodigo = geocodigo) \
                     .first()
             clim_monthly = conectar.createSession(AnClimMonthlyByCity) \
-                .filter_by(fid = municipio.fid) \
-                    .first()
+                .filter_by(fid = municipio.fid)
+
+            clim_monthly_result = AnClimMonthlyByCity()
+            for i in range(length(clim_monthly)):
+                if clim_monthly[i].execution_date.month == month:
+                    clim_monthly_result = clim_monthly[i]
+                    break
+
             data = {
                 "query" : {
+                    "nome_municipio" : municipio.nome1,
                     "geocodigo" : geocodigo,
-                    "mes" : mes,
+                    "date" : clim_monthly_result.execution_date,
                     "timeline" : {
                         "start" : 1998,
                         "end" : 2019
                     },
                 },
-                "result" : {
-                    "nome_municipio" : municipio.nome1,
-                    "maxima" : clim_monthly.maxima,
-                    "media" : clim_monthly.media
+                "climatologico" : {
+                    "clim_maxima" : clim_monthly_result.maxima,
+                    "clim_media" : clim_monthly_result.media
                 }
             }
+
+            conectar.closeAll()
+
             return jsonify(data)
         except:
-            return jsonify({ 'info' : 'Impossível ler o geocodigo selecione um geocodigo e um mes ?mes=January&geocodigo=35499s04'})
-
-class ClimMonthlyByHydrography(Resource):
-    def get(self,codigo,mes):
-        try:
-            conectar = Connection_pg("chuva")
-            data = conectar.readFileSQL(
-                "sql/clim_monthly_hydrography",
+            return jsonify(
                 {
-                    "codigo": str(codigo),
-                    "mes": str(mes)
+                    'info' :
+                        'Impossível ler o geocodigo, \
+                            selecione um geocodigo e um mes \
+                                ?mes=January&geocodigo=3549904'
                 }
             )
-            return jsonify(data.to_dict())
-        except:
-            return jsonify({ 'info' : 'Impossível ler o codigo {}'.format(str(codigo)) })
 
 class AnalysisDailyByCity(Resource):
-    def get(self,geocodigo):
+    def get(self):
         try:
+            geocodigo = str(request.args['geocodigo'])
+            start_date = datetime.strptime(str(request.args['start_date']), "%Y-%m-%d")
+            end_date = datetime.strptime(str(request.args['end_date']), "%Y-%m-%d")
+
             conectar = Connection_pg("chuva")
-            data = conectar.readFileSQL(
-                "sql/analysis_daily_city",
-                {
-                    "geocodigo" : str(geocodigo),
-                    "start_date" : str(request.args['start_date']),
-                    "end_date" : str(request.args['end_date'])
-                }
-            )
-            return jsonify(data.to_dict())
+
+            municipio = conectar.createSession(Municipio) \
+                    .filter_by(geocodigo = geocodigo) \
+                        .first()
+            an_daily = conectar.createSession(AnDailyByCity) \
+                .filter_by(fid = municipio.fid)
+            clim_daily = conectar.createSession(AnClimDailyByCity) \
+                    .filter_by(fid = municipio.fid)
+
+            result = []
+            for i in range(length(an_daily)):
+                if start_date <= an_daily[i].execution_date <= end_date:
+
+                    clim_daily_result = AnClimDailyByCity()
+                    for j in range(length(clim_daily)):
+                        if clim_daily[i].execution_date.day == an_daily[j].execution_date.day \
+                            and clim_daily[i].execution_date.month == an_daily[j].execution_date.month:
+                            clim_daily_result = clim_daily[i]
+                            break
+
+                    result.append(
+                        {
+                            "date" : an_daily[i].execution_date,
+                            "climatologico" : {
+                                "clim_maxima" : clim_daily_result.maxima,
+                                "clim_media" : clim_daily_result.media
+                            },
+                            "prec_maxima" : an_daily[i].maxima,
+                            "prec_media" : an_daily[i].media
+                        }
+                    )
+
+            data = {
+                "query" : {
+                    "nome_municipio" : municipio.nome1,
+                    "geocodigo" : geocodigo,
+                    "timeline" : {
+                        "start_date" : start_date,
+                        "end_date" : end_date
+                    }
+                },
+                "result" : result
+            }
+
+            conectar.closeAll()
+
+            return jsonify(data)
         except:
             return jsonify({
                 'info' : 'Impossível ler o geocodigo {}, falta atributos de busca como data inicial e final'.format(str(geocodigo))
             })
 
 class ClimDailyByCity(Resource):
-    def get(self,geocodigo,mes,dia):
-        try:
-            conectar = Connection_pg("chuva")
-            data = conectar.readFileSQL(
-                "sql/clim_daily_city",
-                {
-                    "geocodigo": str(geocodigo),
-                    "mes": str(mes),
-                    "dia": str(dia)
-                }
-            )
-            return jsonify(data.to_dict())
-        except:
-            return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
-
-class Hydrography(Resource):
     def get(self):
         try:
+            geocodigo = str(request.args['start_date'])
+            month = str(request.args['month'])
+            day = str(request.args['day'])
+
             conectar = Connection_pg("chuva")
-            data = conectar.readFileSQL("sql/hydrography",{})
-            return jsonify(data.to_dict())
+
+            municipio = conectar.createSession(Municipio) \
+                .filter_by(geocodigo = geocodigo) \
+                    .first()
+            clim_daily = conectar.createSession(AnClimDailyByCity) \
+                .filter_by(fid = municipio.fid)
+
+            clim_daily_result = AnClimDailyByCity()
+            for i in range(length(clim_daily)):
+                if clim_daily[i].execution_date.day == day \
+                    and clim_daily[i].execution_date.month == month:
+                    clim_daily_result = clim_daily[i]
+                    break
+
+            data = {
+                "query" : {
+                    "nome_municipio" : municipio.nome1,
+                    "geocodigo" : geocodigo,
+                    "date" : clim_daily_result.execution_date,
+                    "timeline" : {
+                        "start" : 1998,
+                        "end" : 2019
+                    },
+                },
+                "climatologico" : {
+                    "clim_maxima" : clim_daily_result.maxima,
+                    "clim_media" : clim_daily_result.media
+                }
+            }
+
+            conectar.closeAll()
+
+            return jsonify(data)
         except:
-            return jsonify({ 'info' : 'Nenhuma bacia para exibir' })
+            return jsonify({ 'info' : 'Impossível ler o geocodigo {}'.format(str(geocodigo)) })
 
 class CitiesByState(Resource):
     def get(self):
@@ -179,21 +286,9 @@ class States(Resource):
         except:
             return jsonify({ 'info' : 'Impossível fazer a leitura'})
 
-class Layers(Resource):
-    def get(self):
-        try:
-            conectar = Connection_pg("chuva")
-            data = conectar.readFileSQL("sql/get_layers", {})
-            return jsonify(data.to_dict())
-        except:
-            return jsonify({ 'info' : 'Impossível fazer a leitura'})
-
-api.add_resource(AnalysisMonthlyByCity, '/api-flask/analysis-monthly-by-city/<geocodigo>')
+api.add_resource(AnalysisMonthlyByCity, '/api-flask/analysis-monthly-by-city')
 api.add_resource(ClimMonthlyByCity, '/api-flask/clim-monthly-by-city')
-api.add_resource(ClimMonthlyByHydrography, '/api-flask/clim-monthly-by-hydrography/<codigo>/<mes>')
-api.add_resource(AnalysisDailyByCity,'/analysis-daily-by-city/<geocodigo>')
-api.add_resource(ClimDailyByCity, '/api-flask/clim-daily-by-city/<geocodigo>/<mes>/<dia>')
-api.add_resource(Hydrography, '/api-flask/bacias')
+api.add_resource(AnalysisDailyByCity,'/analysis-daily-by-city')
+api.add_resource(ClimDailyByCity, '/api-flask/clim-daily-by-city')
 api.add_resource(CitiesByState, '/api-flask/cities')
 api.add_resource(States, '/api-flask/states')
-api.add_resource(Layers, '/api-flask/layers')

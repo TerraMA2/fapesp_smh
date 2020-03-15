@@ -1,1 +1,0 @@
-SELECT ps1_nm AS nome, ps1_cd AS codigo FROM public.geoft_pnrh_sub1 ORDER BY nome;
