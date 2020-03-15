@@ -785,7 +785,7 @@
     {
       "class": "Analysis",
       "project_id": 3,
-      "script": "import urllib, json\n\nmeses = {1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'}\nan_mes = get_analysis_date().month\ndia = get_analysis_date().day\n\nmaxima = grid.zonal.max(\"daily\", 0)\nmedia = grid.zonal.mean(\"daily\", 0)\nmes = meses[an_mes]\n\nresponse = urllib.urlopen(\"http://150.163.17.142:5000/clim-daily-by-city/\" + get_value(\"geocodigo\")  + \"/\" + mes + \"/\" + str(dia))\ndata = json.loads(response.read().decode())\nmerge_media = data[\"media\"][\"0\"]\n\nif merge_media: anomalia = media - merge_media\nelse: anomalia = 0\n\nadd_value(\"maxima\", maxima)\nadd_value(\"media\", media)\nadd_value(\"anomalia\", anomalia)",
+      "script": "import urllib, json\n\nan_mes = get_analysis_date().month\ndia = get_analysis_date().day\nmes = get_analysis_date().month\n\nmaxima = grid.zonal.max(\"daily\", 0)\nmedia = grid.zonal.mean(\"daily\", 0)\n\nresponse = urllib.urlopen(\"http://150.163.17.142:5000/clim-daily-by-city/?geocodigo=\" + get_value(\"geocodigo\")  + \"&month=\" + mes + \"&day=\" + str(dia))\ndata = json.loads(response.read().decode())\nmerge_media = data.get(\"climatologico\", {}).get(\"clim_media\", 0)\n\nif merge_media: anomalia = media - merge_media\nelse: anomalia = 0\n\nadd_value(\"maxima\", maxima)\nadd_value(\"media\", media)\nadd_value(\"anomalia\", anomalia)",
       "script_language": 1,
       "type": {
         "id": 2,
@@ -822,32 +822,14 @@
           "$id": 26
         }
       ],
-      "schedule": {
-        "class": "Schedule",
-        "id": 12,
-        "frequency": 24,
-        "frequency_unit": "hours",
-        "frequency_start_time": "00:00:00-03:00",
-        "schedule": 0,
-        "schedule_time": "",
-        "schedule_unit": "",
-        "schedule_retry": 0,
-        "schedule_retry_unit": "",
-        "schedule_timeout": 0,
-        "schedule_timeout_unit": "",
-        "scheduleType": 2,
-        "historical": {
-          "startDate": "1998-05-16T16:00:00.000+00:00",
-          "endDate": "1998-05-23T16:30:00.000+00:00"
-        }
-      },
+      "schedule": {},
       "automatic_schedule": {
         "class": "AutomaticSchedule",
         "data_ids": []
       },
       "service_instance_id": null,
       "output_grid": null,
-      "schedule_type": 2,
+      "schedule_type": 3,
       "dataSeries": {
         "id": 36,
         "project_id": 3,
@@ -861,6 +843,20 @@
           "code": "ANALYSIS_MONITORED_OBJECT-postgis",
           "data_format_name": "POSTGIS",
           "data_series_type_name": "ANALYSIS_MONITORED_OBJECT",
+          "SemanticsProvidersTypes": [
+            {
+              "id": 35,
+              "data_provider_type_id": 4,
+              "data_series_semantics_id": 18
+            }
+          ],
+          "data_providers_semantics": [
+            {
+              "id": 35,
+              "data_provider_type_id": 4,
+              "data_series_semantics_id": 18
+            }
+          ],
           "name": "Monitored object analysis",
           "driver": "ANALYSIS_MONITORED_OBJECT-postgis",
           "type": "ANALYSIS_MONITORED_OBJECT",
@@ -1229,7 +1225,7 @@
     {
       "class": "Analysis",
       "project_id": 3,
-      "script": "import urllib, json\nmeses = {1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'}\ndias = {1:31,2:0,3:31,4:30,5:31,6:30,7:31,8:31,9:30,10:31,11:30,12:31}\nan_mes = get_analysis_date().month\nano = get_analysis_date().year\nmes = meses[an_mes]\nbissexto = None\n\nif ano % 4 == 0:\n\tif ano % 100 == 0:\n\t    if ano % 400 == 0: bissexto = True\n\t    else: bissexto = False\n\telse: bissexto = True\nelse: bissexto = False\nif bissexto: dias[2] = 29\nelse: dias[2] = 28\n\nmaxima = grid.zonal.max(\"monthly\")\nmedia = grid.zonal.mean(\"monthly\")\n\nif int(dias[an_mes]) == int(get_analysis_date().day):\n    \n    response = urllib.urlopen(\"http://150.163.17.142:5000/clim-monthly-by-city/\" + get_value(\"geocodigo\")  + \"/\" + mes)\n    data = json.loads(response.read().decode())\n    merge_media = data[\"media\"][\"0\"]\n    \n    if merge_media: anomalia = media - merge_media\n    else: anomalia = 0\n    \n    add_value(\"maxima\", maxima)\n    add_value(\"media\", media)\n    add_value(\"anomalia\", anomalia)",
+      "script": "import urllib, json\ndias = {1:31,2:0,3:31,4:30,5:31,6:30,7:31,8:31,9:30,10:31,11:30,12:31}\nan_mes = get_analysis_date().month\nano = get_analysis_date().year\nbissexto = None\n\nif ano % 4 == 0:\n\tif ano % 100 == 0:\n\t    if ano % 400 == 0: bissexto = True\n\t    else: bissexto = False\n\telse: bissexto = True\nelse: bissexto = False\nif bissexto: dias[2] = 29\nelse: dias[2] = 28\n\nmaxima = grid.zonal.max(\"monthly\")\nmedia = grid.zonal.mean(\"monthly\")\n\nif int(dias[an_mes]) == int(get_analysis_date().day):\n    \n    response = urllib.urlopen(\"http://150.163.17.142:5000/clim-monthly-by-city/?geocodigo=\" + get_value(\"geocodigo\")  + \"&month=\" + an_mes)\n    data = json.loads(response.read().decode())\n    merge_media = data.get(\"climatologico\", {}).get(\"clim_media\", 0)\n    \n    if merge_media: anomalia = media - merge_media\n    else: anomalia = 0\n    \n    add_value(\"maxima\", maxima)\n    add_value(\"media\", media)\n    add_value(\"anomalia\", anomalia)",
       "script_language": 1,
       "type": {
         "id": 2,
@@ -1266,32 +1262,14 @@
           "$id": 8
         }
       ],
-      "schedule": {
-        "class": "Schedule",
-        "id": 3,
-        "frequency": 24,
-        "frequency_unit": "hours",
-        "frequency_start_time": "00:00:00-03:00",
-        "schedule": 0,
-        "schedule_time": "",
-        "schedule_unit": "",
-        "schedule_retry": 0,
-        "schedule_retry_unit": "",
-        "schedule_timeout": 0,
-        "schedule_timeout_unit": "",
-        "scheduleType": 2,
-        "historical": {
-          "startDate": "2019-01-01T03:00:00.000+00:00",
-          "endDate": "2019-02-01T01:55:00.000+00:00"
-        }
-      },
+      "schedule": {},
       "automatic_schedule": {
         "class": "AutomaticSchedule",
         "data_ids": []
       },
       "service_instance_id": null,
       "output_grid": null,
-      "schedule_type": 2,
+      "schedule_type": 3,
       "dataSeries": {
         "id": 14,
         "project_id": 3,
@@ -1305,6 +1283,20 @@
           "code": "ANALYSIS_MONITORED_OBJECT-postgis",
           "data_format_name": "POSTGIS",
           "data_series_type_name": "ANALYSIS_MONITORED_OBJECT",
+          "SemanticsProvidersTypes": [
+            {
+              "id": 35,
+              "data_provider_type_id": 4,
+              "data_series_semantics_id": 18
+            }
+          ],
+          "data_providers_semantics": [
+            {
+              "id": 35,
+              "data_provider_type_id": 4,
+              "data_series_semantics_id": 18
+            }
+          ],
           "name": "Monitored object analysis",
           "driver": "ANALYSIS_MONITORED_OBJECT-postgis",
           "type": "ANALYSIS_MONITORED_OBJECT",
