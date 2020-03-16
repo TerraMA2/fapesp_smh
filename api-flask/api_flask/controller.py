@@ -100,6 +100,9 @@ class AnalysisMonthlyByCity(Resource):
                         ),
                         "prec_media" : an_monthly[i].media * getDayMonths(
                             an_monthly[i].execution_date
+                        ),
+                        "anomalia" : an_monthly[i].anomalia * getDayMonths(
+                            an_monthly[i].execution_date
                         )
                     }
                 )
@@ -217,7 +220,8 @@ class AnalysisDailyByCity(Resource):
                             "clim_media" : clim_daily_result.media
                         },
                         "prec_maxima" : an_daily[i].maxima,
-                        "prec_media" : an_daily[i].media
+                        "prec_media" : an_daily[i].media,
+                        "anomalia" : an_daily[i].anomalia
                     }
                 )
 
