@@ -4,4 +4,4 @@ WORKDIR /api_flask
 RUN apt-get update
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-CMD python3 manage.py run
+CMD python3 manage.py run 5000

@@ -22,7 +22,7 @@ Or install manually:
 
 ## Run Python Flask API
 
-Install flask with `pip install Flask` and run with `python manager.py run`.
+Install flask with `pip install Flask` and run with `python manager.py run 5000`.
 
 ## To run API in a container docker create a volume to save your data
 

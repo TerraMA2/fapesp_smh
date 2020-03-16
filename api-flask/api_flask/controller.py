@@ -7,6 +7,7 @@ from flask_restful import Resource, Api
 from flask_jsonpify import *
 from flask.json import JSONEncoder
 from datetime import date, datetime
+from sqlalchemy import and_, cast, extract, Integer
 
 from .model.connection_pg import Connection_pg
 from .model.models.municipios_brasil import Municipio
@@ -69,39 +70,39 @@ class AnalysisMonthlyByCity(Resource):
                     .filter_by(geocodigo = geocodigo) \
                         .first()
             an_monthly = conectar.createSession(AnMonthlyByCity) \
-                .filter_by(fid = municipio.fid)
-            clim_monthly = conectar.createSession(AnClimMonthlyByCity) \
-                    .filter_by(fid = municipio.fid)
+                .filter_by(fid = municipio.fid) \
+                    .filter(
+                        and_(AnMonthlyByCity.execution_date >= start_date, AnMonthlyByCity.execution_date <= end_date)
+                    ).order_by(AnMonthlyByCity.execution_date)
 
             result = []
             for i in range(length(an_monthly)):
-                if start_date <= an_monthly[i].execution_date <= end_date:
 
-                    clim_monthly_result = AnClimMonthlyByCity()
-                    for j in range(length(clim_monthly)):
-                        if clim_monthly[j].execution_date.month == an_monthly[j].execution_date.month:
-                            clim_monthly_result = clim_monthly[i]
-                            break
+                clim_monthly_result = conectar.createSession(AnClimMonthlyByCity) \
+                    .filter_by(fid = municipio.fid) \
+                        .filter(extract('month', AnClimMonthlyByCity.execution_date) == an_monthly[i].execution_date.month) \
+                            .order_by(AnClimMonthlyByCity.execution_date) \
+                                .first()
 
-                    result.append(
-                        {
-                            "date" : an_monthly[i].execution_date,
-                            "climatologico" : {
-                                "clim_maxima" : clim_monthly_result.maxima * getDayMonths(
-                                    clim_monthly_result.execution_date
-                                ),
-                                "clim_media" : clim_monthly_result.media * getDayMonths(
-                                    clim_monthly_result.execution_date
-                                )
-                            },
-                            "prec_maxima" : an_monthly[i].maxima * getDayMonths(
-                                an_monthly[i].execution_date
+                result.append(
+                    {
+                        "date" : an_monthly[i].execution_date,
+                        "climatologico" : {
+                            "clim_maxima" : clim_monthly_result.maxima * getDayMonths(
+                                clim_monthly_result.execution_date
                             ),
-                            "prec_media" : an_monthly[i].media * getDayMonths(
-                                an_monthly[i].execution_date
+                            "clim_media" : clim_monthly_result.media * getDayMonths(
+                                clim_monthly_result.execution_date
                             )
-                        }
-                    )
+                        },
+                        "prec_maxima" : an_monthly[i].maxima * getDayMonths(
+                            an_monthly[i].execution_date
+                        ),
+                        "prec_media" : an_monthly[i].media * getDayMonths(
+                            an_monthly[i].execution_date
+                        )
+                    }
+                )
 
             data = {
                 "query" : {
@@ -121,9 +122,9 @@ class AnalysisMonthlyByCity(Resource):
         except:
             return jsonify({
                 'info' :
-                    'Impossível ler o geocodigo, \
-                        falta atributos de busca como data inicial e final como no exemplo \
-                            ?geocodigo=3549904&start_date=2015-01&end_date=2015-12'
+                    'Impossível ler o geocodigo,' +
+                    'falta atributos de busca como data inicial e final como no exemplo ' +
+                    '?geocodigo=3549904&start_date=2015-01&end_date=2015-12'
             })
 
 class ClimMonthlyByCity(Resource):
@@ -137,14 +138,12 @@ class ClimMonthlyByCity(Resource):
             municipio = conectar.createSession(Municipio) \
                 .filter_by(geocodigo = geocodigo) \
                     .first()
-            clim_monthly = conectar.createSession(AnClimMonthlyByCity) \
-                .filter_by(fid = municipio.fid)
 
-            clim_monthly_result = AnClimMonthlyByCity()
-            for i in range(length(clim_monthly)):
-                if clim_monthly[i].execution_date.month == month:
-                    clim_monthly_result = clim_monthly[i]
-                    break
+            clim_monthly_result = conectar.createSession(AnClimMonthlyByCity) \
+                    .filter_by(fid = municipio.fid) \
+                        .filter(extract('month', AnClimMonthlyByCity.execution_date) == month) \
+                            .order_by(AnClimMonthlyByCity.execution_date) \
+                                .first()
 
             data = {
                 "query" : {
@@ -172,9 +171,9 @@ class ClimMonthlyByCity(Resource):
         except:
             return jsonify({
                 'info' :
-                    'Impossível ler o geocodigo, \
-                        selecione um geocodigo e um mes como no exemplo \
-                            ?geocodigo=3549904&month=01'
+                    'Impossível ler o geocodigo,' +
+                    'selecione um geocodigo e um mes como no exemplo ' +
+                    '?geocodigo=3549904&month=01'
             })
 
 class AnalysisDailyByCity(Resource):
@@ -189,33 +188,38 @@ class AnalysisDailyByCity(Resource):
             municipio = conectar.createSession(Municipio) \
                     .filter_by(geocodigo = geocodigo) \
                         .first()
+
+
             an_daily = conectar.createSession(AnDailyByCity) \
-                .filter_by(fid = municipio.fid)
-            clim_daily = conectar.createSession(AnClimDailyByCity) \
-                    .filter_by(fid = municipio.fid)
+                .filter_by(fid = municipio.fid) \
+                    .filter(
+                        and_(AnDailyByCity.execution_date >= start_date, AnDailyByCity.execution_date <= end_date)
+                    ).order_by(AnDailyByCity.execution_date)
 
             result = []
             for i in range(length(an_daily)):
-                if start_date <= an_daily[i].execution_date <= end_date:
 
-                    clim_daily_result = AnClimDailyByCity()
-                    for j in range(length(clim_daily)):
-                        if clim_daily[i].execution_date.day == an_daily[j].execution_date.day \
-                            and clim_daily[i].execution_date.month == an_daily[j].execution_date.month:
-                            clim_daily_result = clim_daily[i]
-                            break
+                clim_daily_result = conectar.createSession(AnClimDailyByCity) \
+                    .filter_by(fid = municipio.fid) \
+                        .filter(
+                            and_(
+                                extract('month', AnClimDailyByCity.execution_date) == an_daily[i].execution_date.month,
+                                extract('day', AnClimDailyByCity.execution_date) == an_daily[i].execution_date.day
+                            )
+                        ).order_by(AnClimDailyByCity.execution_date) \
+                                .first()
 
-                    result.append(
-                        {
-                            "date" : an_daily[i].execution_date,
-                            "climatologico" : {
-                                "clim_maxima" : clim_daily_result.maxima,
-                                "clim_media" : clim_daily_result.media
-                            },
-                            "prec_maxima" : an_daily[i].maxima,
-                            "prec_media" : an_daily[i].media
-                        }
-                    )
+                result.append(
+                    {
+                        "date" : an_daily[i].execution_date,
+                        "climatologico" : {
+                            "clim_maxima" : clim_daily_result.maxima,
+                            "clim_media" : clim_daily_result.media
+                        },
+                        "prec_maxima" : an_daily[i].maxima,
+                        "prec_media" : an_daily[i].media
+                    }
+                )
 
             data = {
                 "query" : {
@@ -234,15 +238,15 @@ class AnalysisDailyByCity(Resource):
             return jsonify(data)
         except:
             return jsonify({
-                'info' : 'Impossível ler o geocodigo, \
-                    falta atributos de busca como data inicial e final como no exemplo \
-                        ?geocodigo=3549904&start_date=2010-01-01&end_date=2010-12-31'
+                'info' : 'Impossível ler o geocodigo,' +
+                'falta atributos de busca como data inicial e final como no exemplo ' +
+                '?geocodigo=3549904&start_date=2010-01-01&end_date=2010-12-31'
             })
 
 class ClimDailyByCity(Resource):
     def get(self):
         try:
-            geocodigo = str(request.args['start_date'])
+            geocodigo = str(request.args['geocodigo'])
             month = str(request.args['month'])
             day = str(request.args['day'])
 
@@ -251,15 +255,16 @@ class ClimDailyByCity(Resource):
             municipio = conectar.createSession(Municipio) \
                 .filter_by(geocodigo = geocodigo) \
                     .first()
-            clim_daily = conectar.createSession(AnClimDailyByCity) \
-                .filter_by(fid = municipio.fid)
 
-            clim_daily_result = AnClimDailyByCity()
-            for i in range(length(clim_daily)):
-                if clim_daily[i].execution_date.day == day \
-                    and clim_daily[i].execution_date.month == month:
-                    clim_daily_result = clim_daily[i]
-                    break
+            clim_daily_result = conectar.createSession(AnClimDailyByCity) \
+                .filter_by(fid = municipio.fid) \
+                    .filter(
+                        and_(
+                            extract('month', AnClimDailyByCity.execution_date) == an_daily[i].execution_date.month,
+                            extract('day', AnClimDailyByCity.execution_date) == an_daily[i].execution_date.day
+                        )
+                    ).order_by(AnClimDailyByCity.execution_date) \
+                        .first()
 
             data = {
                 "query" : {
@@ -283,9 +288,9 @@ class ClimDailyByCity(Resource):
         except:
             return jsonify({
                 'info' :
-                    'Impossível ler o geocodigo, \
-                        falta atributos de busca como mes e dia como no exemplo \
-                            ?geocodigo=3549904&month=01&day=01'
+                    'Impossível ler o geocodigo, ' +
+                    'falta atributos de busca como mes e dia como no exemplo ' +
+                    '?geocodigo=3549904&month=01&day=01'
             })
 
 class CitiesByState(Resource):
@@ -305,6 +310,7 @@ class CitiesByState(Resource):
                         "longitude" : municipio.longitude
                     }
                 )
+            conectar.closeAll()
             return jsonify(data)
         except:
             return jsonify({ 'info' : 'uf não existe ou selecione um estado ?uf=SP' })
@@ -319,7 +325,7 @@ class States(Resource):
 
 api.add_resource(AnalysisMonthlyByCity, '/api-flask/analysis-monthly-by-city')
 api.add_resource(ClimMonthlyByCity, '/api-flask/clim-monthly-by-city')
-api.add_resource(AnalysisDailyByCity,'/analysis-daily-by-city')
+api.add_resource(AnalysisDailyByCity,'/api-flask/analysis-daily-by-city')
 api.add_resource(ClimDailyByCity, '/api-flask/clim-daily-by-city')
 api.add_resource(CitiesByState, '/api-flask/cities')
 api.add_resource(States, '/api-flask/states')
