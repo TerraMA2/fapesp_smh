@@ -260,8 +260,8 @@ class ClimDailyByCity(Resource):
                 .filter_by(fid = municipio.fid) \
                     .filter(
                         and_(
-                            extract('month', AnClimDailyByCity.execution_date) == an_daily[i].execution_date.month,
-                            extract('day', AnClimDailyByCity.execution_date) == an_daily[i].execution_date.day
+                            extract('month', AnClimDailyByCity.execution_date) == month,
+                            extract('day', AnClimDailyByCity.execution_date) == day
                         )
                     ).order_by(AnClimDailyByCity.execution_date) \
                         .first()
