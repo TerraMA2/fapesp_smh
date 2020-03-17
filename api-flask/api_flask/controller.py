@@ -1,7 +1,7 @@
 import json
 import datetime
 import pandas as pd
-from flask import Flask, request
+from flask import Flask, request, abort
 from flask_cors import CORS, cross_origin
 from flask_restful import Resource, Api
 from flask_jsonpify import *
@@ -123,7 +123,7 @@ class AnalysisMonthlyByCity(Resource):
 
             return jsonify(data)
         except:
-            return jsonify({
+            return abort(404, description = {
                 'info' :
                     'Impossível ler o geocodigo,' +
                     'falta atributos de busca como data inicial e final como no exemplo ' +
@@ -172,7 +172,7 @@ class ClimMonthlyByCity(Resource):
 
             return jsonify(data)
         except:
-            return jsonify({
+            return abort(404, description = {
                 'info' :
                     'Impossível ler o geocodigo,' +
                     'selecione um geocodigo e um mes como no exemplo ' +
@@ -241,7 +241,7 @@ class AnalysisDailyByCity(Resource):
 
             return jsonify(data)
         except:
-            return jsonify({
+            return abort(404, description = {
                 'info' : 'Impossível ler o geocodigo,' +
                 'falta atributos de busca como data inicial e final como no exemplo ' +
                 '?geocodigo=3549904&start_date=2010-01-01&end_date=2010-12-31'
@@ -290,7 +290,7 @@ class ClimDailyByCity(Resource):
 
             return jsonify(data)
         except:
-            return jsonify({
+            return abort(404, description = {
                 'info' :
                     'Impossível ler o geocodigo, ' +
                     'falta atributos de busca como mes e dia como no exemplo ' +
@@ -317,7 +317,7 @@ class CitiesByState(Resource):
             conectar.closeAll()
             return jsonify(data)
         except:
-            return jsonify({ 'info' : 'uf não existe ou selecione um estado ?uf=SP' })
+            return abort(404, description = { 'info' : 'uf não existe ou selecione um estado ?uf=SP' })
 
 class States(Resource):
     def get(self):
@@ -325,7 +325,7 @@ class States(Resource):
             data = json.loads(open("api_flask/model/models/states.json").read())
             return jsonify(data)
         except:
-            return jsonify({ 'info' : 'Impossível fazer a leitura'})
+            return abort(404, description = { 'info' : 'Impossível fazer a leitura'})
 
 api.add_resource(AnalysisMonthlyByCity, '/api-flask/analysis-monthly-by-city')
 api.add_resource(ClimMonthlyByCity, '/api-flask/clim-monthly-by-city')
