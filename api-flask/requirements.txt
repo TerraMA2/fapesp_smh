@@ -10,3 +10,4 @@ flask_cors
 flask_restful
 flask_jsonpify
 docker-py
+pathlib
