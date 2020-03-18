@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { City } from '../models/city';
-import { AnaliseGeotiffDiffLimitDateMonthly } from '../raster/analise-geotiff-diff-limit-date-monthly';
-import { AnaliseGeotiffDiffLimitDateDaily } from '../raster/analise-geotiff-diff-limit-date-daily';
+import { Analysis } from '../raster/analysis';
 import { RepositoryApi } from '../enums/repository-api.enum';
-import { Uf } from '../models/uf';
-import { Layers } from 'src/app/models/layers';
+import { UfAPI } from '../raster/uf';
+import { CityAPI } from '../raster/city';
+import { element } from '@angular/core/src/render3';
 
 @Injectable({
   providedIn: 'root'
@@ -16,109 +15,92 @@ export class PythonFlaskAPIService {
   constructor(private httpClient: HttpClient) { }
 
   getStates() {
-    return this.httpClient.get(RepositoryApi.smh_api + '/states');
+    return this.httpClient.get<UfAPI>(RepositoryApi.smh_api + '/api-flask/states');
   }
 
   getCities(uf: string) {
-    return this.httpClient.get(RepositoryApi.smh_api + '/cities/' + uf);
+    return this.httpClient.get<CityAPI>(RepositoryApi.smh_api + '/api-flask/cities?uf=' + uf);
   }
 
-  getMonthlyMaxMeanDiffLimitDate(geocodigo: string, start: Date, end: Date) {
-    return this.httpClient.get<AnaliseGeotiffDiffLimitDateMonthly>(
+  getAnMonthly(geocodigo: string, start: Date, end: Date) {
+    console.log(
       RepositoryApi.smh_api +
-      '/analysis-monthly-by-city/' +
-      geocodigo + '?' +
+      '/api-flask/analysis-monthly-by-city?' +
+      'geocodigo=' + geocodigo + '&' +
+      'start_date=' + start.getFullYear() + '-' + (start.getMonth() + 1) + '&' +
+      'end_date=' + end.getFullYear() + '-' + (end.getMonth() + 1)
+    );
+    return this.httpClient.get<Analysis>(
+      RepositoryApi.smh_api +
+      '/api-flask/analysis-monthly-by-city?' +
+      'geocodigo=' + geocodigo + '&' +
       'start_date=' + start.getFullYear() + '-' + (start.getMonth() + 1) + '&' +
       'end_date=' + end.getFullYear() + '-' + (end.getMonth() + 1)
     );
   }
-  
-  getDailyMaxMeanDiffLimitDate(geocodigo: string, start: Date, end: Date) {
-    return this.httpClient.get<AnaliseGeotiffDiffLimitDateDaily>(
+
+  getAnDaily(geocodigo: string, start: Date, end: Date) {
+    return this.httpClient.get<Analysis>(
       RepositoryApi.smh_api +
-      '/analysis-daily-by-city/' +
-      geocodigo + '?' +
+      '/api-flask/analysis-daily-by-city?' +
+      'geocodigo=' + geocodigo + '&' +
       'start_date=' + start.getFullYear() + '-' + (start.getMonth() + 1) + '-' + start.getDate() + '&' +
       'end_date=' + end.getFullYear() + '-' + (end.getMonth() + 1) + '-' + end.getDate()
     );
   }
 
-  convertToCityAPI(nome_municipio: string[], longitude: number[], latitude: number[], geocodigo: string[]) {
-    let cities: City[] = [];
-    for (let i in nome_municipio) { cities[i] = { nome_municipio: nome_municipio[i], longitude: longitude[i], latitude: latitude[i], geocodigo: geocodigo[i] }; }
-    return cities;
+  extractDateTimeline(data: Analysis) {
+    let result = this.convertToArray(data.result);
+    let dateTimeline = [];
+    result.forEach(
+      element => dateTimeline.push(element.date)
+    )
+    return dateTimeline;
   }
 
-  convertToStateAPI(estado: string[], uf: string[]) {
-    let states: Uf[] = [];
-    for (let i in estado) { states[i] = { estado: estado[i], uf: uf[i] }; }
-    return states;
+  extractClimMaxData(data: Analysis) {
+    let result = this.convertToArray(data.result);
+    let climMaxData: number[] = [];
+    result.forEach(
+      element => climMaxData.push(element.climatologico.clim_maxima)
+    )
+    return climMaxData;
   }
 
-  convertToLayerAPI(layername: string[], name: string[], source_type: number[], uri: string[], workspace: string[]) {
-    let layers: Layers[] = [];
-    for (let i in layername) {
-      layers[i] = { layername: layername[i], name: name[i], source_type: source_type[i], uri: uri[i], workspace: workspace[i] };
-    }
-    return layers;
+  extractClimMeanData(data: Analysis) {
+    let result = this.convertToArray(data.result);
+    let climMeanData: number[] = [];
+    result.forEach(
+      element => climMeanData.push(element.climatologico.clim_media)
+    )
+    return climMeanData;
   }
 
-  convertToAnliseMonthlyAPI(
-    ano: number[],
-    maxima: number[],
-    maxima_ano: number[],
-    media: number[],
-    media_ano: number[],
-    mes: string[],
-    nome_municipio: string[],
-    anomalia: number[],
-    format_date: string[],
-  ) {
-    let analises: AnaliseGeotiffDiffLimitDateMonthly[] = [];
-    for (let i in ano) {
-      analises[i] = {
-        ano: ano[i],
-        maxima: maxima[i],
-        maxima_ano: maxima_ano[i],
-        media: media[i],
-        media_ano: media_ano[i],
-        mes: mes[i],
-        nome_municipio: nome_municipio[i],
-        anomalia: anomalia[i],
-        format_date: format_date[i],
-      }
-    }
-    return analises;
+  extractMaxData(data: Analysis) {
+    let result = this.convertToArray(data.result);
+    let maxData: number[] = [];
+    result.forEach(
+      element => maxData.push(element.prec_maxima)
+    )
+    return maxData;
   }
 
-  convertToAnliseDailyAPI(
-    maxima: number[],
-    media: number[],
-    maxima_mes: number[],
-    media_mes: number[],
-    anomalia: number[],
-    dia: number[],
-    mes: string[],
-    execution_date: Date[],
-    nome_municipio: string[],
-    format_date: string[]
-  ) {
-    let analises: AnaliseGeotiffDiffLimitDateDaily[] = [];
-    for (let i in dia) {
-      analises[i] = {
-        maxima: maxima[i],
-        media: media[i],
-        maxima_mes: maxima_mes[i],
-        media_mes: media_mes[i],
-        anomalia: anomalia[i],
-        dia: dia[i],
-        mes: mes[i],
-        execution_date: execution_date[i],
-        nome_municipio: nome_municipio[i],
-        format_date: format_date[i]
-      }
-    }
-    return analises;
+  extractMeanData(data: Analysis) {
+    let result = this.convertToArray(data.result);
+    let meanData: number[] = [];
+    result.forEach(
+      element => meanData.push(element.prec_media)
+    )
+    return meanData;
+  }
+
+  extractAnomaliaData(data: Analysis) {
+    let result = this.convertToArray(data.result);
+    let anomaliaData: number[] = [];
+    result.forEach(
+      element => anomaliaData.push(element.anomalia)
+    )
+    return anomaliaData;
   }
 
   convertToArray(obj: Object) {

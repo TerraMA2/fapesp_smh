@@ -4,4 +4,3 @@ export interface City {
     longitude: number;
     nome_municipio: string;
 }
-

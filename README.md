@@ -9,6 +9,7 @@
 Projeto SMH INPE para visualização de dados de chuva.
 - [API-flask](./api-flask/README.md): api para busca de dados climatológicos;
 - [SMH-UI](./SMH-UI/README.md): sistema para visualização dos dados gerados pelo TerraMA;
+- [SQL TerraMA2 PostGIS](https://github.com/AbnerErnaniADSFatec/sqlterrama2postgis): criação do ambiente de desenvolvimento da API;
 
 ```
 $ sudo chmod +x start.sh && ./start.sh

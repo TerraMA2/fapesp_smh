@@ -59,17 +59,15 @@
             <ng-template pTemplate = "header">
               <tr>
                 <th>Data de Execução</th>
-                <th>Média Climatoligica (mm/dia)</th>
-                <th>Máxima Climatoligica (mm/dia)</th>
-                <th>Municipio</th>
+                <th>Média Climatoligica</th>
+                <th>Máxima Climatoligica</th>
               </tr>
             </ng-template>
             <ng-template pTemplate = "body" let-dado>
               <tr>
-                <td>{{ dado.format_date }}</td>
-                <td>{{ dado.media.toFixed(2) }}</td>
-                <td>{{ dado.maxima.toFixed(2) }}</td>
-                <td>{{ dado.nome_municipio }}</td>
+                <td>{{ dado.date }}</td>
+                <td>{{ dado.climatologico.clim_maxima.toFixed(2) }} mm/dia</td>
+                <td>{{ dado.climatologico.clim_media.toFixed(2) }} mm/dia</td>
               </tr>
             </ng-template>
           </p-table>

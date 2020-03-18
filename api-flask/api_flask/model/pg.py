@@ -1,4 +1,4 @@
-pgHost = "terrama2.dpi.inpe.br"
-pgPort = "5432"
+pgHost = "0.0.0.0"
+pgPort = "5454"
 pgUser = "chuva"
-pgPassWord = "secreto"
+pgPassWord = "chuva"
