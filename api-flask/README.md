@@ -24,6 +24,24 @@ Or install manually:
 
 Install flask with `pip install Flask` and run with `python manager.py run 5000`.
 
+## To run API in a conda environment
+Please install [conda](https://docs.conda.io/en/latest/miniconda.html) and create a new workspace:
+```
+$ conda create --name api-flask
+```
+Activate your new environment install requirements with pip
+```
+$ conda activate api-flask
+```
+Install requirements with pip
+```
+(api-flask) $ pip install -r requirements.txt
+```
+Run API with the simple command
+```
+(api-flask) $ python manage.py run 5000
+```
+
 ## To run API in a container docker create a volume to save your data
 
 ```
