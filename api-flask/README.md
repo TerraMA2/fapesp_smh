@@ -29,30 +29,26 @@ Please install [conda](https://docs.conda.io/en/latest/miniconda.html) and creat
 ```
 $ conda create --name api-flask
 ```
-Activate your new environment install requirements with pip
+Activate your new environment install requirements with pip:
 ```
 $ conda activate api-flask
 ```
-Install requirements with pip
+Install requirements with pip:
 ```
 (api-flask) $ pip install -r requirements.txt
 ```
-Run API with the simple command
+Run API with the simple command:
 ```
 (api-flask) $ python manage.py run 5000
 ```
 
-## To run API in a container docker create a volume to save your data
-
+## To run API in a container docker
+Create a volume to save your data:
 ```
 $ docker create volume api-flask_vol
 ```
-
-## Start a docker image in Dockerfile directory
-
+Start a docker image in Dockerfile directory:
 ```
 $ docker build -t api-flask:latest .
-```
-```
 $ docker container run --name flask -d -v api-flask:'//your_data' -p 5000:5000 api-flask:latest
 ```
