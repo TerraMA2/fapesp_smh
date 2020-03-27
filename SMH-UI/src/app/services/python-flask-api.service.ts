@@ -23,13 +23,6 @@ export class PythonFlaskAPIService {
   }
 
   getAnMonthly(geocodigo: string, start: Date, end: Date) {
-    console.log(
-      RepositoryApi.smh_api +
-      '/api-flask/analysis-monthly-by-city?' +
-      'geocodigo=' + geocodigo + '&' +
-      'start_date=' + start.getFullYear() + '-' + (start.getMonth() + 1) + '&' +
-      'end_date=' + end.getFullYear() + '-' + (end.getMonth() + 1)
-    );
     return this.httpClient.get<Analysis>(
       RepositoryApi.smh_api +
       '/api-flask/analysis-monthly-by-city?' +
